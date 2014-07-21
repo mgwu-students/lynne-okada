@@ -8,6 +8,9 @@
 
 #import "CCNode.h"
 
-@interface StrandedAstronaut : CCNode
-
+@interface StrandedAstronaut : CCSprite
+- (void)setupRandomPosition;
+- (void)pushToRandomPoint;
+@property (nonatomic, assign) BOOL hasBeenOnScreen;
+@property (nonatomic, assign) BOOL Attached;
 @end

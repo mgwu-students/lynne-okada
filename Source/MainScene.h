@@ -7,7 +7,15 @@
 //
 
 #import "CCNode.h"
+#import "Astronaut.h"
+#import "Astroid.h"
+#import "StrandedAstronaut.h"
 
-@interface MainScene : CCNode
+@interface MainScene : CCNode <CCPhysicsCollisionDelegate>
+{
+    Astronaut* astronaut;
+    Astroid* astroid;
+    StrandedAstronaut* stranded;
+}
 
 @end

@@ -10,7 +10,7 @@
 		<false/>
 	</dict>
 	<key>UUID</key>
-	<integer>2</integer>
+	<integer>1</integer>
 	<key>centeredOrigin</key>
 	<false/>
 	<key>currentResolution</key>
@@ -40,78 +40,13 @@
 		<key>children</key>
 		<array/>
 		<key>customClass</key>
-		<string>Astroid</string>
+		<string></string>
 		<key>displayName</key>
 		<string>CCSprite</string>
 		<key>memberVarAssignmentName</key>
-		<string></string>
+		<string>_oneSecAstroid</string>
 		<key>memberVarAssignmentType</key>
 		<integer>1</integer>
-		<key>physicsBody</key>
-		<dict>
-			<key>affectedByGravity</key>
-			<false/>
-			<key>allowsRotation</key>
-			<true/>
-			<key>bodyShape</key>
-			<integer>0</integer>
-			<key>collisionCategories</key>
-			<array/>
-			<key>collisionMask</key>
-			<array/>
-			<key>collisionType</key>
-			<string>astroid</string>
-			<key>cornerRadius</key>
-			<real>0.0</real>
-			<key>density</key>
-			<real>1</real>
-			<key>dynamic</key>
-			<true/>
-			<key>elasticity</key>
-			<real>0.30000001192092896</real>
-			<key>friction</key>
-			<real>0.30000001192092896</real>
-			<key>points</key>
-			<array>
-				<array>
-					<real>25.2890625</real>
-					<real>28.230484008789062</real>
-				</array>
-				<array>
-					<real>26.375</real>
-					<real>45.464859008789062</real>
-				</array>
-				<array>
-					<real>44.05078125</real>
-					<real>45.117202758789062</real>
-				</array>
-				<array>
-					<real>44.08984375</real>
-					<real>28.800796508789062</real>
-				</array>
-			</array>
-			<key>polygons</key>
-			<array>
-				<array>
-					<array>
-						<real>44.08984375</real>
-						<real>28.800796508789062</real>
-					</array>
-					<array>
-						<real>44.05078125</real>
-						<real>45.117202758789062</real>
-					</array>
-					<array>
-						<real>26.375</real>
-						<real>45.464859008789062</real>
-					</array>
-					<array>
-						<real>25.2890625</real>
-						<real>28.230484008789062</real>
-					</array>
-				</array>
-			</array>
-		</dict>
 		<key>properties</key>
 		<array>
 			<dict>
@@ -168,7 +103,7 @@
 				<key>value</key>
 				<array>
 					<string></string>
-					<string>Art/astroid.png</string>
+					<string>Art/oneSecAstroid.png</string>
 				</array>
 			</dict>
 			<dict>

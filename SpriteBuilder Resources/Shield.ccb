@@ -10,7 +10,7 @@
 		<false/>
 	</dict>
 	<key>UUID</key>
-	<integer>2</integer>
+	<integer>1</integer>
 	<key>centeredOrigin</key>
 	<false/>
 	<key>currentResolution</key>
@@ -40,7 +40,7 @@
 		<key>children</key>
 		<array/>
 		<key>customClass</key>
-		<string>Astroid</string>
+		<string>Shield</string>
 		<key>displayName</key>
 		<string>CCSprite</string>
 		<key>memberVarAssignmentName</key>
@@ -50,7 +50,7 @@
 		<key>physicsBody</key>
 		<dict>
 			<key>affectedByGravity</key>
-			<false/>
+			<true/>
 			<key>allowsRotation</key>
 			<true/>
 			<key>bodyShape</key>
@@ -60,13 +60,13 @@
 			<key>collisionMask</key>
 			<array/>
 			<key>collisionType</key>
-			<string>astroid</string>
+			<string>shield</string>
 			<key>cornerRadius</key>
 			<real>0.0</real>
 			<key>density</key>
 			<real>1</real>
 			<key>dynamic</key>
-			<true/>
+			<false/>
 			<key>elasticity</key>
 			<real>0.30000001192092896</real>
 			<key>friction</key>
@@ -74,40 +74,40 @@
 			<key>points</key>
 			<array>
 				<array>
-					<real>25.2890625</real>
-					<real>28.230484008789062</real>
+					<real>17.766515731811523</real>
+					<real>25.071926116943359</real>
 				</array>
 				<array>
-					<real>26.375</real>
-					<real>45.464859008789062</real>
+					<real>17.510374069213867</real>
+					<real>36.102897644042969</real>
 				</array>
 				<array>
-					<real>44.05078125</real>
-					<real>45.117202758789062</real>
+					<real>45.406829833984375</real>
+					<real>36.632053375244141</real>
 				</array>
 				<array>
-					<real>44.08984375</real>
-					<real>28.800796508789062</real>
+					<real>45.646099090576172</real>
+					<real>25.174690246582031</real>
 				</array>
 			</array>
 			<key>polygons</key>
 			<array>
 				<array>
 					<array>
-						<real>44.08984375</real>
-						<real>28.800796508789062</real>
+						<real>45.646099090576172</real>
+						<real>25.174690246582031</real>
 					</array>
 					<array>
-						<real>44.05078125</real>
-						<real>45.117202758789062</real>
+						<real>45.406829833984375</real>
+						<real>36.632053375244141</real>
 					</array>
 					<array>
-						<real>26.375</real>
-						<real>45.464859008789062</real>
+						<real>17.510374069213867</real>
+						<real>36.102897644042969</real>
 					</array>
 					<array>
-						<real>25.2890625</real>
-						<real>28.230484008789062</real>
+						<real>17.766515731811523</real>
+						<real>25.071926116943359</real>
 					</array>
 				</array>
 			</array>
@@ -168,7 +168,7 @@
 				<key>value</key>
 				<array>
 					<string></string>
-					<string>Art/astroid.png</string>
+					<string>Art/shield.png</string>
 				</array>
 			</dict>
 			<dict>
@@ -185,6 +185,8 @@
 				</array>
 			</dict>
 		</array>
+		<key>selected</key>
+		<true/>
 	</dict>
 	<key>notes</key>
 	<array/>

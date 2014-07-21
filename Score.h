@@ -1,5 +1,5 @@
 //
-//  Highscore.h
+//  Score.h
 //  lynneokada
 //
 //  Created by Lynne Okada on 7/11/14.
@@ -8,6 +8,6 @@
 
 #import "CCScene.h"
 
-@interface Highscore : CCScene
+@interface Score : CCNode
 
 @end

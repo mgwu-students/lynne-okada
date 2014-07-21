@@ -9,5 +9,7 @@
 #import "CCSprite.h"
 
 @interface Astroid : CCSprite
-
+- (void)setupRandomPosition;
+- (void)pushToRandomPoint;
+@property (nonatomic, assign) BOOL hasBeenOnScreen;
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "Astronaut.h"
+#import "MainScene.h"
 
 @implementation Astronaut
 

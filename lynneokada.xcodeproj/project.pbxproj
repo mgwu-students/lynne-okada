@@ -36,6 +36,14 @@
 		B77F1B3E17B978D7009739AE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B77F1B3D17B978D7009739AE /* Foundation.framework */; };
 		B77F1B4017B978D7009739AE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B77F1B3F17B978D7009739AE /* CoreGraphics.framework */; };
 		B77F1B4217B978D7009739AE /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B77F1B4117B978D7009739AE /* CoreText.framework */; };
+		D28DD0A1196F4F070019C2B7 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D28DD0A0196F4F070019C2B7 /* CoreMotion.framework */; };
+		D28DD0A4196FDB990019C2B7 /* Astroid.m in Sources */ = {isa = PBXBuildFile; fileRef = D28DD0A3196FDB990019C2B7 /* Astroid.m */; };
+		D28DD0A719706FAB0019C2B7 /* Score.m in Sources */ = {isa = PBXBuildFile; fileRef = D28DD0A619706FAB0019C2B7 /* Score.m */; };
+		D28DD0AC197089480019C2B7 /* Astronaut.m in Sources */ = {isa = PBXBuildFile; fileRef = D28DD0AB197089480019C2B7 /* Astronaut.m */; };
+		D28DD0B31974F23C0019C2B7 /* StrandedAstronaut.m in Sources */ = {isa = PBXBuildFile; fileRef = D28DD0B21974F23C0019C2B7 /* StrandedAstronaut.m */; };
+		D2B64A6A196EF08D00D1C9BE /* Menu.m in Sources */ = {isa = PBXBuildFile; fileRef = D2B64A69196EF08D00D1C9BE /* Menu.m */; };
+		D2BE2E68197D832800A3C699 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = D2BE2E67197D832800A3C699 /* README.md */; };
+		D2BE2E6C197DADC400A3C699 /* CCActionMoveToNode.m in Sources */ = {isa = PBXBuildFile; fileRef = D2BE2E6B197DADC400A3C699 /* CCActionMoveToNode.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -90,6 +98,20 @@
 		B77F1B3F17B978D7009739AE /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		B77F1B4117B978D7009739AE /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		B7B3713D180358F1007369CC /* libObjectiveChipmunk.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libObjectiveChipmunk.a; path = "../libs/cocos2d-iphone/external/Chipmunk/xcode/build/Debug-iphoneos/libObjectiveChipmunk.a"; sourceTree = "<group>"; };
+		D28DD0A0196F4F070019C2B7 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		D28DD0A2196FDB990019C2B7 /* Astroid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Astroid.h; sourceTree = "<group>"; };
+		D28DD0A3196FDB990019C2B7 /* Astroid.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Astroid.m; sourceTree = "<group>"; };
+		D28DD0A519706FAB0019C2B7 /* Score.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Score.h; sourceTree = "<group>"; };
+		D28DD0A619706FAB0019C2B7 /* Score.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Score.m; sourceTree = "<group>"; };
+		D28DD0AA197089480019C2B7 /* Astronaut.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Astronaut.h; sourceTree = "<group>"; };
+		D28DD0AB197089480019C2B7 /* Astronaut.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Astronaut.m; sourceTree = "<group>"; };
+		D28DD0B11974F23C0019C2B7 /* StrandedAstronaut.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StrandedAstronaut.h; sourceTree = "<group>"; };
+		D28DD0B21974F23C0019C2B7 /* StrandedAstronaut.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StrandedAstronaut.m; sourceTree = "<group>"; };
+		D2B64A68196EF08D00D1C9BE /* Menu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Menu.h; sourceTree = "<group>"; };
+		D2B64A69196EF08D00D1C9BE /* Menu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Menu.m; sourceTree = "<group>"; };
+		D2BE2E67197D832800A3C699 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		D2BE2E6A197DADC400A3C699 /* CCActionMoveToNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCActionMoveToNode.h; path = "../CCActionMoveToNode-master/MoveToNode/Classes/CCActionMoveToNode.h"; sourceTree = "<group>"; };
+		D2BE2E6B197DADC400A3C699 /* CCActionMoveToNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CCActionMoveToNode.m; path = "../CCActionMoveToNode-master/MoveToNode/Classes/CCActionMoveToNode.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +119,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D28DD0A1196F4F070019C2B7 /* CoreMotion.framework in Frameworks */,
 				8392007A18EE8E3300B6C429 /* GLKit.framework in Frameworks */,
 				B737898A1807642B0076A88C /* libcocos2d.a in Frameworks */,
 				B77F1B3217B978D7009739AE /* QuartzCore.framework in Frameworks */,
@@ -127,8 +150,21 @@
 			children = (
 				B737893D1807617C0076A88C /* AppDelegate.h */,
 				B737893E1807617C0076A88C /* AppDelegate.m */,
+				D2B64A68196EF08D00D1C9BE /* Menu.h */,
+				D2B64A69196EF08D00D1C9BE /* Menu.m */,
 				B7378992180767190076A88C /* MainScene.h */,
 				B7378993180767190076A88C /* MainScene.m */,
+				D28DD0AA197089480019C2B7 /* Astronaut.h */,
+				D28DD0AB197089480019C2B7 /* Astronaut.m */,
+				D28DD0B11974F23C0019C2B7 /* StrandedAstronaut.h */,
+				D28DD0B21974F23C0019C2B7 /* StrandedAstronaut.m */,
+				D28DD0A519706FAB0019C2B7 /* Score.h */,
+				D28DD0A619706FAB0019C2B7 /* Score.m */,
+				D28DD0A2196FDB990019C2B7 /* Astroid.h */,
+				D28DD0A3196FDB990019C2B7 /* Astroid.m */,
+				D2BE2E6A197DADC400A3C699 /* CCActionMoveToNode.h */,
+				D2BE2E6B197DADC400A3C699 /* CCActionMoveToNode.m */,
+				D2BE2E67197D832800A3C699 /* README.md */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -185,6 +221,7 @@
 		B77F1B3017B978D7009739AE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D28DD0A0196F4F070019C2B7 /* CoreMotion.framework */,
 				8392007918EE8E3300B6C429 /* GLKit.framework */,
 				B7B3713D180358F1007369CC /* libObjectiveChipmunk.a */,
 				B77F1B3117B978D7009739AE /* QuartzCore.framework */,
@@ -247,7 +284,7 @@
 		B77F1B2617B978D7009739AE /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0460;
+				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = Apportable;
 				TargetAttributes = {
 					B77F1B2D17B978D7009739AE = {
@@ -304,6 +341,7 @@
 				B71F5913188484E7003F4D28 /* iPad.png in Resources */,
 				B71F5912188484E7003F4D28 /* iPad-old@2x.png in Resources */,
 				B71F5916188484E7003F4D28 /* iPhone-old@2x.png in Resources */,
+				D2BE2E68197D832800A3C699 /* README.md in Resources */,
 				B737893B180761570076A88C /* Published-iOS in Resources */,
 				B71F591A188484E7003F4D28 /* Settings@2x.png in Resources */,
 				B7378976180762440076A88C /* Default-Landscape~ipad.png in Resources */,
@@ -342,7 +380,13 @@
 			files = (
 				B737893F1807617C0076A88C /* AppDelegate.m in Sources */,
 				B7378994180767190076A88C /* MainScene.m in Sources */,
+				D28DD0A4196FDB990019C2B7 /* Astroid.m in Sources */,
+				D2BE2E6C197DADC400A3C699 /* CCActionMoveToNode.m in Sources */,
+				D2B64A6A196EF08D00D1C9BE /* Menu.m in Sources */,
+				D28DD0B31974F23C0019C2B7 /* StrandedAstronaut.m in Sources */,
+				D28DD0A719706FAB0019C2B7 /* Score.m in Sources */,
 				B73789871807631A0076A88C /* main.m in Sources */,
+				D28DD0AC197089480019C2B7 /* Astronaut.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -360,7 +404,12 @@
 		B77F1CDC17B978D8009739AE /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -370,9 +419,14 @@
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -381,7 +435,12 @@
 		B77F1CDD17B978D8009739AE /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -389,7 +448,11 @@
 					"NS_BLOCK_ASSERTIONS=1",
 				);
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				SDKROOT = iphoneos;
@@ -401,7 +464,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -426,7 +488,7 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = lynneokada;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "098B0293-C31E-46A6-BA31-372DCC7A8CEA";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -435,7 +497,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -458,7 +519,7 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = lynneokada;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "098B0293-C31E-46A6-BA31-372DCC7A8CEA";
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
 			};

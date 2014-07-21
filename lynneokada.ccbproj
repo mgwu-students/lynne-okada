@@ -29,7 +29,7 @@
 	<key>flattenPaths</key>
 	<false/>
 	<key>needRepublish</key>
-	<true/>
+	<false/>
 	<key>onlyPublishCCBs</key>
 	<false/>
 	<key>publishAudioQuality_android</key>
@@ -80,8 +80,25 @@
 			<key>previewFolderHidden</key>
 			<true/>
 		</dict>
+		<key>Art/Platformer-Pixel850.png</key>
+		<dict>
+			<key>scaleFrom</key>
+			<integer>4</integer>
+		</dict>
+		<key>Art/Platformer-Pixel851.png</key>
+		<dict>
+			<key>scaleFrom</key>
+			<integer>4</integer>
+		</dict>
+		<key>Pixel Platformer</key>
+		<dict/>
 		<key>Sprites</key>
 		<dict/>
+		<key>art/character_kenney-pixel-characters_ecc5f83ca0404adf777d1be9ef179b1d00be1746@4x.png</key>
+		<dict>
+			<key>scaleFrom</key>
+			<integer>4</integer>
+		</dict>
 		<key>ccbResources</key>
 		<dict>
 			<key>previewFolderHidden</key>
