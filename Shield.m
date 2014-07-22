@@ -10,4 +10,11 @@
 
 @implementation Shield
 
+- (void)location {
+    CGSize winSize = [CCDirector sharedDirector].viewSize;
+    float positionX = winSize.width/2;
+    float positionY = winSize.height/2;
+    
+    self.position = ccp(positionX, positionY);
+}
 @end

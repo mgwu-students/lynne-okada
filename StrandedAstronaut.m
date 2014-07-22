@@ -12,6 +12,13 @@
     CCNode *_strandedAstronaut;
 }
 
+- (id)init {
+    if (self = [super init]) {
+        _attached = NO;
+    }
+    return self;
+}
+
 - (void)setupRandomPosition {
     CGSize winSize = [CCDirector sharedDirector].viewSize;
     CGFloat randomPointX = arc4random()%(int)winSize.width;

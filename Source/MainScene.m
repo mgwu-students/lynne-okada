@@ -14,23 +14,26 @@
 #import "Astronaut.h"
 #import "StrandedAstronaut.h"
 #import "CCActionMoveToNode.h"
+#import "Shield.h"
+#import "Comet.h"
 
 @implementation MainScene{
     CCPhysicsNode *_physicsNode;
     CCNode *_ship;
-    CCNode *_oneSecAstroid;
     CCLabelTTF *_score;
     CGSize _winSize;
     CMMotionManager *_motion;
     NSMutableArray *_spawnedAstroids;
     NSMutableArray *_spawnedStranded;
+    NSMutableArray *_spawnedComets;
     NSMutableArray *_attachedStranded;
     int points;
-    float time;
+    float _astroidTime;
+    float _cometTime;
 }
 static const int numberOfAstroids = 15;
 static const int numberOfStranded = 15;
-static const int numberOfAttachedStranded = 10;
+//static const int numberOfAttachedStranded = 10;
 
 - (void)didLoadFromCCB {
     _winSize = [CCDirector sharedDirector].viewSize;
@@ -48,29 +51,38 @@ static const int numberOfAttachedStranded = 10;
         _motion = [[CMMotionManager alloc] init];
         _spawnedAstroids = [NSMutableArray array];
         _spawnedStranded = [NSMutableArray array];
+        _spawnedComets = [NSMutableArray array];
         _attachedStranded = [NSMutableArray array];
     }
     return self;
 }
 
-- (void)randomTimeIntervalScheduler {
-    int time = arc4random() % 5;
-    int timeInterval = 3+time;
-    
-    [_oneSecAstroid performSelector:@selector(randomTimeIntervalScheduler) withObject:_oneSecAstroid afterDelay:timeInterval];
+- (void)touchBegan:(UITouch *)touch withEvent:(UIEvent *)event {
+    [self addShield];
 }
 
+- (void)touchEnded:(UITouch *)touch withEvent:(UIEvent *)event {
+    [shield removeFromParent];
+}
+
+//- (void)cometLoop {
+//    //spawn a comet
+//    for (int i = 0; i < 1; i++) {
+//        [self addComet];
+//    }
+//}
+
 - (void)astroidLoop {
-    //Spawn astroids
-    for (int i = 0; i < 5; i++) {
+    //spawn astroids
+    for (int i = 0; i < 6; i++) {
         [self addAstroid];
         
     }
 }
 
 - (void)strandedLoop {
-    //Spawn stranded astronauts
-    for (int i =0; i < 1; i++) {
+    //spawn stranded astronauts
+    for (int i =0; i < 2; i++) {
         [self addStrandedAstronaut];
     }
 }
@@ -104,9 +116,9 @@ static const int numberOfAttachedStranded = 10;
     astronaut.position = newPosition;
     
     //Spawns astroid and stranded every 5 seconds
-    int wave = 5;
-    time += delta;
-    if (time >= wave){
+    
+    _astroidTime += delta;
+    if (_astroidTime >= 5){
         //NSLog(@"count:%d",_spawnedAstroids.count);
         //check if array of objects is full
         if (_spawnedAstroids.count < numberOfAstroids) {
@@ -115,7 +127,14 @@ static const int numberOfAttachedStranded = 10;
         if (_spawnedStranded.count < numberOfStranded) {
             [self strandedLoop];
         }
-        time = 0;
+        _astroidTime = 0;
+    }
+    
+    _cometTime += delta;
+    int spawned = arc4random() % 500;
+    if (_cometTime >= 2 && spawned == 0) {
+        [self addComet];
+        _cometTime = 0;
     }
     [self checkToRemoveAstroids];
     [self checkToRemoveStranded];
@@ -127,6 +146,7 @@ static const int numberOfAttachedStranded = 10;
     [self addAstronaut];
     [self astroidLoop];
     [self strandedLoop];
+    //[self cometLoop];
     [_motion startAccelerometerUpdates];
     
     //position astronaut to little above the ship(center of screen)
@@ -150,6 +170,13 @@ static const int numberOfAttachedStranded = 10;
     return true;
 }
 
+//astronaut - comet
+- (BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair astronaut:(CCNode *)nodeA comet:(CCNode *)nodeB {
+    [nodeA removeFromParent];
+    [self gameOver];
+    return TRUE;
+}
+
 //astroid - astroid
 - (BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair astroid:(CCNode *)nodeA astroid:(CCNode *)nodeB {
     return FALSE;
@@ -157,19 +184,39 @@ static const int numberOfAttachedStranded = 10;
 
 //astroid - ship
 - (BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair astroid:(CCNode *)nodeA ship:(CCNode *)nodeB {
-    return FALSE;
+    [_ship removeFromParent];
+    [self gameOver];
+    return TRUE;
 }
 
 //astroid - stranded
 - (BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair astroid:(CCNode *)nodeA stranded:(CCNode *)nodeB {
-    return FALSE;
+        return FALSE;
 }
 
 //stranded - ship
-- (BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair stranded:(CCNode *)nodeA ship:(CCNode *)nodeB {
+//- (BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair stranded:(CCNode *)nodeA ship:(CCNode *)nodeB {
+//    
+//}
+
+//astronaut - shield
+- (BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair astronaut:(CCNode *)nodeA shield:(CCNode *)nodeB {
+    return FALSE;
+}
+
+//stranded - shield
+- (BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair stranded:(CCNode *)nodeA shield:(CCNode *)nodeB {
+    return FALSE;
+}
+
+//astroid - comet
+- (BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair astroid:(CCNode *)nodeA comet:(CCNode *)nodeB{
+    return FALSE;
+}
+
+//comet - shield
+- (BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair comet:(CCNode *)nodeA shield:(CCNode *)nodeB {
     [nodeA removeFromParent];
-    points++;
-    _score.string = [NSString stringWithFormat:@"%d", points];
     return TRUE;
 }
 
@@ -179,7 +226,7 @@ static const int numberOfAttachedStranded = 10;
     [_attachedStranded addObject:nodeB];
     nodeA.physicsBody.collisionGroup = @"attached";
     nodeB.physicsBody.collisionGroup = @"attached";
-    CCActionMoveToNode *moveTo = [CCActionMoveToNode actionWithSpeed:180.f positionUpdateBlock:^CGPoint{
+    CCActionMoveToNode *moveTo = [CCActionMoveToNode actionWithSpeed:170.f positionUpdateBlock:^CGPoint{
         return nodeA.position;
     } followInfinite:YES];
     [nodeB runAction:moveTo];
@@ -188,9 +235,12 @@ static const int numberOfAttachedStranded = 10;
 
 //astronaut - ship
 - (BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair astronaut:(CCNode *)nodeA ship:(CCNode *)nodeB {
-    int saved = _attachedStranded.count;
+    NSUInteger saved = _attachedStranded.count;
     points += saved;
     _score.string = [NSString stringWithFormat:@"%d", points];
+    for (CCNode* node in _attachedStranded) {
+        [node removeFromParent];
+    }
     [_attachedStranded removeAllObjects];
     return TRUE;
 }
@@ -222,6 +272,18 @@ static const int numberOfAttachedStranded = 10;
     [astroid pushToRandomPoint];
 }
 
+- (void)addShield {
+    shield = (Shield*) [CCBReader load:@"Shield"];
+    [shield location];
+    [_physicsNode addChild:shield];
+}
+
+- (void)addComet {
+    comet = (Comet*) [CCBReader load:@"Comet"];
+    [comet setupRandomPosition];
+    [comet pushToCenter];
+    [_physicsNode addChild:comet];
+}
 - (void)checkToRemoveAstroids {
     int i = 0;
     CGSize winSize = [CCDirector sharedDirector].viewSize;

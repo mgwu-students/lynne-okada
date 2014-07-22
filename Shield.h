@@ -9,5 +9,5 @@
 #import "CCSprite.h"
 
 @interface Shield : CCSprite
-
+- (void)location;
 @end

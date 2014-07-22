@@ -10,7 +10,7 @@
 		<false/>
 	</dict>
 	<key>UUID</key>
-	<integer>1</integer>
+	<integer>5</integer>
 	<key>centeredOrigin</key>
 	<false/>
 	<key>currentResolution</key>
@@ -36,15 +36,15 @@
 	<key>nodeGraph</key>
 	<dict>
 		<key>baseClass</key>
-		<string>CCSprite</string>
+		<string>CCNode</string>
 		<key>children</key>
 		<array/>
 		<key>customClass</key>
 		<string></string>
 		<key>displayName</key>
-		<string>CCSprite</string>
+		<string>CCNode</string>
 		<key>memberVarAssignmentName</key>
-		<string>_oneSecAstroid</string>
+		<string>_shield</string>
 		<key>memberVarAssignmentType</key>
 		<integer>1</integer>
 		<key>properties</key>
@@ -73,13 +73,26 @@
 			</dict>
 			<dict>
 				<key>name</key>
+				<string>contentSize</string>
+				<key>type</key>
+				<string>Size</string>
+				<key>value</key>
+				<array>
+					<real>0.0</real>
+					<real>0.0</real>
+					<integer>0</integer>
+					<integer>0</integer>
+				</array>
+			</dict>
+			<dict>
+				<key>name</key>
 				<string>anchorPoint</string>
 				<key>type</key>
 				<string>Point</string>
 				<key>value</key>
 				<array>
-					<real>0.5</real>
-					<real>0.5</real>
+					<real>0.0</real>
+					<real>0.0</real>
 				</array>
 			</dict>
 			<dict>
@@ -95,31 +108,9 @@
 					<integer>0</integer>
 				</array>
 			</dict>
-			<dict>
-				<key>name</key>
-				<string>spriteFrame</string>
-				<key>type</key>
-				<string>SpriteFrame</string>
-				<key>value</key>
-				<array>
-					<string></string>
-					<string>Art/oneSecAstroid.png</string>
-				</array>
-			</dict>
-			<dict>
-				<key>name</key>
-				<string>color</string>
-				<key>type</key>
-				<string>Color3</string>
-				<key>value</key>
-				<array>
-					<real>1</real>
-					<real>1</real>
-					<real>1</real>
-					<real>1</real>
-				</array>
-			</dict>
 		</array>
+		<key>selected</key>
+		<true/>
 	</dict>
 	<key>notes</key>
 	<array/>
@@ -196,6 +187,6 @@
 	<key>stageBorder</key>
 	<integer>3</integer>
 	<key>stageColor</key>
-	<integer>0</integer>
+	<integer>2</integer>
 </dict>
 </plist>

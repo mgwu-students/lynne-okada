@@ -1,5 +1,5 @@
 //
-//  OneSecAstroid.h
+//  Comet.h
 //  lynneokada
 //
 //  Created by Lynne Okada on 7/22/14.
@@ -8,6 +8,7 @@
 
 #import "CCSprite.h"
 
-@interface OneSecAstroid : CCSprite
-
+@interface Comet : CCSprite
+- (void)setupRandomPosition;
+- (void)pushToCenter;
 @end

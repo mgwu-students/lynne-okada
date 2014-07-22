@@ -12,5 +12,5 @@
 - (void)setupRandomPosition;
 - (void)pushToRandomPoint;
 @property (nonatomic, assign) BOOL hasBeenOnScreen;
-@property (nonatomic, assign) BOOL Attached;
+@property (nonatomic, assign) BOOL attached;
 @end
