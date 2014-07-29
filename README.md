@@ -15,6 +15,6 @@ death
 
 ##Roadmap
 Collisions must be done
-I want the game done by this week (7/21-27)
+I want the game done by this week (7/21-27) <---hahahaa, nope.
 artwork/music/soundeffects/particles to be started after this week (7/21-27)+
 

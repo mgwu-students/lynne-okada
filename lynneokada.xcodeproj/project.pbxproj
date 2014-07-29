@@ -37,6 +37,7 @@
 		B77F1B4017B978D7009739AE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B77F1B3F17B978D7009739AE /* CoreGraphics.framework */; };
 		B77F1B4217B978D7009739AE /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B77F1B4117B978D7009739AE /* CoreText.framework */; };
 		D23DC7041986B06C007F525C /* Ship.m in Sources */ = {isa = PBXBuildFile; fileRef = D23DC7031986B06C007F525C /* Ship.m */; };
+		D27D674A1988544700264DAA /* ProgressBar.m in Sources */ = {isa = PBXBuildFile; fileRef = D27D67491988544700264DAA /* ProgressBar.m */; };
 		D28DD0A1196F4F070019C2B7 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D28DD0A0196F4F070019C2B7 /* CoreMotion.framework */; };
 		D28DD0A4196FDB990019C2B7 /* Astroid.m in Sources */ = {isa = PBXBuildFile; fileRef = D28DD0A3196FDB990019C2B7 /* Astroid.m */; };
 		D28DD0A719706FAB0019C2B7 /* Score.m in Sources */ = {isa = PBXBuildFile; fileRef = D28DD0A619706FAB0019C2B7 /* Score.m */; };
@@ -104,6 +105,8 @@
 		B7B3713D180358F1007369CC /* libObjectiveChipmunk.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libObjectiveChipmunk.a; path = "../libs/cocos2d-iphone/external/Chipmunk/xcode/build/Debug-iphoneos/libObjectiveChipmunk.a"; sourceTree = "<group>"; };
 		D23DC7021986B06C007F525C /* Ship.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ship.h; sourceTree = "<group>"; };
 		D23DC7031986B06C007F525C /* Ship.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Ship.m; sourceTree = "<group>"; };
+		D27D67481988544700264DAA /* ProgressBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgressBar.h; sourceTree = "<group>"; };
+		D27D67491988544700264DAA /* ProgressBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgressBar.m; sourceTree = "<group>"; };
 		D28DD0A0196F4F070019C2B7 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		D28DD0A2196FDB990019C2B7 /* Astroid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Astroid.h; sourceTree = "<group>"; };
 		D28DD0A3196FDB990019C2B7 /* Astroid.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Astroid.m; sourceTree = "<group>"; };
@@ -161,26 +164,28 @@
 			children = (
 				B737893D1807617C0076A88C /* AppDelegate.h */,
 				B737893E1807617C0076A88C /* AppDelegate.m */,
-				D2B64A68196EF08D00D1C9BE /* Menu.h */,
-				D2B64A69196EF08D00D1C9BE /* Menu.m */,
-				B7378992180767190076A88C /* MainScene.h */,
-				B7378993180767190076A88C /* MainScene.m */,
-				D23DC7021986B06C007F525C /* Ship.h */,
-				D23DC7031986B06C007F525C /* Ship.m */,
-				D2BE2E72197EF61600A3C699 /* Comet.h */,
-				D2BE2E73197EF61600A3C699 /* Comet.m */,
-				D2BE2E6F197ECB7300A3C699 /* Shield.h */,
-				D2BE2E70197ECB7300A3C699 /* Shield.m */,
+				D28DD0A2196FDB990019C2B7 /* Astroid.h */,
+				D28DD0A3196FDB990019C2B7 /* Astroid.m */,
 				D28DD0AA197089480019C2B7 /* Astronaut.h */,
 				D28DD0AB197089480019C2B7 /* Astronaut.m */,
+				D2BE2E72197EF61600A3C699 /* Comet.h */,
+				D2BE2E73197EF61600A3C699 /* Comet.m */,
+				D2BE2E6A197DADC400A3C699 /* CCActionMoveToNode.h */,
+				D2BE2E6B197DADC400A3C699 /* CCActionMoveToNode.m */,
+				B7378992180767190076A88C /* MainScene.h */,
+				B7378993180767190076A88C /* MainScene.m */,
+				D2B64A68196EF08D00D1C9BE /* Menu.h */,
+				D2B64A69196EF08D00D1C9BE /* Menu.m */,
+				D27D67481988544700264DAA /* ProgressBar.h */,
+				D27D67491988544700264DAA /* ProgressBar.m */,
+				D2BE2E6F197ECB7300A3C699 /* Shield.h */,
+				D2BE2E70197ECB7300A3C699 /* Shield.m */,
+				D23DC7021986B06C007F525C /* Ship.h */,
+				D23DC7031986B06C007F525C /* Ship.m */,
 				D28DD0B11974F23C0019C2B7 /* StrandedAstronaut.h */,
 				D28DD0B21974F23C0019C2B7 /* StrandedAstronaut.m */,
 				D28DD0A519706FAB0019C2B7 /* Score.h */,
 				D28DD0A619706FAB0019C2B7 /* Score.m */,
-				D28DD0A2196FDB990019C2B7 /* Astroid.h */,
-				D28DD0A3196FDB990019C2B7 /* Astroid.m */,
-				D2BE2E6A197DADC400A3C699 /* CCActionMoveToNode.h */,
-				D2BE2E6B197DADC400A3C699 /* CCActionMoveToNode.m */,
 				D2BE2E7B1980548200A3C699 /* Property List.plist */,
 				D2BE2E67197D832800A3C699 /* README.md */,
 			);
@@ -406,6 +411,7 @@
 				D2B64A6A196EF08D00D1C9BE /* Menu.m in Sources */,
 				D28DD0B31974F23C0019C2B7 /* StrandedAstronaut.m in Sources */,
 				D28DD0A719706FAB0019C2B7 /* Score.m in Sources */,
+				D27D674A1988544700264DAA /* ProgressBar.m in Sources */,
 				B73789871807631A0076A88C /* main.m in Sources */,
 				D2BE2E74197EF61600A3C699 /* Comet.m in Sources */,
 				D28DD0AC197089480019C2B7 /* Astronaut.m in Sources */,

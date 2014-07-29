@@ -26,22 +26,22 @@
     
     CGPoint randomPosition = ccp(randomPointX, randomPointY);
     
-    int width = winSize.width/4;
-    int height = winSize.height/4;
+    //int width = winSize.width/4;
+    //int height = winSize.height/4;
     
     int side = arc4random() % 4;
     switch (side) {
         case 0:
-            randomPosition = ccp(randomPointX, -height);
+            randomPosition = ccp(randomPointX, -self.contentSize.height/2);
             break;
         case 1:
-            randomPosition = ccp(-width,randomPointY);
+            randomPosition = ccp(-self.contentSize.width/2,randomPointY);
             break;
         case 2:
-            randomPosition = ccp(randomPointX, winSize.height+height);
+            randomPosition = ccp(randomPointX, winSize.height+self.contentSize.height/2);
             break;
         case 3:
-            randomPosition = ccp(winSize.width+width, randomPointY);
+            randomPosition = ccp(winSize.width + self.contentSize.width/2, randomPointY);
             break;
         default:
             break;
@@ -61,20 +61,5 @@
     forceVector = ccpMult(ccpNormalize(forceVector),1000.0+speed);
     //NSLog(@"self%f,%f,random%f,%f,force%f,%f",self.position.x,self.position.y,randomPointX,randomPointY,forceVector.x,forceVector.y);
     [self.physicsBody applyForce:forceVector];
-    
-//    if (self.position.x < 0) {
-//        forceVector = ccp(winSize.width,self.position.y);
-//    }
-//    else if (self.position.x > winSize.width) {
-//        forceVector = ccp(0, self.position.y);
-//    }
-//    else if (self.position.y < 0) {
-//        forceVector = ccp(self.position.x, winSize.height);
-//    }
-//    else if (self.position.y > winSize.height) {
-//        forceVector = ccp(self.position.x, 0);
-//    }
-//    self.position = forceVector;
-    
 }
 @end

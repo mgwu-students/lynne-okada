@@ -18,7 +18,7 @@
 {
     Astronaut* astronaut;
     Astroid* astroid;
-    StrandedAstronaut* stranded;
+    StrandedAstronaut* _stranded;
     Shield* shield;
     Comet* comet;
     Ship* _ship;

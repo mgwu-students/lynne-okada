@@ -10,4 +10,7 @@
 
 @interface Ship : CCSprite <CCPhysicsCollisionDelegate>
 - (void)sendShip;
+- (void)spawn;
+- (void)moveShip;
+@property (nonatomic, assign) BOOL brakeOn;
 @end

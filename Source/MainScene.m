@@ -45,7 +45,7 @@
     float _cometTime;
 }
 static const int numberOfAstroids = 15;
-static const int numberOfStranded = 15;
+static const int numberOfStranded = 5;
 static const int spotsInShip = 5;
 //static const int numberOfAttachedStranded = 10;
 
@@ -53,7 +53,6 @@ static const int spotsInShip = 5;
     _winSize = [CCDirector sharedDirector].viewSize;
     _physicsNode.debugDraw = YES;
     _physicsNode.collisionDelegate = self;
-    //[self addBoundingBox];
     _points = 0;
     _deadPoints = 0;
 }
@@ -89,10 +88,11 @@ static const int spotsInShip = 5;
     _lastTouch = touch.locationInWorld;
     //minimum touch length
     float touchLen = ccpDistance(_initialTouch, _lastTouch);
-
+    
     //check to see if swipe is to right
     if (_initialTouch.x < _lastTouch.x && touchLen > 125) {
-        if (_pointsTemp == 5) {
+        if (_shipSpace.count == spotsInShip) {
+            _ship.brakeOn = NO;
             [_ship sendShip];
         }
     }
@@ -113,14 +113,6 @@ static const int spotsInShip = 5;
     }
 }
 
-//prevent astronaut from leaving screen
-- (void)addBoundingBox {
-    CGRect screenSize = CGRectMake(0,0,_winSize.width,_winSize.height);
-    CCNode *boundary = [CCNode node];
-    boundary.physicsBody = [CCPhysicsBody bodyWithPolylineFromRect:screenSize cornerRadius:0];
-    [_physicsNode addChild:boundary];
-}
-
 -(void)update:(CCTime)delta
 {
     //accelerometer
@@ -138,6 +130,7 @@ static const int spotsInShip = 5;
     //NSLog(@"clamped:%f preclamp:%f window: %f",velocityVectorY,spriteSpeed*ya, _winSize.height);
     CGPoint velocity = CGPointMake(velocityVectorY, -velocityVectorX);
     CGPoint newPosition = ccpAdd(astronaut.position, velocity);
+    //CGPoint newPositionStranded = ccpAdd(stranded.position, velocity);
     //newPosition = ccp(clampf(newPosition.x, 0, _winSize.width),clampf(newPosition.y, 0, _winSize.height));
     
     //Wrap astronaut position
@@ -154,6 +147,22 @@ static const int spotsInShip = 5;
         newPosition = ccp(astronaut.position.x, 0);
     }
     astronaut.position = newPosition;
+    
+    //wrap stranded position
+    for (StrandedAstronaut* dude in _spawnedStranded) {
+        if (dude.position.x < 0 - dude.contentSize.width/2) {
+            dude.position = ccp(_winSize.width, dude.position.y);
+        }
+        else if (dude.position.x > _winSize.width + + dude.contentSize.width/2) {
+            dude.position = ccp(0, dude.position.y);
+        }
+        else if (dude.position.y < 0 - dude.contentSize.height/2) {
+            dude.position = ccp(dude.position.x, _winSize.height);
+        }
+        else if (dude.position.y > _winSize.height + dude.contentSize.height/2) {
+            dude.position = ccp(dude.position.x, 0);
+        }
+    }
     
     //Spawns astroid and stranded every 5 seconds
     _astroidTime += delta;
@@ -176,7 +185,7 @@ static const int spotsInShip = 5;
         _cometTime = 0;
     }
     [self checkToRemoveAstroids];
-    [self checkToRemoveStranded];
+    //[self checkToRemoveStranded];
     
     _scoreLabel.string = [NSString stringWithFormat:@"%d", (int)_points];
     _highscoreLabel.string = [NSString stringWithFormat:@"%d", (int)_points];
@@ -228,9 +237,14 @@ static const int spotsInShip = 5;
     if (!astroid.hasBeenOnScreen) {
         return FALSE;
     } else {
-    [_ship removeFromParent];
-    [self gameOver];
-    return TRUE;
+        [_ship removeFromParent];
+        //Point to dead stranded
+        int deadStranded = _shipSpace.count;
+        _deadPoints += deadStranded;
+        _deadLabel.string = [NSString stringWithFormat:@"%d", _dead];
+        [_shipSpace removeAllObjects];
+        [self addShip];
+        return TRUE;
     }
 }
 
@@ -268,7 +282,12 @@ static const int spotsInShip = 5;
 //comet - ship
 - (BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair comet:(CCNode *)nodeA ship:(CCNode *)nodeB{
     [nodeB removeFromParent];
-    [self gameOver];
+    int deadStranded = _shipSpace.count;
+    _deadPoints += deadStranded;
+    _deadLabel.string = [NSString stringWithFormat:@"%d", _dead];
+    [_shipSpace removeAllObjects];
+    [self addShip];
+    //[self gameOver];
     return TRUE;
 }
 
@@ -288,17 +307,24 @@ static const int spotsInShip = 5;
 //astronaut - ship
 - (BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair astronaut:(CCNode *)nodeA ship:(CCNode *)nodeB {
     if (_shipSpace.count < spotsInShip) {
-        NSUInteger saved = _attachedStranded.count;
-        _pointsTemp += saved;
-        for (int i = 0; i < saved; i++) {
-            [_shipSpace addObject:stranded];
-        }
-        _scoreLabelTemp.string = [NSString stringWithFormat:@"%d", _pointsTemp];
+        //NSUInteger saved = _attachedStranded.count;
+        NSMutableArray* trash = [[NSMutableArray alloc] init];
         for (CCNode* node in _attachedStranded) {
-            [node removeFromParent];
+            if (_shipSpace.count < 5)
+            {
+                [_shipSpace addObject:node];
+                [node removeFromParent];
+                [_spawnedStranded removeObject:node];
+                [trash addObject:node];
+                _pointsTemp++;
+            }
         }
-        [_attachedStranded removeAllObjects];
-        [_spawnedStranded removeAllObjects];
+        for (CCNode* node in trash) {
+            [_attachedStranded removeObject:node];
+        }
+        [trash removeAllObjects];
+        _scoreLabelTemp.string = [NSString stringWithFormat:@"%d", _pointsTemp];
+        //[_attachedStranded removeAllObjects];
     }
     return FALSE;
 }
@@ -310,11 +336,13 @@ static const int spotsInShip = 5;
 
 //ship - safety
 - (BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair ship:(CCNode *)nodeA safety:(CCNode *)nodeB {
-    _points += 5;
+    _points += _shipSpace.count;
     _scoreLabel.string = [NSString stringWithFormat:@"%d", _points];
     [_ship removeFromParent];
     _pointsTemp = 0;
     _scoreLabelTemp.string = [NSString stringWithFormat:@"%d", _pointsTemp];
+    [_shipSpace removeAllObjects];
+    [self addShip];
     return TRUE;
 }
 
@@ -346,11 +374,11 @@ static const int spotsInShip = 5;
 }
 
 - (void)addStrandedAstronaut {
-    stranded = (StrandedAstronaut*)[CCBReader load:@"StrandedAstronaut"];
-    [stranded setupRandomPosition];
-    [stranded pushToRandomPoint];
-    [_physicsNode addChild:stranded];
-    [_spawnedStranded addObject:stranded];
+    _stranded = (StrandedAstronaut*)[CCBReader load:@"StrandedAstronaut"];
+    [_stranded setupRandomPosition];
+    [_stranded pushToRandomPoint];
+    [_physicsNode addChild:_stranded];
+    [_spawnedStranded addObject:_stranded];
 }
 
 - (void)addAstroid {
@@ -376,6 +404,9 @@ static const int spotsInShip = 5;
 
 - (void)addShip {
     _ship = (Ship*) [CCBReader load:@"Ship"];
+    [_ship spawn];
+    [_ship moveShip];
+    [_physicsNode addChild:_ship];
 }
 - (void)checkToRemoveAstroids {
     int i = 0;
@@ -401,33 +432,30 @@ static const int spotsInShip = 5;
     }
 }
 
-- (void)checkToRemoveStranded {
-    int i = 0;
-    CGSize winSize = [CCDirector sharedDirector].viewSize;
-    while (i < _spawnedStranded.count) {
-        //this is the future: check astroids that have not been on screen
-        stranded = [_spawnedStranded objectAtIndex:i];
-        if (!stranded.hasBeenOnScreen) {
-            if (stranded.position.x > 0 && stranded.position.x < winSize.width && stranded.position.y > 0 && stranded.position.y < winSize.height) {
-                stranded.hasBeenOnScreen = YES;
-            }
-            i++;
-        } else {
-            if (stranded.position.x < -20 || stranded.position.x > winSize.width + 20 || stranded.position.y < -20 || stranded.position.y > winSize.height + 20) {
-                //remove from array
-                [_spawnedStranded removeObject:stranded];
-                //removes from scene
-                [stranded removeFromParent];
-                [_spawnedStranded removeAllObjects];
-                //Point to dead stranded
-                _deadPoints++;
-                _deadLabel.string = [NSString stringWithFormat:@"%ld", (long)_dead];
-            }else{
-                i++;
-            }
-        }
-    }
-}
+//- (void)checkToRemoveStranded {
+//    int i = 0;
+//    CGSize winSize = [CCDirector sharedDirector].viewSize;
+//    while (i < _spawnedStranded.count) {
+//        //this is the future: check astroids that have not been on screen
+//        stranded = [_spawnedStranded objectAtIndex:i];
+//        if (!stranded.hasBeenOnScreen) {
+//            if (stranded.position.x > 0 && stranded.position.x < winSize.width && stranded.position.y > 0 && stranded.position.y < winSize.height) {
+//                stranded.hasBeenOnScreen = YES;
+//            }
+//            i++;
+//        } else {
+//            if (stranded.position.x < -20 || stranded.position.x > winSize.width + 20 || stranded.position.y < -20 || stranded.position.y > winSize.height + 20) {
+//                //remove from array
+//                [_spawnedStranded removeObject:stranded];
+//                //removes from scene
+//                [stranded removeFromParent];
+//                [_spawnedStranded removeAllObjects];
+//            }else{
+//                i++;
+//            }
+//        }
+//    }
+//}
 
 - (void)saveScore {
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
