@@ -8,8 +8,30 @@
 
 #import "Score.h"
 
-@implementation Score
+@implementation Score {
+    NSInteger _points;
+    NSInteger _highscore;
+    NSInteger _dead;
+    
+    CCLabelTTF *_scoreLabel;
+    CCLabelTTF *_highscoreLabel;
+    CCLabelTTF *_deadLabel;
+}
 
+-(void) didLoadFromCCB{
+    [self loadScore];
+    [self loadHighscore];
+    [self loadDeadScore];
+    
+    if (_points > _highscore) {
+        _highscore = _points;
+        [self saveHighscore];
+    }
+    _scoreLabel.string = [NSString stringWithFormat:@"%d", _points];
+    _highscoreLabel.string = [NSString stringWithFormat:@"%d", _highscore];
+    _deadLabel.string = [NSString stringWithFormat:@"%d", _dead];
+    
+}
 
 - (void)retry {
     CCScene *retry = [CCBReader loadAsScene:@"MainScene"];
@@ -18,4 +40,24 @@
     NSLog(@"retry");
 }
 
+- (void)loadScore {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    _points = [prefs integerForKey:@"score"];
+}
+
+- (void)loadHighscore {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    _highscore = [prefs integerForKey:@"highscore"];
+}
+
+- (void)saveHighscore {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    [prefs setInteger:_highscore forKey:@"highscore"];
+    [prefs synchronize];
+}
+
+- (void)loadDeadScore {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    _dead = [prefs integerForKey:@"dead"];
+}
 @end

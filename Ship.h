@@ -6,8 +6,8 @@
 //  Copyright (c) 2014 Apportable. All rights reserved.
 //
 
-#import "CCNode.h"
+#import "CCSprite.h"
 
-@interface Ship : CCNode
-
+@interface Ship : CCSprite <CCPhysicsCollisionDelegate>
+- (void)sendShip;
 @end

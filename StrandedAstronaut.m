@@ -61,5 +61,20 @@
     forceVector = ccpMult(ccpNormalize(forceVector),1000.0+speed);
     //NSLog(@"self%f,%f,random%f,%f,force%f,%f",self.position.x,self.position.y,randomPointX,randomPointY,forceVector.x,forceVector.y);
     [self.physicsBody applyForce:forceVector];
+    
+//    if (self.position.x < 0) {
+//        forceVector = ccp(winSize.width,self.position.y);
+//    }
+//    else if (self.position.x > winSize.width) {
+//        forceVector = ccp(0, self.position.y);
+//    }
+//    else if (self.position.y < 0) {
+//        forceVector = ccp(self.position.x, winSize.height);
+//    }
+//    else if (self.position.y > winSize.height) {
+//        forceVector = ccp(self.position.x, 0);
+//    }
+//    self.position = forceVector;
+    
 }
 @end

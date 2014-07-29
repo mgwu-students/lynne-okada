@@ -12,14 +12,16 @@
 #import "StrandedAstronaut.h"
 #import "Shield.h"
 #import "Comet.h"
+#import "Ship.h"
 
-@interface MainScene : CCNode <CCPhysicsCollisionDelegate>
+@interface MainScene : CCNode <CCPhysicsCollisionDelegate, UIGestureRecognizerDelegate>
 {
     Astronaut* astronaut;
     Astroid* astroid;
     StrandedAstronaut* stranded;
     Shield* shield;
     Comet* comet;
+    Ship* _ship;
 }
 
 @end
