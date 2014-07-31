@@ -12,5 +12,5 @@
 - (void)sendShip;
 - (void)spawn;
 - (void)moveShip;
-@property (nonatomic, assign) BOOL brakeOn;
+@property (nonatomic, assign) BOOL brakeOff;
 @end

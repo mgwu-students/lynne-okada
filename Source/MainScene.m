@@ -17,6 +17,7 @@
 #import "Shield.h"
 #import "Comet.h"
 #import "Ship.h"
+#import "ShieldMeter.h"
 
 @implementation MainScene{
     CCPhysicsNode *_physicsNode;
@@ -25,6 +26,7 @@
     CCLabelTTF *_highscoreLabel;
     CCLabelTTF *_deadLabel;
     CCNode *_safety;
+    CCProgressNode *_progressNode;
     CGSize _winSize;
     CMMotionManager *_motion;
     NSMutableArray *_spawnedAstroids;
@@ -41,9 +43,11 @@
     int _pointsTemp;
     int _points;
     int _deadPoints;
+    int _shipDamaged;
     float _astroidTime;
     float _cometTime;
 }
+
 static const int numberOfAstroids = 15;
 static const int numberOfStranded = 5;
 static const int spotsInShip = 5;
@@ -51,10 +55,17 @@ static const int spotsInShip = 5;
 
 - (void)didLoadFromCCB {
     _winSize = [CCDirector sharedDirector].viewSize;
-    _physicsNode.debugDraw = YES;
+    //_physicsNode.debugDraw = YES;
     _physicsNode.collisionDelegate = self;
     _points = 0;
     _deadPoints = 0;
+    [self addShip];
+    [self addAstronaut];
+    [self astroidLoop];
+    [self strandedLoop];
+    _activate = NO;
+    
+    [self schedule:@selector(updateShield) interval:0.1f];
 }
 
 - (id)init {
@@ -71,20 +82,31 @@ static const int spotsInShip = 5;
         //_rightRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:ship action:@selector(detectSwipe)];
         //_rightRecognizer.numberOfTouchesRequired = 1;
         //_rightRecognizer.direction = UISwipeGestureRecognizerDirectionRight;
-        
     }
     return self;
 }
 
+- (void)updateShield {
+    if (_progressNode.percentage < 100 && !_activate) {
+    _progressNode.percentage += 2.0f;
+    } else if (_progressNode.percentage > 0.0f && _activate) {
+        _progressNode.percentage -= 10.0f;
+    } else if (_progressNode.percentage <= 0.0f && _activate) {
+        [shield removeFromParent];
+    }
+}
+
 - (void)touchBegan:(UITouch *)touch withEvent:(UIEvent *)event {
     _initialTouch = touch.locationInWorld;
-    if (_ship.physicsBody.velocity.x == 0) {
+    _activate = YES;
+    
+    if (_ship.physicsBody.velocity.x == 0 &&_progressNode.percentage > 0.0f) {
         [self addShield];
     }
 }
 
 - (void)touchEnded:(UITouch *)touch withEvent:(UIEvent *)event {
-    
+    _activate = NO;
     _lastTouch = touch.locationInWorld;
     //minimum touch length
     float touchLen = ccpDistance(_initialTouch, _lastTouch);
@@ -92,7 +114,7 @@ static const int spotsInShip = 5;
     //check to see if swipe is to right
     if (_initialTouch.x < _lastTouch.x && touchLen > 125) {
         if (_shipSpace.count == spotsInShip) {
-            _ship.brakeOn = NO;
+            _ship.brakeOff = NO;
             [_ship sendShip];
         }
     }
@@ -108,7 +130,7 @@ static const int spotsInShip = 5;
 
 - (void)strandedLoop {
     //spawn stranded astronauts
-    for (int i =0; i < 2; i++) {
+    for (int i = 0; i < 1; i++) {
         [self addStrandedAstronaut];
     }
 }
@@ -131,21 +153,21 @@ static const int spotsInShip = 5;
     CGPoint velocity = CGPointMake(velocityVectorY, -velocityVectorX);
     CGPoint newPosition = ccpAdd(astronaut.position, velocity);
     //CGPoint newPositionStranded = ccpAdd(stranded.position, velocity);
-    //newPosition = ccp(clampf(newPosition.x, 0, _winSize.width),clampf(newPosition.y, 0, _winSize.height));
+    newPosition = ccp(clampf(newPosition.x, 0, _winSize.width),clampf(newPosition.y, 0, _winSize.height));
     
-    //Wrap astronaut position
-    if (astronaut.position.x < 0) {
-        newPosition = ccp(_winSize.width,astronaut.position.y);
-    }
-    else if (astronaut.position.x > _winSize.width) {
-        newPosition = ccp(0, astronaut.position.y);
-    }
-    else if (astronaut.position.y < 0) {
-        newPosition = ccp(astronaut.position.x, _winSize.height);
-    }
-    else if (astronaut.position.y > _winSize.height) {
-        newPosition = ccp(astronaut.position.x, 0);
-    }
+//    //Wrap astronaut position
+//    if (astronaut.position.x < 0) {
+//        newPosition = ccp(_winSize.width,astronaut.position.y);
+//    }
+//    else if (astronaut.position.x > _winSize.width) {
+//        newPosition = ccp(0, astronaut.position.y);
+//    }
+//    else if (astronaut.position.y < 0) {
+//        newPosition = ccp(astronaut.position.x, _winSize.height);
+//    }
+//    else if (astronaut.position.y > _winSize.height) {
+//        newPosition = ccp(astronaut.position.x, 0);
+//    }
     astronaut.position = newPosition;
     
     //wrap stranded position
@@ -194,15 +216,29 @@ static const int spotsInShip = 5;
 -(void)onEnter
 {
     [super onEnter];
-    [self addAstronaut];
-    [self astroidLoop];
-    [self strandedLoop];
+    
     [_motion startAccelerometerUpdates];
     
     //position astronaut to little above the ship(center of screen)
     float startX = [CCDirector sharedDirector].viewSize.width/2;
     float startY = [CCDirector sharedDirector].viewSize.height/2 + 20;
     astronaut.position = ccp(startX,startY);
+    
+    //shield meter
+     _shieldMeter = (ShieldMeter*) [CCBReader load:@"ShieldMeter"];
+    [_shieldMeter meterPosition];
+    [_physicsNode addChild:_shieldMeter];
+    _progressNode = [CCProgressNode progressWithSprite:_shieldMeter];
+    
+    _progressNode.type = CCProgressNodeTypeBar;
+    //_progressNode.midpoint = ccp(0.0f, 0.0f);
+    _progressNode.barChangeRate = ccp(1.0f, 0.0f);
+    _progressNode.percentage = 100;
+    _progressNode.positionType = CCPositionTypeNormalized;
+    _progressNode.position = ccp(0.5f, 0.5f);
+    
+    [_shieldMeter addChild:_progressNode];
+
 }
 
 -(void)onExit
@@ -233,19 +269,26 @@ static const int spotsInShip = 5;
 }
 
 //astroid - ship
-- (BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair astroid:(CCNode *)nodeA ship:(CCNode *)nodeB {
-    if (!astroid.hasBeenOnScreen) {
+- (BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair astroid:(CCNode *)nodeA ship:(Ship *)nodeB {
+    //ship should not die from astroid before moving to center
+    if (nodeB.position.x < _winSize.width/2 || nodeB.position.x > _winSize.width) {
         return FALSE;
     } else {
-        [_ship removeFromParent];
         //Point to dead stranded
-        int deadStranded = _shipSpace.count;
+        NSUInteger deadStranded = _shipSpace.count;
         _deadPoints += deadStranded;
         _deadLabel.string = [NSString stringWithFormat:@"%d", _dead];
         [_shipSpace removeAllObjects];
-        [self addShip];
-        return TRUE;
+        
+        //revert ship space to zero
+        _pointsTemp = 0;
+        _scoreLabelTemp.string = [NSString stringWithFormat:@"%d", _pointsTemp];
+        
+        //spawn new ship
+        [nodeB spawn];
+        [nodeB moveShip];
     }
+    return NO;
 }
 
 //astroid - stranded
@@ -280,15 +323,28 @@ static const int spotsInShip = 5;
 }
 
 //comet - ship
-- (BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair comet:(CCNode *)nodeA ship:(CCNode *)nodeB{
-    [nodeB removeFromParent];
-    int deadStranded = _shipSpace.count;
-    _deadPoints += deadStranded;
-    _deadLabel.string = [NSString stringWithFormat:@"%d", _dead];
-    [_shipSpace removeAllObjects];
-    [self addShip];
-    //[self gameOver];
-    return TRUE;
+- (BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair comet:(CCNode *)nodeA ship:(Ship *)nodeB{
+    //ship should not die from astroid before moving to center
+    if (nodeB.position.x < _winSize.width/2 || nodeB.position.x > _winSize.width) {
+        return FALSE;
+    } else {
+        //ship gone and add points to dead
+        NSUInteger deadStranded = _shipSpace.count;
+        _deadPoints += deadStranded;
+        _deadLabel.string = [NSString stringWithFormat:@"%d", _dead];
+        [_shipSpace removeAllObjects];
+        
+        //revert ship space to zero
+        _pointsTemp = 0;
+        _scoreLabelTemp.string = [NSString stringWithFormat:@"%d", _pointsTemp];
+        
+        //spawn new ship
+        [nodeB spawn];
+        [nodeB moveShip];
+        
+        //[self gameOver];
+    }
+    return NO;
 }
 
 //astronaut - stranded
@@ -335,15 +391,21 @@ static const int spotsInShip = 5;
 }
 
 //ship - safety
-- (BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair ship:(CCNode *)nodeA safety:(CCNode *)nodeB {
+- (BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair ship:(Ship *)nodeA safety:(CCNode *)nodeB {
+    //give player 5 points
     _points += _shipSpace.count;
     _scoreLabel.string = [NSString stringWithFormat:@"%d", _points];
-    [_ship removeFromParent];
+    
+    //reset ship space to 0
     _pointsTemp = 0;
     _scoreLabelTemp.string = [NSString stringWithFormat:@"%d", _pointsTemp];
     [_shipSpace removeAllObjects];
-    [self addShip];
-    return TRUE;
+    
+    //spawn new ship
+    [nodeA spawn];
+    [nodeA moveShip];
+    nodeA.brakeOff = YES;
+    return NO;
 }
 
 //astroid - safety
@@ -408,6 +470,7 @@ static const int spotsInShip = 5;
     [_ship moveShip];
     [_physicsNode addChild:_ship];
 }
+
 - (void)checkToRemoveAstroids {
     int i = 0;
     CGSize winSize = [CCDirector sharedDirector].viewSize;
