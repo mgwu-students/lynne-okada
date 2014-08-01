@@ -14,6 +14,7 @@
 #import "Comet.h"
 #import "Ship.h"
 #import "ShieldMeter.h"
+#import "Warning.h"
 
 @interface MainScene : CCNode <CCPhysicsCollisionDelegate, UIGestureRecognizerDelegate>
 {
@@ -24,7 +25,9 @@
     Comet* comet;
     Ship* _ship;
     ShieldMeter* _shieldMeter;
+    Warning* _warning;
 }
 
 @property (nonatomic, assign) BOOL activate;
+@property (nonatomic, assign) BOOL cometEntered;
 @end

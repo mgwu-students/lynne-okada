@@ -18,15 +18,16 @@
 #import "Comet.h"
 #import "Ship.h"
 #import "ShieldMeter.h"
+#import "Warning.h"
 
 @implementation MainScene{
     CCPhysicsNode *_physicsNode;
-    //CCLabelTTF *_scoreLabelTemp;
     CCLabelTTF *_scoreLabel;
     CCLabelTTF *_highscoreLabel;
-    //CCLabelTTF *_deadLabel;
     CCNode *_safety;
     CCProgressNode *_progressNode;
+    //CCLabelTTF *_deadLabel;
+    //CCLabelTTF *_scoreLabelTemp;
     CGSize _winSize;
     CMMotionManager *_motion;
     NSMutableArray *_spawnedAstroids;
@@ -218,7 +219,9 @@ static const int numberOfStranded = 5;
     _cometTime += delta;
     int spawned = arc4random() % 500;
     if (_cometTime >= 2 && spawned == 0) {
-        [self addComet];
+        [self addWarning];
+        [self schedule:@selector(addComet) interval:1.0f repeat:0 delay:1.0f];
+        [self schedule:@selector(removeWarning) interval:1.0f];
         _cometTime = 0;
     }
     [self checkToRemoveAstroids];
@@ -297,6 +300,7 @@ static const int numberOfStranded = 5;
     else if (_shipDamage == 3) {
         nodeB.brakeOff = NO;
         [_ship sendShip];
+        _scoreLabel.visible = NO;
     }
     
         //Point to dead stranded
@@ -360,6 +364,7 @@ static const int numberOfStranded = 5;
     else if (_shipDamage == 3) {
         nodeB.brakeOff = NO;
         [_ship sendShip];
+        _scoreLabel.visible = NO;
     }
         //ship gone and add points to dead
 //        NSUInteger deadStranded = _shipSpace.count;
@@ -498,6 +503,16 @@ static const int numberOfStranded = 5;
     shield = (Shield*) [CCBReader load:@"Shield"];
     [shield location];
     [_physicsNode addChild:shield];
+}
+
+- (void)addWarning {
+    _warning = (Warning*) [CCBReader load:@"Warning"];
+    [self addChild:_warning];
+    _warning.position = ccp(_winSize.width/2,_winSize.height/2 + 20);
+}
+
+- (void)removeWarning {
+    [_warning removeFromParent];
 }
 
 - (void)addComet {

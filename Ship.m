@@ -30,7 +30,7 @@
     CGPoint shipPos = ccp(_winSize.width/2, _winSize.height/2);
     CGPoint moveTo = ccp(_winSize.width,shipPos.y);
     CGPoint move = ccpSub(moveTo, shipPos);
-    move = ccpMult(move,40);
+    move = ccpMult(move,30);
     [self.physicsBody applyForce:move];
 }
 

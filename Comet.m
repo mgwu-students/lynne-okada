@@ -8,17 +8,23 @@
 
 #import "Comet.h"
 
-@implementation Comet
+@implementation Comet {
+    CCSprite *_warning;
+    CGSize _winSize;
+}
+
+- (void)didLoadFromCCB {
+    _winSize = [CCDirector sharedDirector].viewSize;
+}
 
 - (void)setupRandomPosition {
-    CGSize winSize = [CCDirector sharedDirector].viewSize;
-    CGFloat randomPointX = arc4random()%(int)winSize.width;
-    CGFloat randomPointY = arc4random()%(int)winSize.height;
+    CGFloat randomPointX = arc4random()%(int)_winSize.width;
+    CGFloat randomPointY = arc4random()%(int)_winSize.height;
     
     CGPoint randomPosition = ccp(randomPointX, randomPointY);
     
-    int width = winSize.width/4;
-    int height = winSize.height/4;
+    int width = _winSize.width/4;
+    int height = _winSize.height/4;
     
     int side = arc4random() % 4;
     switch (side) {
@@ -29,10 +35,10 @@
             randomPosition = ccp(-width,randomPointY);
             break;
         case 2:
-            randomPosition = ccp(randomPointX, winSize.height+height);
+            randomPosition = ccp(randomPointX, _winSize.height+height);
             break;
         case 3:
-            randomPosition = ccp(winSize.width+width, randomPointY);
+            randomPosition = ccp(_winSize.width+width, randomPointY);
             break;
         default:
             break;
