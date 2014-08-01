@@ -21,10 +21,10 @@
 
 @implementation MainScene{
     CCPhysicsNode *_physicsNode;
-    CCLabelTTF *_scoreLabelTemp;
+    //CCLabelTTF *_scoreLabelTemp;
     CCLabelTTF *_scoreLabel;
     CCLabelTTF *_highscoreLabel;
-    CCLabelTTF *_deadLabel;
+    //CCLabelTTF *_deadLabel;
     CCNode *_safety;
     CCProgressNode *_progressNode;
     CGSize _winSize;
@@ -33,24 +33,26 @@
     NSMutableArray *_spawnedStranded;
     NSMutableArray *_spawnedComets;
     NSMutableArray *_attachedStranded;
-    NSMutableArray *_shipSpace;
+    //NSMutableArray *_shipSpace;
     NSInteger _score;
-    NSInteger _highscore;
-    NSInteger _dead;
+    //NSInteger _highscore;
+    //NSInteger _dead;
     UISwipeGestureRecognizer *_rightRecognizer;
     CGPoint _initialTouch;
     CGPoint _lastTouch;
-    int _pointsTemp;
+    //int _pointsTemp;
     int _points;
-    int _deadPoints;
-    int _shipDamaged;
+    //int _deadPoints;
+    int _shipDamage;
+    int _astroidNum;
     float _astroidTime;
     float _cometTime;
 }
 
 static const int numberOfAstroids = 15;
 static const int numberOfStranded = 5;
-static const int spotsInShip = 5;
+
+//static const int spotsInShip = 5;
 //static const int numberOfAttachedStranded = 10;
 
 - (void)didLoadFromCCB {
@@ -58,14 +60,19 @@ static const int spotsInShip = 5;
     //_physicsNode.debugDraw = YES;
     _physicsNode.collisionDelegate = self;
     _points = 0;
-    _deadPoints = 0;
+    _astroidNum = 3;
+    //_deadPoints = 0;
     [self addShip];
     [self addAstronaut];
     [self astroidLoop];
     [self strandedLoop];
     _activate = NO;
     
+    //shield meter
     [self schedule:@selector(updateShield) interval:0.1f];
+    
+    //add an astroid for given interval
+    [self schedule:@selector(increaseDiff) interval:10.0f];
 }
 
 - (id)init {
@@ -78,7 +85,8 @@ static const int spotsInShip = 5;
         _spawnedStranded = [NSMutableArray array];
         _spawnedComets = [NSMutableArray array];
         _attachedStranded = [NSMutableArray array];
-        _shipSpace = [NSMutableArray array];
+        _shipDamage = 0;
+        //_shipSpace = [NSMutableArray array];
         //_rightRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:ship action:@selector(detectSwipe)];
         //_rightRecognizer.numberOfTouchesRequired = 1;
         //_rightRecognizer.direction = UISwipeGestureRecognizerDirectionRight;
@@ -87,12 +95,14 @@ static const int spotsInShip = 5;
 }
 
 - (void)updateShield {
-    if (_progressNode.percentage < 100 && !_activate) {
-    _progressNode.percentage += 2.0f;
-    } else if (_progressNode.percentage > 0.0f && _activate) {
-        _progressNode.percentage -= 10.0f;
-    } else if (_progressNode.percentage <= 0.0f && _activate) {
-        [shield removeFromParent];
+    if (_ship.position.x == _winSize.width/2) {
+        if (_progressNode.percentage < 100 && !_activate) {
+            _progressNode.percentage += 2.0f;
+        } else if (_progressNode.percentage > 0.0f && _activate) {
+            _progressNode.percentage -= 10.0f;
+        } else if (_progressNode.percentage <= 0.0f && _activate) {
+            [shield removeFromParent];
+        }
     }
 }
 
@@ -107,23 +117,28 @@ static const int spotsInShip = 5;
 
 - (void)touchEnded:(UITouch *)touch withEvent:(UIEvent *)event {
     _activate = NO;
-    _lastTouch = touch.locationInWorld;
+    [shield removeFromParent];
+
+    
+    //_lastTouch = touch.locationInWorld;
     //minimum touch length
-    float touchLen = ccpDistance(_initialTouch, _lastTouch);
+    //float touchLen = ccpDistance(_initialTouch, _lastTouch);
     
     //check to see if swipe is to right
-    if (_initialTouch.x < _lastTouch.x && touchLen > 125) {
-        if (_shipSpace.count == spotsInShip) {
-            _ship.brakeOff = NO;
-            [_ship sendShip];
-        }
+//    if (_initialTouch.x < _lastTouch.x && touchLen > 125) {
+//        if (_shipSpace.count == spotsInShip) {
+//            _ship.brakeOff = NO;
+//            [_ship sendShip];
+//        }
+//    }
     }
-    [shield removeFromParent];
+- (void)increaseDiff {
+    _astroidNum++;
 }
 
 - (void)astroidLoop {
     //spawn astroids
-    for (int i = 0; i < 3; i++) {
+    for (int i = 0; i < _astroidNum; i++) {
         [self addAstroid];
     }
 }
@@ -273,21 +288,30 @@ static const int spotsInShip = 5;
     //ship should not die from astroid before moving to center
     if (nodeB.position.x < _winSize.width/2 || nodeB.position.x > _winSize.width) {
         return FALSE;
-    } else {
+    }
+    
+    if (_shipDamage < 3) {
+        _shipDamage++;
+        [nodeA removeFromParent];
+    }
+    else if (_shipDamage == 3) {
+        nodeB.brakeOff = NO;
+        [_ship sendShip];
+    }
+    
         //Point to dead stranded
-        NSUInteger deadStranded = _shipSpace.count;
-        _deadPoints += deadStranded;
-        _deadLabel.string = [NSString stringWithFormat:@"%d", _dead];
-        [_shipSpace removeAllObjects];
+        //NSUInteger deadStranded = _shipSpace.count;
+        //_deadPoints += deadStranded;
+        //_deadLabel.string = [NSString stringWithFormat:@"%d", _dead];
+        //[_shipSpace removeAllObjects];
         
         //revert ship space to zero
-        _pointsTemp = 0;
-        _scoreLabelTemp.string = [NSString stringWithFormat:@"%d", _pointsTemp];
+//        _pointsTemp = 0;
+//        _scoreLabelTemp.string = [NSString stringWithFormat:@"%d", _pointsTemp];
         
         //spawn new ship
-        [nodeB spawn];
-        [nodeB moveShip];
-    }
+        //[nodeB spawn];
+        //[nodeB moveShip];
     return NO;
 }
 
@@ -327,23 +351,31 @@ static const int spotsInShip = 5;
     //ship should not die from astroid before moving to center
     if (nodeB.position.x < _winSize.width/2 || nodeB.position.x > _winSize.width) {
         return FALSE;
-    } else {
+    }
+    
+    if (_shipDamage < 3) {
+        _shipDamage++;
+        [nodeA removeFromParent];
+    }
+    else if (_shipDamage == 3) {
+        nodeB.brakeOff = NO;
+        [_ship sendShip];
+    }
         //ship gone and add points to dead
-        NSUInteger deadStranded = _shipSpace.count;
-        _deadPoints += deadStranded;
-        _deadLabel.string = [NSString stringWithFormat:@"%d", _dead];
-        [_shipSpace removeAllObjects];
+//        NSUInteger deadStranded = _shipSpace.count;
+//        _deadPoints += deadStranded;
+//        _deadLabel.string = [NSString stringWithFormat:@"%d", _dead];
+//        [_shipSpace removeAllObjects];
         
         //revert ship space to zero
-        _pointsTemp = 0;
-        _scoreLabelTemp.string = [NSString stringWithFormat:@"%d", _pointsTemp];
+//        _pointsTemp = 0;
+//        _scoreLabelTemp.string = [NSString stringWithFormat:@"%d", _pointsTemp];
         
         //spawn new ship
-        [nodeB spawn];
-        [nodeB moveShip];
+//        [nodeB spawn];
+//        [nodeB moveShip];
         
         //[self gameOver];
-    }
     return NO;
 }
 
@@ -357,32 +389,42 @@ static const int spotsInShip = 5;
         return nodeA.position;
     } followInfinite:YES];
     [nodeB runAction:moveTo];
-    return TRUE;
+    return YES;
 }
 
 //astronaut - ship
 - (BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair astronaut:(CCNode *)nodeA ship:(CCNode *)nodeB {
-    if (_shipSpace.count < spotsInShip) {
-        //NSUInteger saved = _attachedStranded.count;
-        NSMutableArray* trash = [[NSMutableArray alloc] init];
-        for (CCNode* node in _attachedStranded) {
-            if (_shipSpace.count < 5)
-            {
-                [_shipSpace addObject:node];
-                [node removeFromParent];
-                [_spawnedStranded removeObject:node];
-                [trash addObject:node];
-                _pointsTemp++;
-            }
-        }
-        for (CCNode* node in trash) {
-            [_attachedStranded removeObject:node];
-        }
-        [trash removeAllObjects];
-        _scoreLabelTemp.string = [NSString stringWithFormat:@"%d", _pointsTemp];
-        //[_attachedStranded removeAllObjects];
+    _points += _attachedStranded.count;
+    _scoreLabel.string = [NSString stringWithFormat:@"%d", _points];
+    
+    for (CCNode* node in _attachedStranded) {
+        [node removeFromParent];
+        
     }
-    return FALSE;
+    
+    [_attachedStranded removeAllObjects];
+    [_spawnedStranded removeAllObjects];
+    
+//    if (_shipSpace.count < spotsInShip) {
+//        //NSUInteger saved = _attachedStranded.count;
+//        NSMutableArray* trash = [[NSMutableArray alloc] init];
+//        for (CCNode* node in _attachedStranded) {
+//            if (_shipSpace.count < 5)
+//            {
+//                [_shipSpace addObject:node];
+//                [node removeFromParent];
+//                [_spawnedStranded removeObject:node];
+//                [trash addObject:node];
+//                _pointsTemp++;
+//            }
+//        }
+//        for (CCNode* node in trash) {
+//            [_attachedStranded removeObject:node];
+//        }
+//        [trash removeAllObjects];
+//    
+        //[_attachedStranded removeAllObjects];
+    return NO;
 }
 
 //ship - shield
@@ -393,18 +435,19 @@ static const int spotsInShip = 5;
 //ship - safety
 - (BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair ship:(Ship *)nodeA safety:(CCNode *)nodeB {
     //give player 5 points
-    _points += _shipSpace.count;
-    _scoreLabel.string = [NSString stringWithFormat:@"%d", _points];
+//    _points += _shipSpace.count;
+//    _scoreLabel.string = [NSString stringWithFormat:@"%d", _points];
     
     //reset ship space to 0
-    _pointsTemp = 0;
-    _scoreLabelTemp.string = [NSString stringWithFormat:@"%d", _pointsTemp];
-    [_shipSpace removeAllObjects];
+    //_pointsTemp = 0;
+    //_scoreLabelTemp.string = [NSString stringWithFormat:@"%d", _pointsTemp];
+    //[_shipSpace removeAllObjects];
     
     //spawn new ship
-    [nodeA spawn];
-    [nodeA moveShip];
-    nodeA.brakeOff = YES;
+    //[nodeA spawn];
+    //[nodeA moveShip];
+    //nodeA.brakeOff = YES;
+    [self gameOver];
     return NO;
 }
 
@@ -424,7 +467,7 @@ static const int spotsInShip = 5;
 
 - (void)gameOver {
     [self saveScore];
-    [self saveDeadScore];
+    //[self saveDeadScore];
     CCScene *score = [CCBReader loadAsScene:@"Score"];
     CCTransition *transition = [CCTransition transitionCrossFadeWithDuration:0.8f];
     [[CCDirector sharedDirector] presentScene:score withTransition:transition];
@@ -527,9 +570,9 @@ static const int spotsInShip = 5;
 }
 
 //Save the number of stranded missed
-- (void)saveDeadScore {
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    [prefs setInteger:_deadPoints forKey:@"dead"];
-    [prefs synchronize];
-}
+//- (void)saveDeadScore {
+//    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+//    [prefs setInteger:_deadPoints forKey:@"dead"];
+//    [prefs synchronize];
+//}
 @end
