@@ -12,9 +12,11 @@ random spawning of objects
 deletion of objects once off screen
 retry button
 death
+ship moving off screen
 
 ##Roadmap
-Collisions must be done
-I want the game done by this week (7/21-27) <---hahahaa, nope.
-artwork/music/soundeffects/particles to be started after this week (7/21-27)+
-
+polish
+-how stranded attaches to player
+-accelerometer calibration
+-art,sounds,music
+-settings/credits menu
