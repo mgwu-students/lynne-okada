@@ -220,7 +220,7 @@ static const int numberOfStranded = 5;
     int spawned = arc4random() % 500;
     if (_cometTime >= 2 && spawned == 0) {
         [self addWarning];
-        [self schedule:@selector(addComet) interval:1.0f repeat:0 delay:1.0f];
+        [self schedule:@selector(addComet) interval:1.0f repeat:0 delay:0.8f];
         [self schedule:@selector(removeWarning) interval:1.0f];
         _cometTime = 0;
     }
