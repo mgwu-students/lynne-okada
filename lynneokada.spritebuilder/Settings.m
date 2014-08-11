@@ -10,4 +10,11 @@
 
 @implementation Settings
 
+- (void)back {
+    [[OALSimpleAudio sharedInstance] playEffect:@"Art/back.wav"];
+    CCScene *menu = [CCBReader loadAsScene:@"Menu"];
+    CCTransition *transition = [CCTransition transitionFadeWithDuration:0.1f];
+    [[CCDirector sharedDirector] replaceScene:menu withTransition:transition];
+}
+
 @end

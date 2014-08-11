@@ -8,6 +8,7 @@
 
 #import "CCNode.h"
 
-@interface HealthBar : CCNode
+@interface HealthBar : CCSprite
 
+- (void)barLocation;
 @end

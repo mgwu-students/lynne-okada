@@ -27,10 +27,11 @@
 }
 
 - (void)sendShip {
+    [[OALSimpleAudio sharedInstance] playEffect:@"Art/chamos.wav"];
     CGPoint shipPos = ccp(_winSize.width/2, _winSize.height/2);
     CGPoint moveTo = ccp(_winSize.width,shipPos.y);
     CGPoint move = ccpSub(moveTo, shipPos);
-    move = ccpMult(move,30);
+    move = ccpMult(move,10);
     [self.physicsBody applyForce:move];
 }
 

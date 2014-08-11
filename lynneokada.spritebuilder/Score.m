@@ -16,6 +16,9 @@
     CCLabelTTF *_scoreLabel;
     CCLabelTTF *_highscoreLabel;
     CCLabelTTF *_deadLabel;
+    
+//    CCNode *_parallaxContainer;
+//    CCParallaxNode *_parallaxBackground;
 }
 
 -(void) didLoadFromCCB{
@@ -31,10 +34,17 @@
     _highscoreLabel.string = [NSString stringWithFormat:@"%d", _highscore];
     _deadLabel.string = [NSString stringWithFormat:@"%d", _dead];
     
+//    _parallaxBackground = [CCParallaxNode node];
+//    [_parallaxContainer addChild:_parallaxBackground];
 }
+
+//- (void)update:(CCTime)delta {
+//    _parallaxBackground.position = ccp(_parallaxBackground.position.x - (10 * delta), _parallaxBackground.position.y);
+//}
 
 - (void)retry {
     CCScene *retry = [CCBReader loadAsScene:@"MainScene"];
+    [[OALSimpleAudio sharedInstance] playEffect:@"Art/start.wav"];
     CCTransition *transition = [CCTransition transitionFadeWithDuration:0.8f];
     [[CCDirector sharedDirector] replaceScene:retry withTransition:transition];
     NSLog(@"retry");
@@ -59,5 +69,12 @@
 - (void)loadDeadScore {
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     _dead = [prefs integerForKey:@"dead"];
+}
+
+- (void)menu {
+    CCScene *menu = [CCBReader loadAsScene:@"Menu"];
+    [[OALSimpleAudio sharedInstance] playEffect:@"Art/back.wav"];
+    CCTransition *transition = [CCTransition transitionFadeWithDuration:0.8f];
+    [[CCDirector sharedDirector] replaceScene:menu withTransition:transition];
 }
 @end

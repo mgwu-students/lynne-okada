@@ -10,4 +10,11 @@
 
 @implementation HealthBar
 
+- (void)barLocation {
+    CGSize winSize = [CCDirector sharedDirector].viewSize;
+    
+    CGPoint meterPosition = ccp(winSize.width/2,winSize.height/2 - 15);
+    self.position = meterPosition;
+}
+
 @end

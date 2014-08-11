@@ -3,7 +3,34 @@
 <plist version="1.0">
 <dict>
 	<key>filenames</key>
-	<dict/>
+	<dict>
+		<key>Art/back.wav</key>
+		<string>Art/back.caf</string>
+		<key>Art/chamos.wav</key>
+		<string>Art/chamos.caf</string>
+		<key>Art/comet.wav</key>
+		<string>Art/comet.caf</string>
+		<key>Art/dead.wav</key>
+		<string>Art/dead.caf</string>
+		<key>Art/explosion.wav</key>
+		<string>Art/explosion.caf</string>
+		<key>Art/incoming.wav</key>
+		<string>Art/incoming.caf</string>
+		<key>Art/main.wav</key>
+		<string>Art/main.m4a</string>
+		<key>Art/select.wav</key>
+		<string>Art/select.caf</string>
+		<key>Art/shield.wav</key>
+		<string>Art/shield.caf</string>
+		<key>Art/shieldAstroid.wav</key>
+		<string>Art/shieldAstroid.caf</string>
+		<key>Art/shieldComet.wav</key>
+		<string>Art/shieldComet.caf</string>
+		<key>Art/start.wav</key>
+		<string>Art/start.caf</string>
+		<key>Art/warning.wav</key>
+		<string>Art/warning.caf</string>
+	</dict>
 	<key>metadata</key>
 	<dict>
 		<key>version</key>

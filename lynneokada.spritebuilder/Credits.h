@@ -8,6 +8,6 @@
 
 #import "CCScene.h"
 
-@interface Credits : CCScene
+@interface Credits : CCNode
 
 @end

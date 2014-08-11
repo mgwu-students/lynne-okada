@@ -80,6 +80,11 @@
 			<key>previewFolderHidden</key>
 			<true/>
 		</dict>
+		<key>Art/GameOver_ship.png</key>
+		<dict>
+			<key>scaleFrom</key>
+			<integer>2</integer>
+		</dict>
 		<key>Art/Platformer-Pixel850.png</key>
 		<dict>
 			<key>scaleFrom</key>
@@ -89,6 +94,125 @@
 		<dict>
 			<key>scaleFrom</key>
 			<integer>4</integer>
+		</dict>
+		<key>Art/asteroid_01.png</key>
+		<dict/>
+		<key>Art/astronaut_stranded.png</key>
+		<dict/>
+		<key>Art/comet.wav</key>
+		<dict>
+			<key>format_android_sound</key>
+			<integer>0</integer>
+			<key>format_android_sound_quality</key>
+			<integer>0</integer>
+			<key>format_ios_sound</key>
+			<integer>0</integer>
+			<key>format_ios_sound_quality</key>
+			<integer>0</integer>
+		</dict>
+		<key>Art/dead.wav</key>
+		<dict>
+			<key>format_android_sound</key>
+			<integer>0</integer>
+			<key>format_android_sound_quality</key>
+			<integer>0</integer>
+			<key>format_ios_sound</key>
+			<integer>0</integer>
+			<key>format_ios_sound_quality</key>
+			<integer>0</integer>
+		</dict>
+		<key>Art/explosion.wav</key>
+		<dict>
+			<key>format_android_sound</key>
+			<integer>0</integer>
+			<key>format_android_sound_quality</key>
+			<integer>0</integer>
+			<key>format_ios_sound</key>
+			<integer>0</integer>
+			<key>format_ios_sound_quality</key>
+			<integer>0</integer>
+		</dict>
+		<key>Art/hit.png</key>
+		<dict>
+			<key>scaleFrom</key>
+			<integer>1</integer>
+		</dict>
+		<key>Art/incoming.wav</key>
+		<dict>
+			<key>format_android_sound</key>
+			<integer>0</integer>
+			<key>format_android_sound_quality</key>
+			<integer>0</integer>
+			<key>format_ios_sound</key>
+			<integer>0</integer>
+			<key>format_ios_sound_quality</key>
+			<integer>0</integer>
+		</dict>
+		<key>Art/main.wav</key>
+		<dict>
+			<key>format_android_sound</key>
+			<integer>0</integer>
+			<key>format_android_sound_quality</key>
+			<integer>0</integer>
+			<key>format_ios_sound</key>
+			<integer>1</integer>
+			<key>format_ios_sound_quality</key>
+			<integer>0</integer>
+		</dict>
+		<key>Art/scoreBg.png</key>
+		<dict>
+			<key>isDirty</key>
+			<true/>
+			<key>scaleFrom</key>
+			<integer>4</integer>
+		</dict>
+		<key>Art/select.wav</key>
+		<dict>
+			<key>format_android_sound</key>
+			<integer>0</integer>
+			<key>format_android_sound_quality</key>
+			<integer>0</integer>
+			<key>format_ios_sound</key>
+			<integer>0</integer>
+			<key>format_ios_sound_quality</key>
+			<integer>0</integer>
+		</dict>
+		<key>Art/shieldComet.wav</key>
+		<dict>
+			<key>format_android_sound</key>
+			<integer>0</integer>
+			<key>format_android_sound_quality</key>
+			<integer>0</integer>
+			<key>format_ios_sound</key>
+			<integer>0</integer>
+			<key>format_ios_sound_quality</key>
+			<integer>0</integer>
+		</dict>
+		<key>Art/ship_health.png</key>
+		<dict>
+			<key>scaleFrom</key>
+			<integer>2</integer>
+		</dict>
+		<key>Art/ship_health_red.png</key>
+		<dict>
+			<key>scaleFrom</key>
+			<integer>2</integer>
+		</dict>
+		<key>Art/ship_health_yellow.png</key>
+		<dict>
+			<key>scaleFrom</key>
+			<integer>2</integer>
+		</dict>
+		<key>Art/warning.wav</key>
+		<dict>
+			<key>format_android_sound</key>
+			<integer>0</integer>
+			<key>format_android_sound_quality</key>
+			<integer>0</integer>
+			<key>format_ios_sound</key>
+			<integer>0</integer>
+			<key>format_ios_sound_quality</key>
+			<integer>0</integer>
 		</dict>
 		<key>Pixel Platformer</key>
 		<dict/>

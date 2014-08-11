@@ -58,7 +58,7 @@
     CGPoint forceVector = ccpSub(randomPosition,self.position);
     
     int speed = arc4random()%50;
-    forceVector = ccpMult(ccpNormalize(forceVector),1000.0+speed);
+    forceVector = ccpMult(ccpNormalize(forceVector),250.0+speed);
     //NSLog(@"self%f,%f,random%f,%f,force%f,%f",self.position.x,self.position.y,randomPointX,randomPointY,forceVector.x,forceVector.y);
     [self.physicsBody applyForce:forceVector];
 }

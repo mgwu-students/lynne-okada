@@ -38,6 +38,11 @@
 		B77F1B4217B978D7009739AE /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B77F1B4117B978D7009739AE /* CoreText.framework */; };
 		D21B238C198ACB8400E69D39 /* ShieldMeter.m in Sources */ = {isa = PBXBuildFile; fileRef = D21B238B198ACB8400E69D39 /* ShieldMeter.m */; };
 		D21B238F198C26D400E69D39 /* Warning.m in Sources */ = {isa = PBXBuildFile; fileRef = D21B238E198C26D400E69D39 /* Warning.m */; };
+		D22BBF2B19902BEE00CDB03B /* Tutorial.m in Sources */ = {isa = PBXBuildFile; fileRef = D22BBF2A19902BEE00CDB03B /* Tutorial.m */; };
+		D22BBF331991A43600CDB03B /* HealthBar.m in Sources */ = {isa = PBXBuildFile; fileRef = D22BBF321991A43600CDB03B /* HealthBar.m */; };
+		D22BBF361992D3F200CDB03B /* Hit.m in Sources */ = {isa = PBXBuildFile; fileRef = D22BBF351992D3F200CDB03B /* Hit.m */; };
+		D22BBF39199421DB00CDB03B /* Settings.m in Sources */ = {isa = PBXBuildFile; fileRef = D22BBF38199421DB00CDB03B /* Settings.m */; };
+		D22BBF3C199424C000CDB03B /* Credits.m in Sources */ = {isa = PBXBuildFile; fileRef = D22BBF3B199424C000CDB03B /* Credits.m */; };
 		D23DC7041986B06C007F525C /* Ship.m in Sources */ = {isa = PBXBuildFile; fileRef = D23DC7031986B06C007F525C /* Ship.m */; };
 		D28DD0A1196F4F070019C2B7 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D28DD0A0196F4F070019C2B7 /* CoreMotion.framework */; };
 		D28DD0A4196FDB990019C2B7 /* Astroid.m in Sources */ = {isa = PBXBuildFile; fileRef = D28DD0A3196FDB990019C2B7 /* Astroid.m */; };
@@ -108,6 +113,16 @@
 		D21B238B198ACB8400E69D39 /* ShieldMeter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShieldMeter.m; sourceTree = "<group>"; };
 		D21B238D198C26D400E69D39 /* Warning.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Warning.h; sourceTree = "<group>"; };
 		D21B238E198C26D400E69D39 /* Warning.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Warning.m; sourceTree = "<group>"; };
+		D22BBF2919902BEE00CDB03B /* Tutorial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tutorial.h; sourceTree = "<group>"; };
+		D22BBF2A19902BEE00CDB03B /* Tutorial.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tutorial.m; sourceTree = "<group>"; };
+		D22BBF311991A43600CDB03B /* HealthBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HealthBar.h; sourceTree = "<group>"; };
+		D22BBF321991A43600CDB03B /* HealthBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HealthBar.m; sourceTree = "<group>"; };
+		D22BBF341992D3F200CDB03B /* Hit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Hit.h; sourceTree = "<group>"; };
+		D22BBF351992D3F200CDB03B /* Hit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Hit.m; sourceTree = "<group>"; };
+		D22BBF37199421DB00CDB03B /* Settings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Settings.h; sourceTree = "<group>"; };
+		D22BBF38199421DB00CDB03B /* Settings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Settings.m; sourceTree = "<group>"; };
+		D22BBF3A199424C000CDB03B /* Credits.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Credits.h; sourceTree = "<group>"; };
+		D22BBF3B199424C000CDB03B /* Credits.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Credits.m; sourceTree = "<group>"; };
 		D23DC7021986B06C007F525C /* Ship.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ship.h; sourceTree = "<group>"; };
 		D23DC7031986B06C007F525C /* Ship.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Ship.m; sourceTree = "<group>"; };
 		D28DD0A0196F4F070019C2B7 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
@@ -171,14 +186,20 @@
 				D28DD0A3196FDB990019C2B7 /* Astroid.m */,
 				D28DD0AA197089480019C2B7 /* Astronaut.h */,
 				D28DD0AB197089480019C2B7 /* Astronaut.m */,
-				D2BE2E72197EF61600A3C699 /* Comet.h */,
-				D2BE2E73197EF61600A3C699 /* Comet.m */,
 				D2BE2E6A197DADC400A3C699 /* CCActionMoveToNode.h */,
 				D2BE2E6B197DADC400A3C699 /* CCActionMoveToNode.m */,
+				D2BE2E72197EF61600A3C699 /* Comet.h */,
+				D2BE2E73197EF61600A3C699 /* Comet.m */,
+				D22BBF3A199424C000CDB03B /* Credits.h */,
+				D22BBF3B199424C000CDB03B /* Credits.m */,
+				D22BBF311991A43600CDB03B /* HealthBar.h */,
+				D22BBF321991A43600CDB03B /* HealthBar.m */,
 				B7378992180767190076A88C /* MainScene.h */,
 				B7378993180767190076A88C /* MainScene.m */,
 				D2B64A68196EF08D00D1C9BE /* Menu.h */,
 				D2B64A69196EF08D00D1C9BE /* Menu.m */,
+				D22BBF37199421DB00CDB03B /* Settings.h */,
+				D22BBF38199421DB00CDB03B /* Settings.m */,
 				D2BE2E6F197ECB7300A3C699 /* Shield.h */,
 				D2BE2E70197ECB7300A3C699 /* Shield.m */,
 				D21B238A198ACB8400E69D39 /* ShieldMeter.h */,
@@ -189,6 +210,10 @@
 				D28DD0B21974F23C0019C2B7 /* StrandedAstronaut.m */,
 				D28DD0A519706FAB0019C2B7 /* Score.h */,
 				D28DD0A619706FAB0019C2B7 /* Score.m */,
+				D22BBF341992D3F200CDB03B /* Hit.h */,
+				D22BBF351992D3F200CDB03B /* Hit.m */,
+				D22BBF2919902BEE00CDB03B /* Tutorial.h */,
+				D22BBF2A19902BEE00CDB03B /* Tutorial.m */,
 				D21B238D198C26D400E69D39 /* Warning.h */,
 				D21B238E198C26D400E69D39 /* Warning.m */,
 				D2BE2E7B1980548200A3C699 /* Property List.plist */,
@@ -408,10 +433,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				B737893F1807617C0076A88C /* AppDelegate.m in Sources */,
+				D22BBF331991A43600CDB03B /* HealthBar.m in Sources */,
+				D22BBF39199421DB00CDB03B /* Settings.m in Sources */,
 				B7378994180767190076A88C /* MainScene.m in Sources */,
 				D28DD0A4196FDB990019C2B7 /* Astroid.m in Sources */,
 				D2BE2E6C197DADC400A3C699 /* CCActionMoveToNode.m in Sources */,
 				D2BE2E71197ECB7300A3C699 /* Shield.m in Sources */,
+				D22BBF2B19902BEE00CDB03B /* Tutorial.m in Sources */,
 				D21B238C198ACB8400E69D39 /* ShieldMeter.m in Sources */,
 				D23DC7041986B06C007F525C /* Ship.m in Sources */,
 				D2B64A6A196EF08D00D1C9BE /* Menu.m in Sources */,
@@ -420,7 +448,9 @@
 				B73789871807631A0076A88C /* main.m in Sources */,
 				D2BE2E74197EF61600A3C699 /* Comet.m in Sources */,
 				D21B238F198C26D400E69D39 /* Warning.m in Sources */,
+				D22BBF361992D3F200CDB03B /* Hit.m in Sources */,
 				D28DD0AC197089480019C2B7 /* Astronaut.m in Sources */,
+				D22BBF3C199424C000CDB03B /* Credits.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

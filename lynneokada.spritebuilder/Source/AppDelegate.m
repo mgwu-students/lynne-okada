@@ -59,6 +59,19 @@
 
 - (CCScene*) startScene
 {
+    [[NSUserDefaults standardUserDefaults] setBool:FALSE forKey:@"backgroundMusic"];
+    [[OALSimpleAudio sharedInstance] preloadBg:@"Art/main.wav"];
+    [[OALSimpleAudio sharedInstance] preloadEffect:@"Art/incoming.wav"];
+    [[OALSimpleAudio sharedInstance] preloadEffect:@"Art/shield.wav"];
+    [[OALSimpleAudio sharedInstance] preloadEffect:@"Art/select.wav"];
+    [[OALSimpleAudio sharedInstance] preloadEffect:@"Art/start.wav"];
+    [[OALSimpleAudio sharedInstance] preloadEffect:@"Art/chamos.wav"];
+    [[OALSimpleAudio sharedInstance] preloadEffect:@"Art/shieldAstroid.wav"];
+    [[OALSimpleAudio sharedInstance] preloadEffect:@"Art/shieldComet.wav"];
+    [[OALSimpleAudio sharedInstance] preloadEffect:@"Art/back.wav"];
+    [[OALSimpleAudio sharedInstance] preloadEffect:@"Art/dead.wav"];
+    [[OALSimpleAudio sharedInstance] preloadEffect:@"Art/warning.wav"];
+    [[OALSimpleAudio sharedInstance] preloadEffect:@"Art/comet.wav"];
     return [CCBReader loadAsScene:@"Menu"];
 }
 

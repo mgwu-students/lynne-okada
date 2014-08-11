@@ -19,13 +19,19 @@
 #import "Ship.h"
 #import "ShieldMeter.h"
 #import "Warning.h"
+#import "HealthBar.h"
+#import "Hit.h"
 
 @implementation MainScene{
     CCPhysicsNode *_physicsNode;
     CCLabelTTF *_scoreLabel;
     CCLabelTTF *_highscoreLabel;
+    CCLabelTTF *_gameOverLabel;
     CCNode *_safety;
-    CCProgressNode *_progressNode;
+    //CCNode *_yellow;
+    //CCNode *_red;
+    CCProgressNode *_progressShield;
+    CCProgressNode *_progressHealth;
     //CCLabelTTF *_deadLabel;
     //CCLabelTTF *_scoreLabelTemp;
     CGSize _winSize;
@@ -44,10 +50,15 @@
     //int _pointsTemp;
     int _points;
     //int _deadPoints;
-    int _shipDamage;
     int _astroidNum;
     float _astroidTime;
     float _cometTime;
+//    UIAccelerationValue _xa;
+//    UIAccelerationValue _ya;
+    float _calX;
+    float _calY;
+    BOOL _hasBeenCal;
+    OALSimpleAudio *_incoming;
 }
 
 static const int numberOfAstroids = 15;
@@ -62,9 +73,12 @@ static const int numberOfStranded = 5;
     _physicsNode.collisionDelegate = self;
     _points = 0;
     _astroidNum = 3;
+    _calX = 0;
+    _calY = 0;
+    _hasBeenCal = YES;
     //_deadPoints = 0;
     [self addShip];
-    [self addAstronaut];
+    [self schedule:@selector(addAstronaut) interval:1.0f repeat:0 delay:3.0f];
     [self astroidLoop];
     [self strandedLoop];
     _activate = NO;
@@ -74,6 +88,7 @@ static const int numberOfStranded = 5;
     
     //add an astroid for given interval
     [self schedule:@selector(increaseDiff) interval:10.0f];
+    
 }
 
 - (id)init {
@@ -86,7 +101,6 @@ static const int numberOfStranded = 5;
         _spawnedStranded = [NSMutableArray array];
         _spawnedComets = [NSMutableArray array];
         _attachedStranded = [NSMutableArray array];
-        _shipDamage = 0;
         //_shipSpace = [NSMutableArray array];
         //_rightRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:ship action:@selector(detectSwipe)];
         //_rightRecognizer.numberOfTouchesRequired = 1;
@@ -97,13 +111,24 @@ static const int numberOfStranded = 5;
 
 - (void)updateShield {
     if (_ship.position.x == _winSize.width/2) {
-        if (_progressNode.percentage < 100 && !_activate) {
-            _progressNode.percentage += 2.0f;
-        } else if (_progressNode.percentage > 0.0f && _activate) {
-            _progressNode.percentage -= 10.0f;
-        } else if (_progressNode.percentage <= 0.0f && _activate) {
+        if (_progressShield.percentage < 100 && !_activate) {
+            _progressShield.percentage += 2.0f;
+        } else if (_progressShield.percentage > 0.0f && _activate) {
+            _progressShield.percentage -= 10.0f;
+        } else if (_progressShield.percentage <= 0.0f && _activate) {
             [shield removeFromParent];
         }
+    }
+}
+
+- (void)updateHealth {
+    if (_progressHealth.percentage > 0) {
+        _progressHealth.percentage -= 30;
+//            if (_progressHealth.percentage <= 50) {
+//                _yellow = [CCBReader load:@"HealthBarYellow"];
+//            }
+//            if (_progressHealth.percentage <= 10) {
+//                _red = [CCBReader load:@"HealthBarRed"];
     }
 }
 
@@ -111,7 +136,7 @@ static const int numberOfStranded = 5;
     _initialTouch = touch.locationInWorld;
     _activate = YES;
     
-    if (_ship.physicsBody.velocity.x == 0 &&_progressNode.percentage > 0.0f) {
+    if (_ship.physicsBody.velocity.x == 0 &&_progressShield.percentage > 0.0f) {
         [self addShield];
     }
 }
@@ -151,17 +176,25 @@ static const int numberOfStranded = 5;
     }
 }
 
--(void)update:(CCTime)delta
-{
+-(void)update:(CCTime)delta {
     //accelerometer
     CMAccelerometerData * accelerometerData= _motion.accelerometerData;
     CMAcceleration acceleration = accelerometerData.acceleration;
-    //NSLog(@"acceleration-x: %f <> y:%f <> z:%f", acceleration.x, acceleration.y, acceleration.z);
+    //NSLog(@"acceleration-x: %f <> y:%f", acceleration.x, acceleration.y);
+//    if(!_hasBeenCal) {
+//        _calX = acceleration.x;
+//        _calY = acceleration.y;
+//        _hasBeenCal = YES;
+//    }
     
     float spriteSpeed = 5.0f; //change this to change sprite speed
-    UIAccelerationValue xa, ya;
+    float xa, ya;
+    
+    
     xa = acceleration.x;
     ya = acceleration.y;
+    NSLog(@"acceleration-x: %f <> y:%f", xa, ya);
+    
     float velocityVectorY = spriteSpeed*ya;  //tilting side-to-side when held horizontally
     float velocityVectorX = spriteSpeed*xa;
     
@@ -191,7 +224,7 @@ static const int numberOfStranded = 5;
         if (dude.position.x < 0 - dude.contentSize.width/2) {
             dude.position = ccp(_winSize.width, dude.position.y);
         }
-        else if (dude.position.x > _winSize.width + + dude.contentSize.width/2) {
+        else if (dude.position.x > _winSize.width + dude.contentSize.width/2) {
             dude.position = ccp(0, dude.position.y);
         }
         else if (dude.position.y < 0 - dude.contentSize.height/2) {
@@ -229,33 +262,58 @@ static const int numberOfStranded = 5;
     
     _scoreLabel.string = [NSString stringWithFormat:@"%d", (int)_points];
     _highscoreLabel.string = [NSString stringWithFormat:@"%d", (int)_points];
+    
+    //send the ship once health of ship reaches zero
+    if (_progressHealth.percentage <= 0 && _ship.position.x == _winSize.width/2) {
+        _ship.brakeOff = NO;
+        [_ship sendShip];
+    }
+    
+    if (_ship.position.x == _winSize.width/2) {
+        _healthBar.visible = YES;
+        _scoreLabel.visible = YES;
+    } else {
+        _healthBar.visible = NO;
+        _scoreLabel.visible = NO;
+    }
 }
 
 -(void)onEnter
 {
     [super onEnter];
     
+    _scoreLabel.visible = FALSE;
     [_motion startAccelerometerUpdates];
     
-    //position astronaut to little above the ship(center of screen)
-    float startX = [CCDirector sharedDirector].viewSize.width/2;
-    float startY = [CCDirector sharedDirector].viewSize.height/2 + 20;
-    astronaut.position = ccp(startX,startY);
+    _hasBeenCal = NO;
+    
+    //health bar
+    _healthBar = (HealthBar*) [CCBReader load:@"HealthBar"];
+    _healthBar.visible = NO;
+    _progressHealth = [CCProgressNode progressWithSprite:_healthBar];
+    [_healthBar barLocation];
+    [_physicsNode addChild:_healthBar];
+    _progressHealth.type = CCProgressNodeTypeBar;
+    //_progressHealth.barChangeRate = ccp(1.0f, 0.0f);
+    _progressHealth.percentage = 100;
+    _progressHealth.positionType = CCPositionTypeNormalized;
+    _progressHealth.position = ccp(0.5f, 0.5f);
+    [_healthBar addChild:_progressHealth];
     
     //shield meter
      _shieldMeter = (ShieldMeter*) [CCBReader load:@"ShieldMeter"];
     [_shieldMeter meterPosition];
     [_physicsNode addChild:_shieldMeter];
-    _progressNode = [CCProgressNode progressWithSprite:_shieldMeter];
+    _progressShield = [CCProgressNode progressWithSprite:_shieldMeter];
     
-    _progressNode.type = CCProgressNodeTypeBar;
+    _progressShield.type = CCProgressNodeTypeBar;
     //_progressNode.midpoint = ccp(0.0f, 0.0f);
-    _progressNode.barChangeRate = ccp(1.0f, 0.0f);
-    _progressNode.percentage = 100;
-    _progressNode.positionType = CCPositionTypeNormalized;
-    _progressNode.position = ccp(0.5f, 0.5f);
+    _progressShield.barChangeRate = ccp(1.0f, 0.0f);
+    _progressShield.percentage = 100;
+    _progressShield.positionType = CCPositionTypeNormalized;
+    _progressShield.position = ccp(0.5f, 0.5f);
+    [_shieldMeter addChild:_progressShield];
     
-    [_shieldMeter addChild:_progressNode];
 
 }
 
@@ -269,15 +327,19 @@ static const int numberOfStranded = 5;
 //COLLISIONS
 //astronaut - astroid
 - (BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair astronaut:(CCNode *)nodeA astroid:(CCNode *)nodeB {
-    [nodeA removeFromParent];
-    [self gameOver];
+    [[OALSimpleAudio sharedInstance] playEffect:@"Art/dead.wav"];
+    [self astronautRemoved:nodeA];
+    _gameOverLabel.visible = YES;
+    [self schedule:@selector(gameOver) interval:1.0f repeat:0 delay:3.0f];
     return true;
 }
 
 //astronaut - comet
 - (BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair astronaut:(CCNode *)nodeA comet:(CCNode *)nodeB {
-    [nodeA removeFromParent];
-    [self gameOver];
+    [[OALSimpleAudio sharedInstance] playEffect:@"Art/dead.wav"];
+    [self astronautRemoved:nodeA];
+    _gameOverLabel.visible = YES;
+    [self schedule:@selector(gameOver) interval:1.0f repeat:0 delay:3.0f];
     return TRUE;
 }
 
@@ -291,32 +353,17 @@ static const int numberOfStranded = 5;
     //ship should not die from astroid before moving to center
     if (nodeB.position.x < _winSize.width/2 || nodeB.position.x > _winSize.width) {
         return FALSE;
+    } else if (_ship.physicsBody.velocity.x == 0) {
+        [self updateHealth];
+        [[OALSimpleAudio sharedInstance] playEffect:@"Art/explosion.wav"];
+        [self astroidRemoved:nodeA];
     }
-    
-    if (_shipDamage < 3) {
-        _shipDamage++;
-        [nodeA removeFromParent];
-    }
-    else if (_shipDamage == 3) {
-        nodeB.brakeOff = NO;
-        [_ship sendShip];
-        _scoreLabel.visible = NO;
-    }
-    
-        //Point to dead stranded
-        //NSUInteger deadStranded = _shipSpace.count;
-        //_deadPoints += deadStranded;
-        //_deadLabel.string = [NSString stringWithFormat:@"%d", _dead];
-        //[_shipSpace removeAllObjects];
-        
-        //revert ship space to zero
-//        _pointsTemp = 0;
-//        _scoreLabelTemp.string = [NSString stringWithFormat:@"%d", _pointsTemp];
-        
-        //spawn new ship
-        //[nodeB spawn];
-        //[nodeB moveShip];
     return NO;
+}
+
+//stranded - comet
+- (BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair comet:(CCNode *)nodeA stranded:(CCNode *)nodeB {
+    return FALSE;
 }
 
 //astroid - stranded
@@ -346,41 +393,33 @@ static const int numberOfStranded = 5;
 
 //comet - shield
 - (BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair comet:(CCNode *)nodeA shield:(CCNode *)nodeB {
-    [nodeA removeFromParent];
+    [[OALSimpleAudio sharedInstance] playEffect:@"Art/shieldComet.wav"];
+    [self cometRemovedShield:nodeA];
+    return TRUE;
+}
+
+//astroid - shield
+- (BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair astroid:(CCNode *)nodeA shield:(CCNode *)nodeB {
+    [[OALSimpleAudio sharedInstance] playEffect:@"Art/shieldAstroid.wav"];
+    [self astroidRemovedShield:nodeA];
     return TRUE;
 }
 
 //comet - ship
 - (BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair comet:(CCNode *)nodeA ship:(Ship *)nodeB{
     //ship should not die from astroid before moving to center
-    if (nodeB.position.x < _winSize.width/2 || nodeB.position.x > _winSize.width) {
+    if (_ship.physicsBody.velocity.x > 0) {
         return FALSE;
-    }
-    
-    if (_shipDamage < 3) {
-        _shipDamage++;
+    } else if (_ship.physicsBody.velocity.x == 0) {
+        //[self addHit];
+        nodeA.physicsBody.collisionGroup = @"destroyed";
+        nodeB.physicsBody.collisionGroup = @"destroyed";
+        [self updateHealth];
+        [self cometRemovedShip:comet];
+        [[OALSimpleAudio sharedInstance] playEffect:@"Art/explosion.wav"];
         [nodeA removeFromParent];
+        //[self schedule:@selector(removeHit) interval:0.5f];
     }
-    else if (_shipDamage == 3) {
-        nodeB.brakeOff = NO;
-        [_ship sendShip];
-        _scoreLabel.visible = NO;
-    }
-        //ship gone and add points to dead
-//        NSUInteger deadStranded = _shipSpace.count;
-//        _deadPoints += deadStranded;
-//        _deadLabel.string = [NSString stringWithFormat:@"%d", _dead];
-//        [_shipSpace removeAllObjects];
-        
-        //revert ship space to zero
-//        _pointsTemp = 0;
-//        _scoreLabelTemp.string = [NSString stringWithFormat:@"%d", _pointsTemp];
-        
-        //spawn new ship
-//        [nodeB spawn];
-//        [nodeB moveShip];
-        
-        //[self gameOver];
     return NO;
 }
 
@@ -409,26 +448,6 @@ static const int numberOfStranded = 5;
     
     [_attachedStranded removeAllObjects];
     [_spawnedStranded removeAllObjects];
-    
-//    if (_shipSpace.count < spotsInShip) {
-//        //NSUInteger saved = _attachedStranded.count;
-//        NSMutableArray* trash = [[NSMutableArray alloc] init];
-//        for (CCNode* node in _attachedStranded) {
-//            if (_shipSpace.count < 5)
-//            {
-//                [_shipSpace addObject:node];
-//                [node removeFromParent];
-//                [_spawnedStranded removeObject:node];
-//                [trash addObject:node];
-//                _pointsTemp++;
-//            }
-//        }
-//        for (CCNode* node in trash) {
-//            [_attachedStranded removeObject:node];
-//        }
-//        [trash removeAllObjects];
-//    
-        //[_attachedStranded removeAllObjects];
     return NO;
 }
 
@@ -439,19 +458,6 @@ static const int numberOfStranded = 5;
 
 //ship - safety
 - (BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair ship:(Ship *)nodeA safety:(CCNode *)nodeB {
-    //give player 5 points
-//    _points += _shipSpace.count;
-//    _scoreLabel.string = [NSString stringWithFormat:@"%d", _points];
-    
-    //reset ship space to 0
-    //_pointsTemp = 0;
-    //_scoreLabelTemp.string = [NSString stringWithFormat:@"%d", _pointsTemp];
-    //[_shipSpace removeAllObjects];
-    
-    //spawn new ship
-    //[nodeA spawn];
-    //[nodeA moveShip];
-    //nodeA.brakeOff = YES;
     [self gameOver];
     return NO;
 }
@@ -480,6 +486,7 @@ static const int numberOfStranded = 5;
 
 - (void)addAstronaut {
     astronaut = (Astronaut*)[CCBReader load:@"Astronaut"];
+    [astronaut startPosition];
     [_physicsNode addChild:astronaut];
 }
 
@@ -503,10 +510,12 @@ static const int numberOfStranded = 5;
     shield = (Shield*) [CCBReader load:@"Shield"];
     [shield location];
     [_physicsNode addChild:shield];
+    [[OALSimpleAudio sharedInstance] playEffect:@"Art/shield.wav"];
 }
 
 - (void)addWarning {
     _warning = (Warning*) [CCBReader load:@"Warning"];
+    [[OALSimpleAudio sharedInstance] playEffect:@"Art/warning.wav"];
     [self addChild:_warning];
     _warning.position = ccp(_winSize.width/2,_winSize.height/2 + 20);
 }
@@ -520,6 +529,7 @@ static const int numberOfStranded = 5;
     [comet setupRandomPosition];
     [comet pushToCenter];
     [_physicsNode addChild:comet];
+    [[OALSimpleAudio sharedInstance] playEffect:@"Art/comet.wav"];
 }
 
 - (void)addShip {
@@ -528,6 +538,61 @@ static const int numberOfStranded = 5;
     [_ship moveShip];
     [_physicsNode addChild:_ship];
 }
+
+- (void)cometRemovedShip:(CCNode *)comett {
+    CCParticleSystem *_cometExplosionShip = (CCParticleSystem*)[CCBReader load:@"CometExplosionShip"];
+    _cometExplosionShip.autoRemoveOnFinish = YES;
+    _cometExplosionShip.position = comett.position;
+    [comett.parent addChild:_cometExplosionShip];
+    
+    [comett removeFromParent];
+}
+
+- (void)cometRemovedShield:(CCNode *)comett {
+    CCParticleSystem *_cometExplosionShield = (CCParticleSystem*)[CCBReader load:@"CometExplosionShield"];
+    _cometExplosionShield.autoRemoveOnFinish = YES;
+    _cometExplosionShield.position = comett.position;
+    [comett.parent addChild:_cometExplosionShield];
+    
+    [comett removeFromParent];
+}
+
+- (void)astroidRemoved:(CCNode *)astroidd {
+    CCParticleSystem *_astroidExplosion = (CCParticleSystem*)[CCBReader load:@"AstroidExplosion"];
+    _astroidExplosion.autoRemoveOnFinish = TRUE;
+    _astroidExplosion.position = astroidd.position;
+    [astroidd.parent addChild:_astroidExplosion];
+    
+    [astroidd removeFromParent];
+}
+
+- (void)astroidRemovedShield:(CCNode *)astroidd {
+    CCParticleSystem *_astroidExplosionShield = (CCParticleSystem*)[CCBReader load:@"AstroidExplosionShield"];
+    _astroidExplosionShield.autoRemoveOnFinish = YES;
+    _astroidExplosionShield.position = astroidd.position;
+    [astroidd.parent addChild:_astroidExplosionShield];
+    
+    [astroidd removeFromParent];
+}
+
+- (void)astronautRemoved:(CCNode *)astronautt {
+    CCParticleSystem *_astronautRemoved = (CCParticleSystem*)[CCBReader load:@"Dead"];
+    _astronautRemoved.autoRemoveOnFinish = YES;
+    _astronautRemoved.position = astronautt.position;
+    [astronautt.parent addChild:_astronautRemoved];
+    
+    [astronautt removeFromParent];
+}
+//- (void)addHit {
+//    _hit = (Hit*) [CCBReader load:@"Hit"];
+//    [_physicsNode addChild:_hit];
+//    CGPoint hitPosition = ccp(_winSize.width/2,_winSize.height/2);
+//    _hit.position = hitPosition;
+//}
+//
+//- (void)removeHit {
+//    _hit.visible = NO;
+//}
 
 - (void)checkToRemoveAstroids {
     int i = 0;

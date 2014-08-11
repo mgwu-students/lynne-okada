@@ -10,4 +10,6 @@
 
 @interface Astronaut : CCNode
 
+-(void)startPosition;
+
 @end
