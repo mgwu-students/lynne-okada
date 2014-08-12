@@ -16,6 +16,7 @@
     CCLabelTTF *_scoreLabel;
     CCLabelTTF *_highscoreLabel;
     CCLabelTTF *_deadLabel;
+    CCLabelTTF *_new;
     
 //    CCNode *_parallaxContainer;
 //    CCParallaxNode *_parallaxBackground;
@@ -27,6 +28,7 @@
     [self loadDeadScore];
     
     if (_points > _highscore) {
+        _new.visible = YES;
         _highscore = _points;
         [self saveHighscore];
     }

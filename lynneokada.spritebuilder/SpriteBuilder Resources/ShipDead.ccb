@@ -44,7 +44,7 @@
 		<key>displayName</key>
 		<string>CCParticleSystem</string>
 		<key>memberVarAssignmentName</key>
-		<string>_cometExplosionShield</string>
+		<string></string>
 		<key>memberVarAssignmentType</key>
 		<integer>1</integer>
 		<key>properties</key>
@@ -120,7 +120,7 @@
 				<key>type</key>
 				<string>Float</string>
 				<key>value</key>
-				<real>500</real>
+				<real>2000</real>
 			</dict>
 			<dict>
 				<key>name</key>
@@ -146,7 +146,7 @@
 				<key>value</key>
 				<array>
 					<real>0.0</real>
-					<real>0.30000001192092896</real>
+					<real>0.5</real>
 				</array>
 			</dict>
 			<dict>
@@ -156,8 +156,8 @@
 				<string>FloatVar</string>
 				<key>value</key>
 				<array>
-					<real>5</real>
-					<real>23</real>
+					<real>30</real>
+					<real>10</real>
 				</array>
 			</dict>
 			<dict>
@@ -167,7 +167,7 @@
 				<string>FloatVar</string>
 				<key>value</key>
 				<array>
-					<real>15</real>
+					<real>50</real>
 					<real>0.0</real>
 				</array>
 			</dict>
@@ -212,16 +212,16 @@
 				<key>value</key>
 				<array>
 					<array>
-						<real>0.40392160415649414</real>
-						<real>0.18823531270027161</real>
-						<real>0.078431375324726105</real>
+						<real>0.97604316473007202</real>
+						<real>0.61368000507354736</real>
+						<real>0.47037315368652344</real>
 						<real>1</real>
 					</array>
 					<array>
-						<real>0.0</real>
-						<real>0.0</real>
-						<real>0.0</real>
-						<real>1</real>
+						<real>0.22768795490264893</real>
+						<real>0.226204514503479</real>
+						<real>0.22926017642021179</real>
+						<real>0.5</real>
 					</array>
 				</array>
 			</dict>
@@ -233,16 +233,16 @@
 				<key>value</key>
 				<array>
 					<array>
-						<real>0.38039219379425049</real>
-						<real>0.20392158627510071</real>
-						<real>0.074509806931018829</real>
 						<real>1</real>
+						<real>0.22867736220359802</real>
+						<real>0.0</real>
+						<real>0.33000001311302185</real>
 					</array>
 					<array>
 						<real>0.0</real>
 						<real>0.0</real>
 						<real>0.0</real>
-						<real>1</real>
+						<real>0.0</real>
 					</array>
 				</array>
 			</dict>
@@ -273,7 +273,7 @@
 				<key>value</key>
 				<array>
 					<real>0.0</real>
-					<real>-300</real>
+					<real>0.0</real>
 				</array>
 			</dict>
 			<dict>

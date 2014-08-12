@@ -40,6 +40,7 @@
     NSMutableArray *_spawnedStranded;
     NSMutableArray *_spawnedComets;
     NSMutableArray *_attachedStranded;
+    NSMutableArray *_soundEffects;
     //NSMutableArray *_shipSpace;
     NSInteger _score;
     //NSInteger _highscore;
@@ -59,6 +60,8 @@
     float _calY;
     BOOL _hasBeenCal;
     OALSimpleAudio *_incoming;
+    BOOL _gameOver;
+    float _gameOverDelay;
 }
 
 static const int numberOfAstroids = 15;
@@ -83,6 +86,8 @@ static const int numberOfStranded = 5;
     [self strandedLoop];
     _activate = NO;
     
+    _gameOverDelay = 0;
+    
     //shield meter
     [self schedule:@selector(updateShield) interval:0.1f];
     
@@ -101,6 +106,7 @@ static const int numberOfStranded = 5;
         _spawnedStranded = [NSMutableArray array];
         _spawnedComets = [NSMutableArray array];
         _attachedStranded = [NSMutableArray array];
+        _soundEffects = [NSMutableArray array];
         //_shipSpace = [NSMutableArray array];
         //_rightRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:ship action:@selector(detectSwipe)];
         //_rightRecognizer.numberOfTouchesRequired = 1;
@@ -263,18 +269,30 @@ static const int numberOfStranded = 5;
     _scoreLabel.string = [NSString stringWithFormat:@"%d", (int)_points];
     _highscoreLabel.string = [NSString stringWithFormat:@"%d", (int)_points];
     
-    //send the ship once health of ship reaches zero
-    if (_progressHealth.percentage <= 0 && _ship.position.x == _winSize.width/2) {
-        _ship.brakeOff = NO;
-        [_ship sendShip];
+    
+    if (_gameOver) {
+        _gameOverDelay += delta;
+        if (_gameOverDelay > 2) {
+            [self gameOver];
+            _gameOver = false;
+        }
     }
     
-    if (_ship.position.x == _winSize.width/2) {
-        _healthBar.visible = YES;
-        _scoreLabel.visible = YES;
-    } else {
+    
+    //destroy ship once no health
+    if (_progressHealth.percentage <= 0) {
+        //        _ship.brakeOff = NO;
+        //        [_ship sendShip];
+        [self shipRemoved:_ship];
+        _gameOverLabel.visible = YES;
         _healthBar.visible = NO;
         _scoreLabel.visible = NO;
+        _gameOver = true;
+    }
+
+    if (_progressHealth.percentage > 0 && _ship.position.x == _winSize.width/2) {
+        _healthBar.visible = YES;
+        _scoreLabel.visible = YES;
     }
 }
 
@@ -314,7 +332,12 @@ static const int numberOfStranded = 5;
     _progressShield.position = ccp(0.5f, 0.5f);
     [_shieldMeter addChild:_progressShield];
     
-
+    OALSimpleAudio* Yo =  [[OALSimpleAudio sharedInstance] playEffect:@"Art/Yo.wav"];
+    OALSimpleAudio* Sweet = [[OALSimpleAudio sharedInstance] playEffect:@"Art/Sweet.wav"];
+    OALSimpleAudio* Cool = [[OALSimpleAudio sharedInstance] playEffect:@"Art/Cool.wav"];
+    [_soundEffects addObject:Yo];
+    [_soundEffects addObject:Sweet];
+    [_soundEffects addObject:Cool];
 }
 
 -(void)onExit
@@ -425,7 +448,7 @@ static const int numberOfStranded = 5;
 
 //astronaut - stranded
 - (BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair astronaut:(CCNode *)nodeA stranded:(CCNode *)nodeB {
-    //    [CCPhysicsJoint connectedPivotJointWithBodyA:astronaut.physicsBody bodyB:stranded.physicsBody anchorA:astronaut.anchorPoint];
+    _soundEffects[
     [_attachedStranded addObject:nodeB];
     nodeA.physicsBody.collisionGroup = @"attached";
     nodeB.physicsBody.collisionGroup = @"attached";
@@ -440,6 +463,10 @@ static const int numberOfStranded = 5;
 - (BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair astronaut:(CCNode *)nodeA ship:(CCNode *)nodeB {
     _points += _attachedStranded.count;
     _scoreLabel.string = [NSString stringWithFormat:@"%d", _points];
+    
+    if (_attachedStranded.count > 0) {
+        [[OALSimpleAudio sharedInstance] playEffect:@"Art/Thanks.wav"];
+    }
     
     for (CCNode* node in _attachedStranded) {
         [node removeFromParent];
@@ -583,6 +610,16 @@ static const int numberOfStranded = 5;
     
     [astronautt removeFromParent];
 }
+
+- (void)shipRemoved:(CCNode *)shipp {
+    CCParticleSystem *_shipRemoved = (CCParticleSystem*)[CCBReader load:@"ShipDead"];
+    _shipRemoved.autoRemoveOnFinish = YES;
+    _shipRemoved.position = _ship.position;
+    [shipp.parent addChild:_shipRemoved];
+    
+    [shipp removeFromParent];
+}
+
 //- (void)addHit {
 //    _hit = (Hit*) [CCBReader load:@"Hit"];
 //    [_physicsNode addChild:_hit];

@@ -72,6 +72,10 @@
     [[OALSimpleAudio sharedInstance] preloadEffect:@"Art/dead.wav"];
     [[OALSimpleAudio sharedInstance] preloadEffect:@"Art/warning.wav"];
     [[OALSimpleAudio sharedInstance] preloadEffect:@"Art/comet.wav"];
+    [[OALSimpleAudio sharedInstance] preloadEffect:@"Art/Thanks.wav"];
+    [[OALSimpleAudio sharedInstance] preloadEffect:@"Art/Yo.wav"];
+    [[OALSimpleAudio sharedInstance] preloadEffect:@"Art/Sweet.wav"];
+    [[OALSimpleAudio sharedInstance] preloadEffect:@"Art/Cool.wav"];
     return [CCBReader loadAsScene:@"Menu"];
 }
 
