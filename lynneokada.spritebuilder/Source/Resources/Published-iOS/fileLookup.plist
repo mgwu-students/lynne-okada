@@ -4,6 +4,10 @@
 <dict>
 	<key>filenames</key>
 	<dict>
+		<key>Art/Cool.wav</key>
+		<string>Art/Cool.caf</string>
+		<key>Art/Sweet.wav</key>
+		<string>Art/Sweet.caf</string>
 		<key>Art/Thanks.wav</key>
 		<string>Art/Thanks.caf</string>
 		<key>Art/Yo.wav</key>

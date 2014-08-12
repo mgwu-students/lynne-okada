@@ -332,12 +332,12 @@ static const int numberOfStranded = 5;
     _progressShield.position = ccp(0.5f, 0.5f);
     [_shieldMeter addChild:_progressShield];
     
-    OALSimpleAudio* Yo =  [[OALSimpleAudio sharedInstance] playEffect:@"Art/Yo.wav"];
-    OALSimpleAudio* Sweet = [[OALSimpleAudio sharedInstance] playEffect:@"Art/Sweet.wav"];
-    OALSimpleAudio* Cool = [[OALSimpleAudio sharedInstance] playEffect:@"Art/Cool.wav"];
-    [_soundEffects addObject:Yo];
-    [_soundEffects addObject:Sweet];
-    [_soundEffects addObject:Cool];
+//    OALSimpleAudio* Yo =  [[OALSimpleAudio sharedInstance] playEffect:@"Art/Yo.wav"];
+//    OALSimpleAudio* Sweet = [[OALSimpleAudio sharedInstance] playEffect:@"Art/Sweet.wav"];
+//    OALSimpleAudio* Cool = [[OALSimpleAudio sharedInstance] playEffect:@"Art/Cool.wav"];
+//    [_soundEffects addObject:Yo];
+//    [_soundEffects addObject:Sweet];
+//    [_soundEffects addObject:Cool];
 }
 
 -(void)onExit
@@ -448,7 +448,7 @@ static const int numberOfStranded = 5;
 
 //astronaut - stranded
 - (BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair astronaut:(CCNode *)nodeA stranded:(CCNode *)nodeB {
-    _soundEffects[
+    [[OALSimpleAudio sharedInstance] playEffect:@"Art/Yo.wav"];
     [_attachedStranded addObject:nodeB];
     nodeA.physicsBody.collisionGroup = @"attached";
     nodeB.physicsBody.collisionGroup = @"attached";
