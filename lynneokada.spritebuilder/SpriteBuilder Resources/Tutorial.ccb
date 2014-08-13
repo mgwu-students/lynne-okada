@@ -10,7 +10,7 @@
 		<false/>
 	</dict>
 	<key>UUID</key>
-	<integer>9</integer>
+	<integer>10</integer>
 	<key>centeredOrigin</key>
 	<false/>
 	<key>currentResolution</key>
@@ -127,7 +127,7 @@
 						<key>type</key>
 						<string>Float</string>
 						<key>value</key>
-						<real>5</real>
+						<real>10</real>
 					</dict>
 					<dict>
 						<key>name</key>
@@ -152,7 +152,7 @@
 						<string>FloatVar</string>
 						<key>value</key>
 						<array>
-							<real>3</real>
+							<real>2.5</real>
 							<real>0.25</real>
 						</array>
 					</dict>
@@ -314,6 +314,8 @@
 						<string>Art/star.png</string>
 					</dict>
 				</array>
+				<key>selected</key>
+				<true/>
 			</dict>
 			<dict>
 				<key>UUID</key>

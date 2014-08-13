@@ -17,9 +17,6 @@
     CCLabelTTF *_highscoreLabel;
     CCLabelTTF *_deadLabel;
     CCLabelTTF *_new;
-    
-//    CCNode *_parallaxContainer;
-//    CCParallaxNode *_parallaxBackground;
 }
 
 -(void) didLoadFromCCB{
@@ -35,14 +32,7 @@
     _scoreLabel.string = [NSString stringWithFormat:@"%ld", (long)_points];
     _highscoreLabel.string = [NSString stringWithFormat:@"%ld", (long)_highscore];
     _deadLabel.string = [NSString stringWithFormat:@"%ld", (long)_dead];
-    
-//    _parallaxBackground = [CCParallaxNode node];
-//    [_parallaxContainer addChild:_parallaxBackground];
 }
-
-//- (void)update:(CCTime)delta {
-//    _parallaxBackground.position = ccp(_parallaxBackground.position.x - (10 * delta), _parallaxBackground.position.y);
-//}
 
 - (void)retry {
     CCScene *retry = [CCBReader loadAsScene:@"MainScene"];

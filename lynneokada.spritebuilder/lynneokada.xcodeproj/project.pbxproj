@@ -44,7 +44,6 @@
 		D22BBF39199421DB00CDB03B /* Settings.m in Sources */ = {isa = PBXBuildFile; fileRef = D22BBF38199421DB00CDB03B /* Settings.m */; };
 		D22BBF3C199424C000CDB03B /* Credits.m in Sources */ = {isa = PBXBuildFile; fileRef = D22BBF3B199424C000CDB03B /* Credits.m */; };
 		D23DC7041986B06C007F525C /* Ship.m in Sources */ = {isa = PBXBuildFile; fileRef = D23DC7031986B06C007F525C /* Ship.m */; };
-		D24239FB199AAD4200F779EF /* Paper.m in Sources */ = {isa = PBXBuildFile; fileRef = D24239FA199AAD4200F779EF /* Paper.m */; };
 		D28DD0A1196F4F070019C2B7 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D28DD0A0196F4F070019C2B7 /* CoreMotion.framework */; };
 		D28DD0A4196FDB990019C2B7 /* Astroid.m in Sources */ = {isa = PBXBuildFile; fileRef = D28DD0A3196FDB990019C2B7 /* Astroid.m */; };
 		D28DD0A719706FAB0019C2B7 /* Score.m in Sources */ = {isa = PBXBuildFile; fileRef = D28DD0A619706FAB0019C2B7 /* Score.m */; };
@@ -126,8 +125,6 @@
 		D22BBF3B199424C000CDB03B /* Credits.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Credits.m; sourceTree = "<group>"; };
 		D23DC7021986B06C007F525C /* Ship.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ship.h; sourceTree = "<group>"; };
 		D23DC7031986B06C007F525C /* Ship.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Ship.m; sourceTree = "<group>"; };
-		D24239F9199AAD4200F779EF /* Paper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Paper.h; sourceTree = "<group>"; };
-		D24239FA199AAD4200F779EF /* Paper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Paper.m; sourceTree = "<group>"; };
 		D28DD0A0196F4F070019C2B7 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		D28DD0A2196FDB990019C2B7 /* Astroid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Astroid.h; sourceTree = "<group>"; };
 		D28DD0A3196FDB990019C2B7 /* Astroid.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Astroid.m; sourceTree = "<group>"; };
@@ -217,8 +214,6 @@
 				D22BBF351992D3F200CDB03B /* Hit.m */,
 				D22BBF2919902BEE00CDB03B /* Tutorial.h */,
 				D22BBF2A19902BEE00CDB03B /* Tutorial.m */,
-				D24239F9199AAD4200F779EF /* Paper.h */,
-				D24239FA199AAD4200F779EF /* Paper.m */,
 				D21B238D198C26D400E69D39 /* Warning.h */,
 				D21B238E198C26D400E69D39 /* Warning.m */,
 				D2BE2E7B1980548200A3C699 /* Property List.plist */,
@@ -451,7 +446,6 @@
 				D28DD0B31974F23C0019C2B7 /* StrandedAstronaut.m in Sources */,
 				D28DD0A719706FAB0019C2B7 /* Score.m in Sources */,
 				B73789871807631A0076A88C /* main.m in Sources */,
-				D24239FB199AAD4200F779EF /* Paper.m in Sources */,
 				D2BE2E74197EF61600A3C699 /* Comet.m in Sources */,
 				D21B238F198C26D400E69D39 /* Warning.m in Sources */,
 				D22BBF361992D3F200CDB03B /* Hit.m in Sources */,

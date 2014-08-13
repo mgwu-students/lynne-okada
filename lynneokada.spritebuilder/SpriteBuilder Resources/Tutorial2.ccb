@@ -44,74 +44,9 @@
 		<key>displayName</key>
 		<string>CCSprite</string>
 		<key>memberVarAssignmentName</key>
-		<string>_goNext</string>
+		<string></string>
 		<key>memberVarAssignmentType</key>
 		<integer>1</integer>
-		<key>physicsBody</key>
-		<dict>
-			<key>affectedByGravity</key>
-			<false/>
-			<key>allowsRotation</key>
-			<false/>
-			<key>bodyShape</key>
-			<integer>0</integer>
-			<key>collisionCategories</key>
-			<array/>
-			<key>collisionMask</key>
-			<array/>
-			<key>collisionType</key>
-			<string></string>
-			<key>cornerRadius</key>
-			<real>0.0</real>
-			<key>density</key>
-			<real>1</real>
-			<key>dynamic</key>
-			<true/>
-			<key>elasticity</key>
-			<real>0.30000001192092896</real>
-			<key>friction</key>
-			<real>0.30000001192092896</real>
-			<key>points</key>
-			<array>
-				<array>
-					<real>11.073298454284668</real>
-					<real>10.756596565246582</real>
-				</array>
-				<array>
-					<real>11.261932373046875</real>
-					<real>39.320369720458984</real>
-				</array>
-				<array>
-					<real>38.649745941162109</real>
-					<real>39.208072662353516</real>
-				</array>
-				<array>
-					<real>38.957614898681641</real>
-					<real>10.561022758483887</real>
-				</array>
-			</array>
-			<key>polygons</key>
-			<array>
-				<array>
-					<array>
-						<real>38.957614898681641</real>
-						<real>10.561022758483887</real>
-					</array>
-					<array>
-						<real>38.649745941162109</real>
-						<real>39.208072662353516</real>
-					</array>
-					<array>
-						<real>11.261932373046875</real>
-						<real>39.320369720458984</real>
-					</array>
-					<array>
-						<real>11.073298454284668</real>
-						<real>10.756596565246582</real>
-					</array>
-				</array>
-			</array>
-		</dict>
 		<key>properties</key>
 		<array>
 			<dict>
@@ -168,7 +103,7 @@
 				<key>value</key>
 				<array>
 					<string></string>
-					<string>Art/nextRight.png</string>
+					<string>Art/paper1.png</string>
 				</array>
 			</dict>
 			<dict>

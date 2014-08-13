@@ -107,10 +107,6 @@ static const int numberOfStranded = 5;
         _spawnedComets = [NSMutableArray array];
         _attachedStranded = [NSMutableArray array];
         _soundEffects = [NSMutableArray array];
-        //_shipSpace = [NSMutableArray array];
-        //_rightRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:ship action:@selector(detectSwipe)];
-        //_rightRecognizer.numberOfTouchesRequired = 1;
-        //_rightRecognizer.direction = UISwipeGestureRecognizerDirectionRight;
     }
     return self;
 }
@@ -199,7 +195,7 @@ static const int numberOfStranded = 5;
     
     xa = acceleration.x;
     ya = acceleration.y;
-    NSLog(@"acceleration-x: %f <> y:%f", xa, ya);
+    //NSLog(@"acceleration-x: %f <> y:%f", xa, ya);
     
     float velocityVectorY = spriteSpeed*ya;  //tilting side-to-side when held horizontally
     float velocityVectorX = spriteSpeed*xa;
@@ -556,7 +552,7 @@ static const int numberOfStranded = 5;
 - (void)addComet {
     comet = (Comet*) [CCBReader load:@"Comet"];
     [comet setupRandomPosition];
-    [comet.animationManager runAnimationsForSequenceNamed:@"incomingA"];
+    //[comet.animationManager runAnimationsForSequenceNamed:@"incomingA"];
     [comet pushToCenter];
     [_physicsNode addChild:comet];
     [[OALSimpleAudio sharedInstance] playEffect:@"Art/comet.wav"];
