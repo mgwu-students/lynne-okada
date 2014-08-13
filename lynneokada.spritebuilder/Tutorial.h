@@ -7,7 +7,11 @@
 //
 
 #import "CCNode.h"
+#import "Ship.h"
 
-@interface Tutorial : CCNode
+@interface Tutorial : CCNode <CCPhysicsCollisionDelegate>
+{
+    Ship* _ship;
+}
 
 @end

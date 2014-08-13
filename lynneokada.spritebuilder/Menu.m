@@ -37,4 +37,11 @@
     CCTransition *transition = [CCTransition transitionFadeWithDuration:0.1f];
     [[CCDirector sharedDirector] replaceScene:credits withTransition:transition];
 }
+
+- (void)tutorial {
+    CCScene *tutorial = [CCBReader loadAsScene:@"Tutorial"];
+    [[OALSimpleAudio sharedInstance] playEffect:@"Art/select.wav"];
+    CCTransition *transition = [CCTransition transitionFadeWithDuration:0.1f];
+    [[CCDirector sharedDirector] replaceScene:tutorial withTransition:transition];
+}
 @end

@@ -95,8 +95,11 @@
 			<key>scaleFrom</key>
 			<integer>4</integer>
 		</dict>
-		<key>Art/asteroid_01.png</key>
-		<dict/>
+		<key>Art/ShieldMeter.png</key>
+		<dict>
+			<key>scaleFrom</key>
+			<integer>2</integer>
+		</dict>
 		<key>Art/astronaut_stranded.png</key>
 		<dict/>
 		<key>Art/comet.wav</key>

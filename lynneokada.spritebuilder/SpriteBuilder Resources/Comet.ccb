@@ -10,7 +10,7 @@
 		<false/>
 	</dict>
 	<key>UUID</key>
-	<integer>2</integer>
+	<integer>3</integer>
 	<key>centeredOrigin</key>
 	<false/>
 	<key>currentResolution</key>
@@ -36,13 +36,170 @@
 	<key>nodeGraph</key>
 	<dict>
 		<key>baseClass</key>
-		<string>CCSprite</string>
+		<string>CCNode</string>
 		<key>children</key>
-		<array/>
+		<array>
+			<dict>
+				<key>UUID</key>
+				<integer>2</integer>
+				<key>baseClass</key>
+				<string>CCSprite</string>
+				<key>children</key>
+				<array/>
+				<key>customClass</key>
+				<string></string>
+				<key>displayName</key>
+				<string>astroid</string>
+				<key>memberVarAssignmentName</key>
+				<string></string>
+				<key>memberVarAssignmentType</key>
+				<integer>1</integer>
+				<key>physicsBody</key>
+				<dict>
+					<key>affectedByGravity</key>
+					<false/>
+					<key>allowsRotation</key>
+					<true/>
+					<key>bodyShape</key>
+					<integer>0</integer>
+					<key>collisionCategories</key>
+					<array/>
+					<key>collisionMask</key>
+					<array/>
+					<key>collisionType</key>
+					<string>comet</string>
+					<key>cornerRadius</key>
+					<real>0.0</real>
+					<key>density</key>
+					<real>1</real>
+					<key>dynamic</key>
+					<true/>
+					<key>elasticity</key>
+					<real>0.30000001192092896</real>
+					<key>friction</key>
+					<real>0.30000001192092896</real>
+					<key>points</key>
+					<array>
+						<array>
+							<real>22.146135330200195</real>
+							<real>21.872983932495117</real>
+						</array>
+						<array>
+							<real>22.722265243530273</real>
+							<real>39.375064849853516</real>
+						</array>
+						<array>
+							<real>39.685894012451172</real>
+							<real>39.514781951904297</real>
+						</array>
+						<array>
+							<real>39.913516998291016</real>
+							<real>22.012699127197266</real>
+						</array>
+					</array>
+					<key>polygons</key>
+					<array>
+						<array>
+							<array>
+								<real>39.913516998291016</real>
+								<real>22.012699127197266</real>
+							</array>
+							<array>
+								<real>39.685894012451172</real>
+								<real>39.514781951904297</real>
+							</array>
+							<array>
+								<real>22.722265243530273</real>
+								<real>39.375064849853516</real>
+							</array>
+							<array>
+								<real>22.146135330200195</real>
+								<real>21.872983932495117</real>
+							</array>
+						</array>
+					</array>
+				</dict>
+				<key>properties</key>
+				<array>
+					<dict>
+						<key>name</key>
+						<string>name</string>
+						<key>type</key>
+						<string>StringSimple</string>
+						<key>value</key>
+						<string></string>
+					</dict>
+					<dict>
+						<key>name</key>
+						<string>position</string>
+						<key>type</key>
+						<string>Position</string>
+						<key>value</key>
+						<array>
+							<real>0.0</real>
+							<real>0.0</real>
+							<integer>0</integer>
+							<integer>0</integer>
+							<integer>0</integer>
+						</array>
+					</dict>
+					<dict>
+						<key>name</key>
+						<string>anchorPoint</string>
+						<key>type</key>
+						<string>Point</string>
+						<key>value</key>
+						<array>
+							<real>0.5</real>
+							<real>0.5</real>
+						</array>
+					</dict>
+					<dict>
+						<key>name</key>
+						<string>scale</string>
+						<key>type</key>
+						<string>ScaleLock</string>
+						<key>value</key>
+						<array>
+							<real>1</real>
+							<real>1</real>
+							<false/>
+							<integer>0</integer>
+						</array>
+					</dict>
+					<dict>
+						<key>name</key>
+						<string>spriteFrame</string>
+						<key>type</key>
+						<string>SpriteFrame</string>
+						<key>value</key>
+						<array>
+							<string></string>
+							<string>Art/astroid.png</string>
+						</array>
+					</dict>
+					<dict>
+						<key>name</key>
+						<string>color</string>
+						<key>type</key>
+						<string>Color3</string>
+						<key>value</key>
+						<array>
+							<real>1</real>
+							<real>1</real>
+							<real>1</real>
+							<real>1</real>
+						</array>
+					</dict>
+				</array>
+				<key>selected</key>
+				<true/>
+			</dict>
+		</array>
 		<key>customClass</key>
 		<string>Comet</string>
 		<key>displayName</key>
-		<string>CCSprite</string>
+		<string>CCNode</string>
 		<key>memberVarAssignmentName</key>
 		<string></string>
 		<key>memberVarAssignmentType</key>
@@ -50,7 +207,7 @@
 		<key>physicsBody</key>
 		<dict>
 			<key>affectedByGravity</key>
-			<false/>
+			<true/>
 			<key>allowsRotation</key>
 			<true/>
 			<key>bodyShape</key>
@@ -60,7 +217,7 @@
 			<key>collisionMask</key>
 			<array/>
 			<key>collisionType</key>
-			<string>comet</string>
+			<string></string>
 			<key>cornerRadius</key>
 			<real>0.0</real>
 			<key>density</key>
@@ -74,170 +231,40 @@
 			<key>points</key>
 			<array>
 				<array>
-					<real>18.7451171875</real>
-					<real>21.9228515625</real>
+					<real>0.0</real>
+					<real>0.0</real>
 				</array>
 				<array>
-					<real>18.81494140625</real>
-					<real>35.93310546875</real>
+					<real>0.0</real>
+					<real>32</real>
 				</array>
 				<array>
-					<real>23.1572265625</real>
-					<real>36.0634765625</real>
+					<real>32</real>
+					<real>32</real>
 				</array>
 				<array>
-					<real>23.23876953125</real>
-					<real>43.28857421875</real>
-				</array>
-				<array>
-					<real>36.32470703125</real>
-					<real>43.52001953125</real>
-				</array>
-				<array>
-					<real>36.53125</real>
-					<real>40.072265625</real>
-				</array>
-				<array>
-					<real>43.36474609375</real>
-					<real>40.07373046875</real>
-				</array>
-				<array>
-					<real>43.298828125</real>
-					<real>25.912109375</real>
-				</array>
-				<array>
-					<real>38.685546875</real>
-					<real>25.83740234375</real>
-				</array>
-				<array>
-					<real>38.810546875</real>
-					<real>22.11328125</real>
-				</array>
-				<array>
-					<real>36.54443359375</real>
-					<real>22.0166015625</real>
-				</array>
-				<array>
-					<real>36.64208984375</real>
-					<real>18.46630859375</real>
-				</array>
-				<array>
-					<real>22.84912109375</real>
-					<real>18.41650390625</real>
-				</array>
-				<array>
-					<real>22.8388671875</real>
-					<real>22.03759765625</real>
+					<real>32</real>
+					<real>0.0</real>
 				</array>
 			</array>
 			<key>polygons</key>
 			<array>
 				<array>
 					<array>
-						<real>23.1572265625</real>
-						<real>36.0634765625</real>
+						<real>32</real>
+						<real>0.0</real>
 					</array>
 					<array>
-						<real>18.81494140625</real>
-						<real>35.93310546875</real>
+						<real>32</real>
+						<real>32</real>
 					</array>
 					<array>
-						<real>18.7451171875</real>
-						<real>21.9228515625</real>
+						<real>0.0</real>
+						<real>32</real>
 					</array>
 					<array>
-						<real>22.8388671875</real>
-						<real>22.03759765625</real>
-					</array>
-				</array>
-				<array>
-					<array>
-						<real>22.8388671875</real>
-						<real>22.03759765625</real>
-					</array>
-					<array>
-						<real>22.84912109375</real>
-						<real>18.41650390625</real>
-					</array>
-					<array>
-						<real>36.64208984375</real>
-						<real>18.46630859375</real>
-					</array>
-					<array>
-						<real>36.54443359375</real>
-						<real>22.0166015625</real>
-					</array>
-				</array>
-				<array>
-					<array>
-						<real>38.685546875</real>
-						<real>25.83740234375</real>
-					</array>
-					<array>
-						<real>43.298828125</real>
-						<real>25.912109375</real>
-					</array>
-					<array>
-						<real>43.36474609375</real>
-						<real>40.07373046875</real>
-					</array>
-					<array>
-						<real>36.53125</real>
-						<real>40.072265625</real>
-					</array>
-				</array>
-				<array>
-					<array>
-						<real>36.53125</real>
-						<real>40.072265625</real>
-					</array>
-					<array>
-						<real>36.32470703125</real>
-						<real>43.52001953125</real>
-					</array>
-					<array>
-						<real>23.23876953125</real>
-						<real>43.28857421875</real>
-					</array>
-				</array>
-				<array>
-					<array>
-						<real>36.53125</real>
-						<real>40.072265625</real>
-					</array>
-					<array>
-						<real>23.23876953125</real>
-						<real>43.28857421875</real>
-					</array>
-					<array>
-						<real>23.1572265625</real>
-						<real>36.0634765625</real>
-					</array>
-				</array>
-				<array>
-					<array>
-						<real>23.1572265625</real>
-						<real>36.0634765625</real>
-					</array>
-					<array>
-						<real>22.8388671875</real>
-						<real>22.03759765625</real>
-					</array>
-					<array>
-						<real>36.54443359375</real>
-						<real>22.0166015625</real>
-					</array>
-					<array>
-						<real>38.810546875</real>
-						<real>22.11328125</real>
-					</array>
-					<array>
-						<real>38.685546875</real>
-						<real>25.83740234375</real>
-					</array>
-					<array>
-						<real>36.53125</real>
-						<real>40.072265625</real>
+						<real>0.0</real>
+						<real>0.0</real>
 					</array>
 				</array>
 			</array>
@@ -268,13 +295,26 @@
 			</dict>
 			<dict>
 				<key>name</key>
+				<string>contentSize</string>
+				<key>type</key>
+				<string>Size</string>
+				<key>value</key>
+				<array>
+					<real>0.0</real>
+					<real>0.0</real>
+					<integer>0</integer>
+					<integer>0</integer>
+				</array>
+			</dict>
+			<dict>
+				<key>name</key>
 				<string>anchorPoint</string>
 				<key>type</key>
 				<string>Point</string>
 				<key>value</key>
 				<array>
-					<real>0.5</real>
-					<real>0.5</real>
+					<real>0.0</real>
+					<real>0.0</real>
 				</array>
 			</dict>
 			<dict>
@@ -288,30 +328,6 @@
 					<real>1</real>
 					<false/>
 					<integer>0</integer>
-				</array>
-			</dict>
-			<dict>
-				<key>name</key>
-				<string>spriteFrame</string>
-				<key>type</key>
-				<string>SpriteFrame</string>
-				<key>value</key>
-				<array>
-					<string></string>
-					<string>Art/comet.png</string>
-				</array>
-			</dict>
-			<dict>
-				<key>name</key>
-				<string>color</string>
-				<key>type</key>
-				<string>Color3</string>
-				<key>value</key>
-				<array>
-					<real>1</real>
-					<real>1</real>
-					<real>1</real>
-					<real>1</real>
 				</array>
 			</dict>
 		</array>
@@ -366,7 +382,7 @@
 			<key>length</key>
 			<real>10</real>
 			<key>name</key>
-			<string>Default Timeline</string>
+			<string>Untitled Timeline</string>
 			<key>offset</key>
 			<real>0.0</real>
 			<key>position</key>
@@ -391,6 +407,6 @@
 	<key>stageBorder</key>
 	<integer>3</integer>
 	<key>stageColor</key>
-	<integer>0</integer>
+	<integer>2</integer>
 </dict>
 </plist>

@@ -32,9 +32,9 @@
         _highscore = _points;
         [self saveHighscore];
     }
-    _scoreLabel.string = [NSString stringWithFormat:@"%d", _points];
-    _highscoreLabel.string = [NSString stringWithFormat:@"%d", _highscore];
-    _deadLabel.string = [NSString stringWithFormat:@"%d", _dead];
+    _scoreLabel.string = [NSString stringWithFormat:@"%ld", (long)_points];
+    _highscoreLabel.string = [NSString stringWithFormat:@"%ld", (long)_highscore];
+    _deadLabel.string = [NSString stringWithFormat:@"%ld", (long)_dead];
     
 //    _parallaxBackground = [CCParallaxNode node];
 //    [_parallaxContainer addChild:_parallaxBackground];

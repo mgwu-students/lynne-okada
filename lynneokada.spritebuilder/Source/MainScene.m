@@ -293,6 +293,7 @@ static const int numberOfStranded = 5;
     if (_progressHealth.percentage > 0 && _ship.position.x == _winSize.width/2) {
         _healthBar.visible = YES;
         _scoreLabel.visible = YES;
+        _shieldMeter.visible = YES;
     }
 }
 
@@ -320,6 +321,7 @@ static const int numberOfStranded = 5;
     
     //shield meter
      _shieldMeter = (ShieldMeter*) [CCBReader load:@"ShieldMeter"];
+    _shieldMeter.visible = NO;
     [_shieldMeter meterPosition];
     [_physicsNode addChild:_shieldMeter];
     _progressShield = [CCProgressNode progressWithSprite:_shieldMeter];
@@ -554,6 +556,7 @@ static const int numberOfStranded = 5;
 - (void)addComet {
     comet = (Comet*) [CCBReader load:@"Comet"];
     [comet setupRandomPosition];
+    [comet.animationManager runAnimationsForSequenceNamed:@"incomingA"];
     [comet pushToCenter];
     [_physicsNode addChild:comet];
     [[OALSimpleAudio sharedInstance] playEffect:@"Art/comet.wav"];
