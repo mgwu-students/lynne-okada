@@ -45,7 +45,7 @@
     NSInteger _score;
     //NSInteger _highscore;
     //NSInteger _dead;
-    UISwipeGestureRecognizer *_rightRecognizer;
+    //UISwipeGestureRecognizer *_rightRecognizer;
     CGPoint _initialTouch;
     CGPoint _lastTouch;
     //int _pointsTemp;
@@ -62,6 +62,7 @@
     OALSimpleAudio *_incoming;
     BOOL _gameOver;
     float _gameOverDelay;
+    float _gameTime;
 }
 
 static const int numberOfAstroids = 15;
@@ -81,7 +82,8 @@ static const int numberOfStranded = 5;
     _hasBeenCal = YES;
     //_deadPoints = 0;
     [self addShip];
-    [self schedule:@selector(addAstronaut) interval:1.0f repeat:0 delay:3.0f];
+    [self schedule:@selector(addAstronaut) interval:1.0f repeat:0 delay:2.0f];
+//    [self addAstronaut];
     [self astroidLoop];
     [self strandedLoop];
     _activate = NO;
@@ -94,6 +96,7 @@ static const int numberOfStranded = 5;
     //add an astroid for given interval
     [self schedule:@selector(increaseDiff) interval:10.0f];
     
+//    astronaut.physicsBody.collisionMask = @[];
 }
 
 - (id)init {
@@ -179,6 +182,13 @@ static const int numberOfStranded = 5;
 }
 
 -(void)update:(CCTime)delta {
+    
+    _gameTime += delta;
+    
+    if (_gameTime > 5 && [astronaut.physicsBody.collisionType isEqualToString:@"nothing"]) {
+        astronaut.physicsBody.collisionType = @"astronaut";
+    }
+    
     //accelerometer
     CMAccelerometerData * accelerometerData= _motion.accelerometerData;
     CMAcceleration acceleration = accelerometerData.acceleration;
@@ -297,6 +307,8 @@ static const int numberOfStranded = 5;
 {
     [super onEnter];
     
+    _gameTime = 0;
+    
     _scoreLabel.visible = FALSE;
     [_motion startAccelerometerUpdates];
     
@@ -346,6 +358,13 @@ static const int numberOfStranded = 5;
 }
 
 //COLLISIONS
+- (BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair nothing:(CCNode *)nodeA astroid:(CCNode *)nodeB {
+    return false;
+}
+
+- (BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair nothing:(CCNode *)nodeA comet:(CCNode *)nodeB {
+    return false;
+}
 //astronaut - astroid
 - (BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair astronaut:(CCNode *)nodeA astroid:(CCNode *)nodeB {
     [[OALSimpleAudio sharedInstance] playEffect:@"Art/dead.wav"];
@@ -512,6 +531,7 @@ static const int numberOfStranded = 5;
 - (void)addAstronaut {
     astronaut = (Astronaut*)[CCBReader load:@"Astronaut"];
     [astronaut startPosition];
+    astronaut.physicsBody.collisionType = @"nothing";
     [_physicsNode addChild:astronaut];
 }
 

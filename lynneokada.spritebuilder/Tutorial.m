@@ -10,18 +10,37 @@
 #import "CCPhysics+ObjectiveChipmunk.h"
 
 @implementation Tutorial {
-    CCNode  *_goNext;
     CCNode *_paper;
-    CCPhysicsNode *_physicsNode;
+    CCNode *_contentNode;
+    CCNode *_page1;
+    CCNode *_page2;
+    CCNode *_page3;
+    CCNode *_page4;
     CGSize _winSize;
     BOOL _brakeOff;
-    NSMutableArray *_pages;
+    NSArray *_pages;
+    int _onPage;
 }
 
+- (id)init {
+    if (self = [super init])
+    {
+        _pages = [NSArray array];
+    }
+    return self;
+}
+
+
 - (void)didLoadFromCCB {
-    _physicsNode.collisionDelegate = self;
     _winSize = [CCDirector sharedDirector].viewSize;
     _brakeOff = YES;
+    _onPage = 0;
+    
+    _page1 = [CCBReader load:@"Page1"];
+    _page2 = [CCBReader load:@"Page2"];
+    _page3 = [CCBReader load:@"Page3"];
+    _page4 = [CCBReader load:@"Page4"];
+    _pages = @[_page1,_page2,_page3,_page4];
 }
 
 - (void)onEnter {
@@ -35,7 +54,6 @@
     if (_brakeOff && _paper.position.y >= _winSize.height/2-40) {
         //kill applied force
         _paper.physicsBody.velocity = ccp(0,0);
-        [self addRight];
         //_brakeOff = NO;
         
         //reposition ship to center
@@ -44,26 +62,19 @@
 }
 
 - (void)addPaper {
-    _paper = [CCBReader load:@"Paper"];
-    [_physicsNode addChild:_paper];
+    _paper = [CCBReader load:@"Tutorial1"];
+    [self addChild:_paper];
     float spawnX = _winSize.width/2;
     float spawnY = _winSize.height/2 - 400;
     CGPoint spawnPos = ccp(spawnX, spawnY);
     _paper.position = spawnPos;
-    
     CGPoint moveTo = ccp(_winSize.width/2, _winSize.height-10);
-    CGPoint push = ccpSub(moveTo, spawnPos);
-    push = ccpMult(push, 1000 * 5);
-    [_paper.physicsBody applyForce:push];
+    CCActionMoveTo *move = [CCActionMoveTo actionWithDuration:1.0f position:moveTo];
+    [_paper runAction:move];
 }
 
-- (void)addRight {
-    _goNext = [CCBReader load:@"Next"];
-    [self addChild:_goNext];
-    float spawnX = _winSize.width/2 + _paper.contentSize.height/2 + 3;
-    float spawnY = _winSize.height - 53;
-    _goNext.position  = ccp(spawnX,spawnY);
+- (void)next {
+    _onPage++;
 }
-
 @end
 
