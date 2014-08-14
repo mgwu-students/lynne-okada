@@ -10,8 +10,8 @@
 #import "CCPhysics+ObjectiveChipmunk.h"
 
 @implementation Tutorial {
-    CCNode *_paper;
     CCNode *_contentNode;
+    CCNode *_next;
     CCNode *_page1;
     CCNode *_page2;
     CCNode *_page3;
@@ -20,6 +20,7 @@
     BOOL _brakeOff;
     NSArray *_pages;
     int _onPage;
+    CGPoint _initialTouch;
 }
 
 - (id)init {
@@ -34,47 +35,68 @@
 - (void)didLoadFromCCB {
     _winSize = [CCDirector sharedDirector].viewSize;
     _brakeOff = YES;
-    _onPage = 0;
-    
-    _page1 = [CCBReader load:@"Page1"];
+    _onPage = 1;
+ 
     _page2 = [CCBReader load:@"Page2"];
     _page3 = [CCBReader load:@"Page3"];
     _page4 = [CCBReader load:@"Page4"];
-    _pages = @[_page1,_page2,_page3,_page4];
+    _pages = @[@"blank",@"Page2",@"Page3",@"Page4"];
 }
 
 - (void)onEnter {
     [super onEnter];
     
-    [self addPaper];
-    
+    [self addPage1];
+    [self addNext];
+}
+
+//- (void)touchBegan:(UITouch *)touch withEvent:(UIEvent *)event {
+//    _initialTouch = touch.locationInWorld;
+//    
+//    _onPage++;
+//}
+
+- (void)next {
+    [self loadPage:_pages[_onPage]];
+     _onPage++;
 }
 
 - (void)update:(CCTime)delta{
-    if (_brakeOff && _paper.position.y >= _winSize.height/2-40) {
+    if (_brakeOff && _page1.position.y >= _winSize.height/2-40) {
         //kill applied force
-        _paper.physicsBody.velocity = ccp(0,0);
+        _page1.physicsBody.velocity = ccp(0,0);
         //_brakeOff = NO;
         
         //reposition ship to center
-        _paper.position = ccp(_winSize.width/2,_winSize.height/2-40);
+        _page1.position = ccp(_winSize.width/2,_winSize.height/2-40);
     }
+    [self loadPage:_pages[1]];
 }
 
-- (void)addPaper {
-    _paper = [CCBReader load:@"Tutorial1"];
-    [self addChild:_paper];
-    float spawnX = _winSize.width/2;
-    float spawnY = _winSize.height/2 - 400;
+- (void)addPage1 {
+    _page1 = [CCBReader load:@"Tutorial1"];
+    [self addChild:_page1];
+    CGFloat spawnX = _winSize.width/2;
+    CGFloat spawnY = _winSize.height/2 - 400;
     CGPoint spawnPos = ccp(spawnX, spawnY);
-    _paper.position = spawnPos;
+    _page1.position = spawnPos;
     CGPoint moveTo = ccp(_winSize.width/2, _winSize.height-10);
     CCActionMoveTo *move = [CCActionMoveTo actionWithDuration:1.0f position:moveTo];
-    [_paper runAction:move];
+    [_page1 runAction:move];
 }
 
-- (void)next {
-    _onPage++;
+- (void)loadPage:(NSString*)pageNumber {
+    CCNode *_page = [CCBReader load:pageNumber];
+    [self addChild:_page];
+    CGPoint loadTo = ccp(_winSize.width/2,_winSize.height-70);
+    _page.position = loadTo;
+}
+
+- (void)addNext {
+    _next = [CCBReader load:@"Next"];
+    [self addChild:_next];
+    CGPoint place = ccp(_winSize.width/2+_page1.contentSize.width/2,200);
+    _next.position = place;
 }
 @end
 

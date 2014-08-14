@@ -13,7 +13,7 @@
 - (void)meterPosition {
     CGSize winSize = [CCDirector sharedDirector].viewSize;
     
-    CGPoint meterPosition = ccp(winSize.width/2,winSize.height/2 - 13);
+    CGPoint meterPosition = ccp(winSize.width/2,winSize.height/2 - 17);
     self.position = meterPosition;
 }
 @end

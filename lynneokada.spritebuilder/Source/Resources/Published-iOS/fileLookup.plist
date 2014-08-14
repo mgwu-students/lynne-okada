@@ -26,6 +26,8 @@
 		<string>Art/incoming.caf</string>
 		<key>Art/main.wav</key>
 		<string>Art/main.m4a</string>
+		<key>Art/paper.wav</key>
+		<string>Art/paper.caf</string>
 		<key>Art/select.wav</key>
 		<string>Art/select.caf</string>
 		<key>Art/shield.wav</key>

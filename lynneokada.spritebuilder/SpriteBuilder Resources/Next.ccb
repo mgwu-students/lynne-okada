@@ -10,7 +10,7 @@
 		<false/>
 	</dict>
 	<key>UUID</key>
-	<integer>2</integer>
+	<integer>5</integer>
 	<key>centeredOrigin</key>
 	<false/>
 	<key>currentResolution</key>
@@ -41,7 +41,7 @@
 		<array>
 			<dict>
 				<key>UUID</key>
-				<integer>1</integer>
+				<integer>3</integer>
 				<key>baseClass</key>
 				<string>CCButton</string>
 				<key>children</key>
@@ -96,8 +96,8 @@
 						<string>ScaleLock</string>
 						<key>value</key>
 						<array>
-							<real>1.8146474361419678</real>
-							<real>1.8146474361419678</real>
+							<real>0.54874938726425171</real>
+							<real>0.77184122800827026</real>
 							<false/>
 							<integer>0</integer>
 						</array>
@@ -154,7 +154,7 @@
 						<string>String</string>
 						<key>value</key>
 						<array>
-							<string></string>
+							<string>next</string>
 							<false/>
 						</array>
 					</dict>
@@ -166,7 +166,7 @@
 						<key>value</key>
 						<array>
 							<string></string>
-							<string>Art/nextRight.png</string>
+							<string>ccbResources/ccbButtonNormal.png</string>
 						</array>
 					</dict>
 					<dict>
@@ -177,20 +177,7 @@
 						<key>value</key>
 						<array>
 							<string></string>
-							<string>Art/nextRight.png</string>
-						</array>
-					</dict>
-					<dict>
-						<key>name</key>
-						<string>backgroundColor|Highlighted</string>
-						<key>type</key>
-						<string>Color3</string>
-						<key>value</key>
-						<array>
-							<real>0.99215692281723022</real>
-							<real>0.9960784912109375</real>
-							<real>0.9960784912109375</real>
-							<real>1</real>
+							<string>ccbResources/ccbButtonHighlighted.png</string>
 						</array>
 					</dict>
 					<dict>
@@ -214,7 +201,7 @@
 						<key>value</key>
 						<array>
 							<string></string>
-							<string>Art/nextRight.png</string>
+							<string>ccbResources/ccbButtonNormal.png</string>
 						</array>
 					</dict>
 					<dict>
@@ -233,7 +220,7 @@
 						<key>value</key>
 						<array>
 							<string></string>
-							<string>Art/nextRight.png</string>
+							<string>ccbResources/ccbButtonNormal.png</string>
 						</array>
 					</dict>
 					<dict>

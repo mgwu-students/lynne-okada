@@ -17,6 +17,7 @@
 #import "Warning.h"
 #import "HealthBar.h"
 #import "Hit.h"
+#import "GameOver.h"
 
 @interface MainScene : CCNode <CCPhysicsCollisionDelegate, UIGestureRecognizerDelegate>
 {
@@ -30,6 +31,7 @@
     Warning* _warning;
     HealthBar* _healthBar;
     Hit* _hit;
+    GameOver* _gameOverWindow;
 }
 
 @property (nonatomic, assign) BOOL activate;

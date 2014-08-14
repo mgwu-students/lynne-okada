@@ -13,7 +13,7 @@
 - (void)barLocation {
     CGSize winSize = [CCDirector sharedDirector].viewSize;
     
-    CGPoint meterPosition = ccp(winSize.width/2,winSize.height/2 - 18);
+    CGPoint meterPosition = ccp(winSize.width/2,winSize.height/2 - 22);
     self.position = meterPosition;
 }
 
