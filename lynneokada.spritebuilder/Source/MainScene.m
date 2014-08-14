@@ -40,7 +40,7 @@
     NSMutableArray *_spawnedStranded;
     NSMutableArray *_spawnedComets;
     NSMutableArray *_attachedStranded;
-    NSMutableArray *_soundEffects;
+    NSArray *_rescuedSounds;
     //NSMutableArray *_shipSpace;
     NSInteger _score;
     //NSInteger _highscore;
@@ -82,7 +82,7 @@ static const int numberOfStranded = 5;
     _hasBeenCal = YES;
     //_deadPoints = 0;
     [self addShip];
-    [self schedule:@selector(addAstronaut) interval:1.0f repeat:0 delay:2.0f];
+    [self schedule:@selector(addAstronaut) interval:1.0f repeat:0 delay:2.5f];
 //    [self addAstronaut];
     [self astroidLoop];
     [self strandedLoop];
@@ -96,7 +96,7 @@ static const int numberOfStranded = 5;
     //add an astroid for given interval
     [self schedule:@selector(increaseDiff) interval:10.0f];
     
-//    astronaut.physicsBody.collisionMask = @[];
+    _rescuedSounds = @[@"Art/Yo.wav",@"Art/Sweet.wav",@"Art/Cool.wav"];
 }
 
 - (id)init {
@@ -109,7 +109,7 @@ static const int numberOfStranded = 5;
         _spawnedStranded = [NSMutableArray array];
         _spawnedComets = [NSMutableArray array];
         _attachedStranded = [NSMutableArray array];
-        _soundEffects = [NSMutableArray array];
+        _rescuedSounds = [NSArray array];
     }
     return self;
 }
@@ -293,6 +293,7 @@ static const int numberOfStranded = 5;
         _gameOverLabel.visible = YES;
         _healthBar.visible = NO;
         _scoreLabel.visible = NO;
+        _shieldMeter.visible = NO;
         _gameOver = true;
     }
 
@@ -365,6 +366,19 @@ static const int numberOfStranded = 5;
 - (BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair nothing:(CCNode *)nodeA comet:(CCNode *)nodeB {
     return false;
 }
+
+- (BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair nothing:(CCNode *)nodeA stranded:(CCNode *)nodeB {
+    [[OALSimpleAudio sharedInstance] playEffect:@"Art/Yo.wav"];
+    [_attachedStranded addObject:nodeB];
+    nodeA.physicsBody.collisionGroup = @"attached";
+    nodeB.physicsBody.collisionGroup = @"attached";
+    CCActionMoveToNode *moveTo = [CCActionMoveToNode actionWithSpeed:170.f positionUpdateBlock:^CGPoint{
+        return nodeA.position;
+    } followInfinite:YES];
+    [nodeB runAction:moveTo];
+    return YES;
+}
+
 //astronaut - astroid
 - (BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair astronaut:(CCNode *)nodeA astroid:(CCNode *)nodeB {
     [[OALSimpleAudio sharedInstance] playEffect:@"Art/dead.wav"];
@@ -391,7 +405,7 @@ static const int numberOfStranded = 5;
 //astroid - ship
 - (BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair astroid:(CCNode *)nodeA ship:(Ship *)nodeB {
     //ship should not die from astroid before moving to center
-    if (nodeB.position.x < _winSize.width/2 || nodeB.position.x > _winSize.width) {
+    if (nodeB.position.x != _winSize.width/2) {
         return FALSE;
     } else if (_ship.physicsBody.velocity.x == 0) {
         [self updateHealth];
@@ -465,7 +479,8 @@ static const int numberOfStranded = 5;
 
 //astronaut - stranded
 - (BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair astronaut:(CCNode *)nodeA stranded:(CCNode *)nodeB {
-    [[OALSimpleAudio sharedInstance] playEffect:@"Art/Yo.wav"];
+    int i = arc4random()%3;
+    [[OALSimpleAudio sharedInstance] playEffect:_rescuedSounds[i]];
     [_attachedStranded addObject:nodeB];
     nodeA.physicsBody.collisionGroup = @"attached";
     nodeB.physicsBody.collisionGroup = @"attached";
