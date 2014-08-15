@@ -82,7 +82,7 @@
 
 
 - (void)addPage1 {
-    _page1 = [CCBReader load:@"Tutorial1"];
+    _page1 = [CCBReader load:@"Page1"];
     [self addChild:_page1];
     CGFloat spawnX = _winSize.width/2;
     CGFloat spawnY = _winSize.height/2 - 400;

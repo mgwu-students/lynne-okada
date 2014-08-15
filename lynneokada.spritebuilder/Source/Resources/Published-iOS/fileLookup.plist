@@ -24,8 +24,6 @@
 		<string>Art/explosion.caf</string>
 		<key>Art/incoming.wav</key>
 		<string>Art/incoming.caf</string>
-		<key>Art/main.wav</key>
-		<string>Art/main.m4a</string>
 		<key>Art/paper.wav</key>
 		<string>Art/paper.caf</string>
 		<key>Art/select.wav</key>
@@ -36,6 +34,8 @@
 		<string>Art/shieldAstroid.caf</string>
 		<key>Art/shieldComet.wav</key>
 		<string>Art/shieldComet.caf</string>
+		<key>Art/spacespacespace.wav</key>
+		<string>Art/spacespacespace.m4a</string>
 		<key>Art/start.wav</key>
 		<string>Art/start.caf</string>
 		<key>Art/warning.wav</key>

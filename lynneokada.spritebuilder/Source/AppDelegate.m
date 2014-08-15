@@ -60,7 +60,7 @@
 - (CCScene*) startScene
 {
     [[NSUserDefaults standardUserDefaults] setBool:FALSE forKey:@"backgroundMusic"];
-    [[OALSimpleAudio sharedInstance] preloadBg:@"Art/main.wav"];
+    [[OALSimpleAudio sharedInstance] preloadBg:@"Art/spacespacespace.wav"];
     [[OALSimpleAudio sharedInstance] preloadEffect:@"Art/incoming.wav"];
     [[OALSimpleAudio sharedInstance] preloadEffect:@"Art/shield.wav"];
     [[OALSimpleAudio sharedInstance] preloadEffect:@"Art/select.wav"];
