@@ -255,7 +255,7 @@ static const int numberOfStranded = 5;
     _highscoreLabel.string = [NSString stringWithFormat:@"%d", (int)_points];
     
     //destroy ship once no health
-    if (_progressHealth.percentage <= 0) {
+    if (_progressHealth.percentage <= 0 && _gameOver == NO) {
         //        _ship.brakeOff = NO;
         //        [_ship sendShip];
         [self shipRemoved:_ship];
@@ -535,10 +535,12 @@ static const int numberOfStranded = 5;
 }
 
 - (void)addWarning {
-    _warning = (Warning*) [CCBReader load:@"Warning"];
-    [[OALSimpleAudio sharedInstance] playEffect:@"Art/warning.wav"];
-    [self addChild:_warning];
-    _warning.position = ccp(_winSize.width/2,_winSize.height/2 + 25);
+    if (_gameOver == NO) {
+        _warning = (Warning*) [CCBReader load:@"Warning"];
+        [[OALSimpleAudio sharedInstance] playEffect:@"Art/warning.wav"];
+        [self addChild:_warning];
+        _warning.position = ccp(_winSize.width/2,_winSize.height/2 + 25);
+    }
 }
 
 - (void)removeWarning {

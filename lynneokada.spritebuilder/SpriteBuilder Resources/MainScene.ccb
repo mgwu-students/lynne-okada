@@ -293,6 +293,8 @@
 				<string></string>
 				<key>displayName</key>
 				<string>CCLabelTTF</string>
+				<key>hidden</key>
+				<true/>
 				<key>memberVarAssignmentName</key>
 				<string>_scoreLabel</string>
 				<key>memberVarAssignmentType</key>
@@ -488,8 +490,6 @@
 						</array>
 					</dict>
 				</array>
-				<key>selected</key>
-				<true/>
 			</dict>
 			<dict>
 				<key>UUID</key>
@@ -523,11 +523,11 @@
 						<string>Position</string>
 						<key>value</key>
 						<array>
-							<real>284</real>
-							<real>163</real>
+							<real>0.5</real>
+							<real>0.5</real>
 							<integer>0</integer>
-							<integer>0</integer>
-							<integer>0</integer>
+							<integer>2</integer>
+							<integer>2</integer>
 						</array>
 					</dict>
 					<dict>
@@ -766,6 +766,8 @@
 						<string>Art/star.png</string>
 					</dict>
 				</array>
+				<key>selected</key>
+				<true/>
 			</dict>
 		</array>
 		<key>customClass</key>

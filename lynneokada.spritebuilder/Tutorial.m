@@ -16,6 +16,8 @@
     CCNode *_page2;
     CCNode *_page3;
     CCNode *_page4;
+    CCNode *_creditsNode;
+    CCNode *_thanksNode;
     CGSize _winSize;
     BOOL _brakeOff;
     NSArray *_pages;
@@ -26,6 +28,9 @@
 - (id)init {
     if (self = [super init])
     {
+        // activate touches on this scene
+        self.userInteractionEnabled = TRUE;
+        
         _pages = [NSArray array];
     }
     return self;
@@ -47,24 +52,29 @@
     [super onEnter];
     
     [self addPage1];
-    [self addNext];
 }
 
-- (void)next {
-    [self loadPage:_pages[_onPage]];
-     _onPage++;
-}
+//- (void)next {
+//    [self loadPage:_pages[_onPage]];
+//     _onPage++;
+//}
 
-- (void)update:(CCTime)delta{
-    if (_brakeOff && _page1.position.y >= _winSize.height/2-40) {
-        //kill applied force
-        _page1.physicsBody.velocity = ccp(0,0);
-        //_brakeOff = NO;
-        
-        //reposition ship to center
-        _page1.position = ccp(_winSize.width/2,_winSize.height/2-40);
+- (void)touchBegan:(UITouch *)touch withEvent:(UIEvent *)event {
+    if (_onPage == 1) {
+        [self loadPage:_pages[_onPage]];
+        _onPage++;
+    } else if (_onPage == 2) {
+        [self loadPage:_pages[_onPage]];
+        _onPage++;
+    } else if (_onPage == 3) {
+        [self loadPage:_pages[_onPage]];
+        _onPage++;
+    } else if (_onPage > 3) {
+        CCScene *mainScene = [CCBReader loadAsScene:@"MainScene"];
+        [[OALSimpleAudio sharedInstance] playEffect:@"Art/start.wav"];
+        CCTransition *transition = [CCTransition transitionFadeWithDuration:0.8f];
+        [[CCDirector sharedDirector] replaceScene:mainScene withTransition:transition];
     }
-    [self loadPage:_pages[1]];
 }
 
 - (void)addPage1 {
@@ -74,7 +84,7 @@
     CGFloat spawnY = _winSize.height/2 - 400;
     CGPoint spawnPos = ccp(spawnX, spawnY);
     _page1.position = spawnPos;
-    CGPoint moveTo = ccp(_winSize.width/2, _winSize.height-10);
+    CGPoint moveTo = ccp(_winSize.width/2, _winSize.height/2-30);
     CCActionMoveTo *move = [CCActionMoveTo actionWithDuration:1.0f position:moveTo];
     [_page1 runAction:move];
 }
@@ -82,7 +92,7 @@
 - (void)loadPage:(NSString*)pageNumber {
     CCNode *_page = [CCBReader load:pageNumber];
     [self addChild:_page];
-    CGPoint loadTo = ccp(_winSize.width/2,_winSize.height-70);
+    CGPoint loadTo = ccp(_winSize.width/2,_winSize.height/2-30);
     _page.position = loadTo;
 }
 
@@ -91,6 +101,18 @@
     [self addChild:_next];
     CGPoint place = ccp(_winSize.width/2+_page1.contentSize.width/2,200);
     _next.position = place;
+}
+
+- (void)more {
+    _creditsNode.visible = NO;
+    _thanksNode.visible = YES;
+}
+
+- (void)back {
+    [[OALSimpleAudio sharedInstance] playEffect:@"Art/back.wav"];
+    CCScene *menu = [CCBReader loadAsScene:@"Menu"];
+    CCTransition *transition = [CCTransition transitionFadeWithDuration:0.1f];
+    [[CCDirector sharedDirector] replaceScene:menu withTransition:transition];
 }
 @end
 
