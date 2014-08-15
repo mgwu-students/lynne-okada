@@ -550,7 +550,6 @@ static const int numberOfStranded = 5;
 - (void)addComet {
     comet = (Comet*) [CCBReader load:@"Comet"];
     [comet setupRandomPosition];
-    //[comet.animationManager runAnimationsForSequenceNamed:@"incomingA"];
     [comet pushToCenter];
     [_physicsNode addChild:comet];
     [[OALSimpleAudio sharedInstance] playEffect:@"Art/comet.wav"];

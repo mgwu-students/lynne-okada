@@ -52,30 +52,31 @@
     [self addPage1];
 }
 
-//- (void)next {
-//    [self loadPage:_pages[_onPage]];
-//     _onPage++;
-//}
-
 - (void)touchBegan:(UITouch *)touch withEvent:(UIEvent *)event {
     if (_page1.position.y == _winSize.height/2-30) {
         if (_onPage == 1) {
             [[OALSimpleAudio sharedInstance] playEffect:@"Art/paper.wav"];
             [self loadPage:_pages[_onPage]];
+            [_page1 removeFromParent];
             _onPage++;
         } else if (_onPage == 2) {
             [[OALSimpleAudio sharedInstance] playEffect:@"Art/paper.wav"];
             [self loadPage:_pages[_onPage]];
+            [_page2 removeFromParent];
             _onPage++;
         } else if (_onPage == 3) {
             [[OALSimpleAudio sharedInstance] playEffect:@"Art/paper.wav"];
             [self loadPage:_pages[_onPage]];
+            [_page3 removeFromParent];
             _onPage++;
         } else if (_onPage > 3) {
             CCScene *mainScene = [CCBReader loadAsScene:@"MainScene"];
             [[OALSimpleAudio sharedInstance] playEffect:@"Art/start.wav"];
             CCTransition *transition = [CCTransition transitionFadeWithDuration:0.8f];
-            [[CCDirector sharedDirector] replaceScene:mainScene withTransition:transition];
+            
+
+//            [[CCDirector sharedDirector] replaceScene:mainScene withTransition:transition];
+            [[CCDirector sharedDirector] pushScene:mainScene];
         }
     }
 }
