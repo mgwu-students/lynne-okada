@@ -16,8 +16,6 @@
     CCNode *_page2;
     CCNode *_page3;
     CCNode *_page4;
-    CCNode *_creditsNode;
-    CCNode *_thanksNode;
     CGSize _winSize;
     BOOL _brakeOff;
     NSArray *_pages;
@@ -60,22 +58,28 @@
 //}
 
 - (void)touchBegan:(UITouch *)touch withEvent:(UIEvent *)event {
-    if (_onPage == 1) {
-        [self loadPage:_pages[_onPage]];
-        _onPage++;
-    } else if (_onPage == 2) {
-        [self loadPage:_pages[_onPage]];
-        _onPage++;
-    } else if (_onPage == 3) {
-        [self loadPage:_pages[_onPage]];
-        _onPage++;
-    } else if (_onPage > 3) {
-        CCScene *mainScene = [CCBReader loadAsScene:@"MainScene"];
-        [[OALSimpleAudio sharedInstance] playEffect:@"Art/start.wav"];
-        CCTransition *transition = [CCTransition transitionFadeWithDuration:0.8f];
-        [[CCDirector sharedDirector] replaceScene:mainScene withTransition:transition];
+    if (_page1.position.y == _winSize.height/2-30) {
+        if (_onPage == 1) {
+            [[OALSimpleAudio sharedInstance] playEffect:@"Art/paper.wav"];
+            [self loadPage:_pages[_onPage]];
+            _onPage++;
+        } else if (_onPage == 2) {
+            [[OALSimpleAudio sharedInstance] playEffect:@"Art/paper.wav"];
+            [self loadPage:_pages[_onPage]];
+            _onPage++;
+        } else if (_onPage == 3) {
+            [[OALSimpleAudio sharedInstance] playEffect:@"Art/paper.wav"];
+            [self loadPage:_pages[_onPage]];
+            _onPage++;
+        } else if (_onPage > 3) {
+            CCScene *mainScene = [CCBReader loadAsScene:@"MainScene"];
+            [[OALSimpleAudio sharedInstance] playEffect:@"Art/start.wav"];
+            CCTransition *transition = [CCTransition transitionFadeWithDuration:0.8f];
+            [[CCDirector sharedDirector] replaceScene:mainScene withTransition:transition];
+        }
     }
 }
+
 
 - (void)addPage1 {
     _page1 = [CCBReader load:@"Tutorial1"];
@@ -103,10 +107,7 @@
     _next.position = place;
 }
 
-- (void)more {
-    _creditsNode.visible = NO;
-    _thanksNode.visible = YES;
-}
+
 
 - (void)back {
     [[OALSimpleAudio sharedInstance] playEffect:@"Art/back.wav"];

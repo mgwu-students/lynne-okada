@@ -76,6 +76,7 @@
     [[OALSimpleAudio sharedInstance] preloadEffect:@"Art/Yo.wav"];
     [[OALSimpleAudio sharedInstance] preloadEffect:@"Art/Sweet.wav"];
     [[OALSimpleAudio sharedInstance] preloadEffect:@"Art/Cool.wav"];
+    [[OALSimpleAudio sharedInstance] preloadEffect:@"Art/paper.wav"];
     return [CCBReader loadAsScene:@"Menu"];
 }
 
