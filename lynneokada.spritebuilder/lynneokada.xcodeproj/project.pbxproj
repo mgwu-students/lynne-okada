@@ -47,7 +47,6 @@
 		D26E8F33199D48100015DCF1 /* GameOver.m in Sources */ = {isa = PBXBuildFile; fileRef = D26E8F32199D48100015DCF1 /* GameOver.m */; };
 		D28DD0A1196F4F070019C2B7 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D28DD0A0196F4F070019C2B7 /* CoreMotion.framework */; };
 		D28DD0A4196FDB990019C2B7 /* Astroid.m in Sources */ = {isa = PBXBuildFile; fileRef = D28DD0A3196FDB990019C2B7 /* Astroid.m */; };
-		D28DD0A719706FAB0019C2B7 /* Score.m in Sources */ = {isa = PBXBuildFile; fileRef = D28DD0A619706FAB0019C2B7 /* Score.m */; };
 		D28DD0AC197089480019C2B7 /* Astronaut.m in Sources */ = {isa = PBXBuildFile; fileRef = D28DD0AB197089480019C2B7 /* Astronaut.m */; };
 		D28DD0B31974F23C0019C2B7 /* StrandedAstronaut.m in Sources */ = {isa = PBXBuildFile; fileRef = D28DD0B21974F23C0019C2B7 /* StrandedAstronaut.m */; };
 		D2B64A6A196EF08D00D1C9BE /* Menu.m in Sources */ = {isa = PBXBuildFile; fileRef = D2B64A69196EF08D00D1C9BE /* Menu.m */; };
@@ -131,8 +130,6 @@
 		D28DD0A0196F4F070019C2B7 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		D28DD0A2196FDB990019C2B7 /* Astroid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Astroid.h; sourceTree = "<group>"; };
 		D28DD0A3196FDB990019C2B7 /* Astroid.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Astroid.m; sourceTree = "<group>"; };
-		D28DD0A519706FAB0019C2B7 /* Score.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Score.h; sourceTree = "<group>"; };
-		D28DD0A619706FAB0019C2B7 /* Score.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Score.m; sourceTree = "<group>"; };
 		D28DD0AA197089480019C2B7 /* Astronaut.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Astronaut.h; sourceTree = "<group>"; };
 		D28DD0AB197089480019C2B7 /* Astronaut.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Astronaut.m; sourceTree = "<group>"; };
 		D28DD0B11974F23C0019C2B7 /* StrandedAstronaut.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StrandedAstronaut.h; sourceTree = "<group>"; };
@@ -211,8 +208,6 @@
 				D23DC7031986B06C007F525C /* Ship.m */,
 				D28DD0B11974F23C0019C2B7 /* StrandedAstronaut.h */,
 				D28DD0B21974F23C0019C2B7 /* StrandedAstronaut.m */,
-				D28DD0A519706FAB0019C2B7 /* Score.h */,
-				D28DD0A619706FAB0019C2B7 /* Score.m */,
 				D26E8F31199D48100015DCF1 /* GameOver.h */,
 				D26E8F32199D48100015DCF1 /* GameOver.m */,
 				D22BBF341992D3F200CDB03B /* Hit.h */,
@@ -450,7 +445,6 @@
 				D2B64A6A196EF08D00D1C9BE /* Menu.m in Sources */,
 				D26E8F33199D48100015DCF1 /* GameOver.m in Sources */,
 				D28DD0B31974F23C0019C2B7 /* StrandedAstronaut.m in Sources */,
-				D28DD0A719706FAB0019C2B7 /* Score.m in Sources */,
 				B73789871807631A0076A88C /* main.m in Sources */,
 				D2BE2E74197EF61600A3C699 /* Comet.m in Sources */,
 				D21B238F198C26D400E69D39 /* Warning.m in Sources */,

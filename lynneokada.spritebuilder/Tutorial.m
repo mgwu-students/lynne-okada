@@ -50,12 +50,6 @@
     [self addNext];
 }
 
-//- (void)touchBegan:(UITouch *)touch withEvent:(UIEvent *)event {
-//    _initialTouch = touch.locationInWorld;
-//    
-//    _onPage++;
-//}
-
 - (void)next {
     [self loadPage:_pages[_onPage]];
      _onPage++;

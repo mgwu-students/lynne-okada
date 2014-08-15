@@ -9,7 +9,6 @@
 #import "MainScene.h"
 #import <CoreMotion/CoreMotion.h>
 #import "CCPhysics+ObjectiveChipmunk.h"
-//#import "Score.h"
 #import "Astroid.h"
 #import "Astronaut.h"
 #import "StrandedAstronaut.h"
@@ -27,15 +26,9 @@
     CCPhysicsNode *_physicsNode;
     CCLabelTTF *_scoreLabel;
     CCLabelTTF *_highscoreLabel;
-    CCLabelTTF *_gameOverLabel;
-    CCLabelTTF *_gameOverLabel2;
     CCNode *_safety;
-    //CCNode *_yellow;
-    //CCNode *_red;
     CCProgressNode *_progressShield;
     CCProgressNode *_progressHealth;
-    //CCLabelTTF *_deadLabel;
-    //CCLabelTTF *_scoreLabelTemp;
     CGSize _winSize;
     CMMotionManager *_motion;
     NSMutableArray *_spawnedAstroids;
@@ -43,16 +36,9 @@
     NSMutableArray *_spawnedComets;
     NSMutableArray *_attachedStranded;
     NSArray *_rescuedSounds;
-    //NSMutableArray *_shipSpace;
     NSInteger _score;
-    //NSInteger _highscore;
-    //NSInteger _dead;
-    //UISwipeGestureRecognizer *_rightRecognizer;
-    CGPoint _initialTouch;
-    CGPoint _lastTouch;
-    //int _pointsTemp;
+    //CGPoint _initialTouch;
     int _points;
-    //int _deadPoints;
     int _astroidNum;
     float _astroidTime;
     float _cometTime;
@@ -65,6 +51,17 @@
     BOOL _gameOver;
     float _gameOverDelay;
     float _gameTime;
+    
+    //NSInteger _highscore;
+    //NSInteger _dead;
+    //UISwipeGestureRecognizer *_rightRecognizer;
+    //NSMutableArray *_shipSpace;
+    //CCLabelTTF *_deadLabel;
+    //CCLabelTTF *_scoreLabelTemp;
+    //CCNode *_yellow;
+    //CCNode *_red;
+    //int _deadPoints;
+    //int _pointsTemp;
 }
 
 static const int numberOfAstroids = 15;
@@ -133,7 +130,7 @@ static const int numberOfStranded = 5;
 }
 
 - (void)touchBegan:(UITouch *)touch withEvent:(UIEvent *)event {
-    _initialTouch = touch.locationInWorld;
+    //_initialTouch = touch.locationInWorld;
     _activate = YES;
     
     if (_ship.physicsBody.velocity.x == 0 && _progressShield.percentage > 0.0f) {
@@ -144,20 +141,8 @@ static const int numberOfStranded = 5;
 - (void)touchEnded:(UITouch *)touch withEvent:(UIEvent *)event {
     _activate = NO;
     [shield removeFromParent];
+}
 
-    
-    //_lastTouch = touch.locationInWorld;
-    //minimum touch length
-    //float touchLen = ccpDistance(_initialTouch, _lastTouch);
-    
-    //check to see if swipe is to right
-//    if (_initialTouch.x < _lastTouch.x && touchLen > 125) {
-//        if (_shipSpace.count == spotsInShip) {
-//            _ship.brakeOff = NO;
-//            [_ship sendShip];
-//        }
-//    }
-    }
 - (void)increaseDiff {
     _astroidNum++;
 }
@@ -177,7 +162,6 @@ static const int numberOfStranded = 5;
 }
 
 -(void)update:(CCTime)delta {
-    
     _gameTime += delta;
     
     if (_gameTime > 5 && [astronaut.physicsBody.collisionType isEqualToString:@"nothing"]) {
@@ -187,12 +171,12 @@ static const int numberOfStranded = 5;
     //accelerometer
     CMAccelerometerData * accelerometerData= _motion.accelerometerData;
     CMAcceleration acceleration = accelerometerData.acceleration;
-    NSLog(@"acceleration-x: %f <> y:%f", acceleration.x, acceleration.y);
-    if(!_hasBeenCal) {
-        _calX = acceleration.x;
-        _calY = acceleration.y;
-        _hasBeenCal = YES;
-    }
+//    NSLog(@"acceleration-x: %f <> y:%f", acceleration.x, acceleration.y);
+//    if(!_hasBeenCal) {
+//        _calX = acceleration.x;
+//        _calY = acceleration.y;
+//        _hasBeenCal = YES;
+//    }
     
     float spriteSpeed = 5.0f; //change this to change sprite speed
     float xa, ya;
@@ -270,25 +254,15 @@ static const int numberOfStranded = 5;
     _scoreLabel.string = [NSString stringWithFormat:@"%d", (int)_points];
     _highscoreLabel.string = [NSString stringWithFormat:@"%d", (int)_points];
     
-    
-    if (_gameOver) {
-        _gameOverDelay += delta;
-        if (_gameOverDelay > 2) {
-            [self gameOver];
-            _gameOver = false;
-        }
-    }
-    
-    
     //destroy ship once no health
     if (_progressHealth.percentage <= 0) {
         //        _ship.brakeOff = NO;
         //        [_ship sendShip];
         [self shipRemoved:_ship];
-        _gameOverLabel.visible = YES;
         _healthBar.visible = NO;
         _scoreLabel.visible = NO;
         _shieldMeter.visible = NO;
+        [self addGameOver];
         _gameOver = true;
     }
 
@@ -337,13 +311,6 @@ static const int numberOfStranded = 5;
     _progressShield.positionType = CCPositionTypeNormalized;
     _progressShield.position = ccp(0.5f, 0.5f);
     [_shieldMeter addChild:_progressShield];
-    
-//    OALSimpleAudio* Yo =  [[OALSimpleAudio sharedInstance] playEffect:@"Art/Yo.wav"];
-//    OALSimpleAudio* Sweet = [[OALSimpleAudio sharedInstance] playEffect:@"Art/Sweet.wav"];
-//    OALSimpleAudio* Cool = [[OALSimpleAudio sharedInstance] playEffect:@"Art/Cool.wav"];
-//    [_soundEffects addObject:Yo];
-//    [_soundEffects addObject:Sweet];
-//    [_soundEffects addObject:Cool];
 }
 
 -(void)onExit
@@ -383,9 +350,9 @@ static const int numberOfStranded = 5;
     if (_gameOver == NO) {
         [[OALSimpleAudio sharedInstance] playEffect:@"Art/dead.wav"];
         [self astronautRemoved:nodeA];
-        _gameOverLabel2.visible = YES;
         _gameOver = YES;
-        [self schedule:@selector(gameOver) interval:1.0f repeat:0 delay:2.0f];
+        [self addGameOver];
+        //[self schedule:@selector(gameOver) interval:1.0f repeat:0 delay:2.0f];
     }
     return TRUE;
 }
@@ -395,9 +362,9 @@ static const int numberOfStranded = 5;
     if (_gameOver == NO) {
         [[OALSimpleAudio sharedInstance] playEffect:@"Art/dead.wav"];
         [self astronautRemoved:nodeA];
-        _gameOverLabel2.visible = YES;
         _gameOver = YES;
-        [self schedule:@selector(gameOver) interval:1.0f repeat:0 delay:2.0f];
+        [self addGameOver];
+        //[self schedule:@selector(gameOver) interval:1.0f repeat:0 delay:2.0f];
     }
     return TRUE;
 }
@@ -511,7 +478,6 @@ static const int numberOfStranded = 5;
     
     for (CCNode* node in _attachedStranded) {
         [node removeFromParent];
-        
     }
     
     [_attachedStranded removeAllObjects];
@@ -522,12 +488,6 @@ static const int numberOfStranded = 5;
 //ship - shield
 - (BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair ship:(CCNode *)nodeA shield:(CCNode *)nodeB {
     return FALSE;
-}
-
-//ship - safety
-- (BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair ship:(Ship *)nodeA safety:(CCNode *)nodeB {
-    [self gameOver];
-    return NO;
 }
 
 //astroid - safety
@@ -542,14 +502,6 @@ static const int numberOfStranded = 5;
 //comet - safety
 - (BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair comet:(CCNode *)nodeA safety:(CCNode *)nodeB {
     return FALSE;
-}
-
-- (void)gameOver {
-    [self saveScore];
-    //[self saveDeadScore];
-    CCScene *score = [CCBReader loadAsScene:@"Score"];
-    CCTransition *transition = [CCTransition transitionCrossFadeWithDuration:0.8f];
-    [[CCDirector sharedDirector] presentScene:score withTransition:transition];
 }
 
 - (void)addAstronaut {
@@ -610,6 +562,8 @@ static const int numberOfStranded = 5;
 }
 
 - (void)addGameOver {
+    [self saveScore];
+
     GameOver *popUp = (GameOver *)[CCBReader load:@"GameOver"];
     popUp.positionType = CCPositionTypeNormalized;
     popUp.position = ccp(0.5, 0.5);
@@ -670,17 +624,6 @@ static const int numberOfStranded = 5;
     [shipp removeFromParent];
 }
 
-//- (void)addHit {
-//    _hit = (Hit*) [CCBReader load:@"Hit"];
-//    [_physicsNode addChild:_hit];
-//    CGPoint hitPosition = ccp(_winSize.width/2,_winSize.height/2);
-//    _hit.position = hitPosition;
-//}
-//
-//- (void)removeHit {
-//    _hit.visible = NO;
-//}
-
 - (void)checkToRemoveAstroids {
     int i = 0;
     CGSize winSize = [CCDirector sharedDirector].viewSize;
@@ -704,6 +647,23 @@ static const int numberOfStranded = 5;
         }
     }
 }
+
+- (void)saveScore {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    [prefs setInteger:_points forKey:@"score"];
+    [prefs synchronize];
+}
+
+//- (void)addHit {
+//    _hit = (Hit*) [CCBReader load:@"Hit"];
+//    [_physicsNode addChild:_hit];
+//    CGPoint hitPosition = ccp(_winSize.width/2,_winSize.height/2);
+//    _hit.position = hitPosition;
+//}
+//
+//- (void)removeHit {
+//    _hit.visible = NO;
+//}
 
 //- (void)checkToRemoveStranded {
 //    int i = 0;
@@ -730,16 +690,19 @@ static const int numberOfStranded = 5;
 //    }
 //}
 
-- (void)saveScore {
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    [prefs setInteger:_points forKey:@"score"];
-    [prefs synchronize];
-}
-
 //Save the number of stranded missed
 //- (void)saveDeadScore {
 //    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
 //    [prefs setInteger:_deadPoints forKey:@"dead"];
 //    [prefs synchronize];
+//}
+
+
+//- (void)gameOver {
+//    [self saveScore];
+//    //[self saveDeadScore];
+//    CCScene *score = [CCBReader loadAsScene:@"Score"];
+//    CCTransition *transition = [CCTransition transitionCrossFadeWithDuration:0.8f];
+//    [[CCDirector sharedDirector] presentScene:score withTransition:transition];
 //}
 @end

@@ -37,7 +37,7 @@
 - (void)retry {
     CCScene *retry = [CCBReader loadAsScene:@"MainScene"];
     [[OALSimpleAudio sharedInstance] playEffect:@"Art/start.wav"];
-    CCTransition *transition = [CCTransition transitionFadeWithDuration:0.8f];
+    CCTransition *transition = [CCTransition transitionFadeWithDuration:0.1f];
     [[CCDirector sharedDirector] replaceScene:retry withTransition:transition];
     NSLog(@"retry");
 }
