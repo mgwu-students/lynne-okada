@@ -64,7 +64,7 @@
     //int _pointsTemp;
 }
 
-static const int numberOfAstroids = 15;
+static const int numberOfAstroids = 1000;
 static const int numberOfStranded = 5;
 
 //static const int spotsInShip = 5;
@@ -248,7 +248,7 @@ static const int numberOfStranded = 5;
         [self schedule:@selector(removeWarning) interval:1.0f];
         _cometTime = 0;
     }
-    [self checkToRemoveAstroids];
+    //[self checkToRemoveAstroids];
     //[self checkToRemoveStranded];
     
     _scoreLabel.string = [NSString stringWithFormat:@"%d", (int)_points];
@@ -345,6 +345,9 @@ static const int numberOfStranded = 5;
     return FALSE;
 }
 
+- (BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair nothing:(CCNode *)nodeA ship:(CCNode *)nodeB {
+    return NO;
+}
 //astronaut - astroid
 - (BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair astronaut:(CCNode *)nodeA astroid:(CCNode *)nodeB {
     if (_gameOver == NO) {

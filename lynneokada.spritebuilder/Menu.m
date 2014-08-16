@@ -18,23 +18,23 @@
 }
 
 -(void)start {
-    CCScene *mainScene = [CCBReader loadAsScene:@"MainScene"];
-    [[OALSimpleAudio sharedInstance] playEffect:@"Art/start.wav"];
-    CCTransition *transition = [CCTransition transitionFadeWithDuration:0.8f];
-    [[CCDirector sharedDirector] replaceScene:mainScene withTransition:transition];
-    
-//    CCScene *training = [CCBReader loadAsScene:@"Tutorial"];
+//    CCScene *mainScene = [CCBReader loadAsScene:@"MainScene"];
 //    [[OALSimpleAudio sharedInstance] playEffect:@"Art/start.wav"];
 //    CCTransition *transition = [CCTransition transitionFadeWithDuration:0.8f];
-//    [[CCDirector sharedDirector] replaceScene:training withTransition:transition];
+//    [[CCDirector sharedDirector] replaceScene:mainScene withTransition:transition];
+    
+    CCScene *training = [CCBReader loadAsScene:@"Tutorial"];
+    [[OALSimpleAudio sharedInstance] playEffect:@"Art/start.wav"];
+    CCTransition *transition = [CCTransition transitionFadeWithDuration:0.8f];
+    [[CCDirector sharedDirector] replaceScene:training withTransition:transition];
 }
 
-- (void)settings {
-    CCScene *settings = [CCBReader loadAsScene:@"Settings"];
-    [[OALSimpleAudio sharedInstance] playEffect:@"Art/select.wav"];
-    CCTransition *transition = [CCTransition transitionFadeWithDuration:0.1f];
-    [[CCDirector sharedDirector] replaceScene:settings withTransition:transition];
-}
+//- (void)settings {
+//    CCScene *settings = [CCBReader loadAsScene:@"Settings"];
+//    [[OALSimpleAudio sharedInstance] playEffect:@"Art/select.wav"];
+//    CCTransition *transition = [CCTransition transitionFadeWithDuration:0.1f];
+//    [[CCDirector sharedDirector] replaceScene:settings withTransition:transition];
+//}
 
 - (void)credits {
     CCScene *credits = [CCBReader loadAsScene:@"Credits"];

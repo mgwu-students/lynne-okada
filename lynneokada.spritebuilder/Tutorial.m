@@ -72,7 +72,7 @@
         } else if (_onPage > 3) {
             CCScene *mainScene = [CCBReader loadAsScene:@"MainScene"];
             [[OALSimpleAudio sharedInstance] playEffect:@"Art/start.wav"];
-            CCTransition *transition = [CCTransition transitionFadeWithDuration:0.8f];
+            //CCTransition *transition = [CCTransition transitionFadeWithDuration:0.8f];
             
 
 //            [[CCDirector sharedDirector] replaceScene:mainScene withTransition:transition];

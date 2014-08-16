@@ -1133,7 +1133,7 @@
 						<string>String</string>
 						<key>value</key>
 						<array>
-							<string>retry</string>
+							<string>Retry</string>
 							<false/>
 						</array>
 					</dict>
@@ -1216,7 +1216,7 @@
 						<key>type</key>
 						<string>FontTTF</string>
 						<key>value</key>
-						<string>Helvetica</string>
+						<string>ccbResources/Minecraftia.ttf</string>
 					</dict>
 					<dict>
 						<key>name</key>
@@ -1542,7 +1542,7 @@
 						<key>type</key>
 						<string>FontTTF</string>
 						<key>value</key>
-						<string>Helvetica</string>
+						<string>ccbResources/Minecraftia.ttf</string>
 					</dict>
 					<dict>
 						<key>name</key>
