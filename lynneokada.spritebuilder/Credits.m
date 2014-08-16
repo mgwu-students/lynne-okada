@@ -14,8 +14,8 @@
 }
 
 - (void) back{
+    [[OALSimpleAudio sharedInstance] playEffect:@"Art/back.wav"];
     if (_creditsNode.visible == YES) {
-        [[OALSimpleAudio sharedInstance] playEffect:@"Art/back.wav"];
         CCScene *menu = [CCBReader loadAsScene:@"Menu"];
         CCTransition *transition = [CCTransition transitionFadeWithDuration:0.1f];
         [[CCDirector sharedDirector] replaceScene:menu withTransition:transition];
@@ -28,6 +28,7 @@
 }
 
 - (void)more {
+    [[OALSimpleAudio sharedInstance] playEffect:@"Art/select.wav"];
     _creditsNode.visible = NO;
     _thanksNode.visible = YES;
 }

@@ -44,7 +44,7 @@
 		<key>displayName</key>
 		<string>CCParticleSystem</string>
 		<key>memberVarAssignmentName</key>
-		<string>_explosion</string>
+		<string></string>
 		<key>memberVarAssignmentType</key>
 		<integer>1</integer>
 		<key>properties</key>
