@@ -44,6 +44,7 @@
 		D22BBF39199421DB00CDB03B /* Settings.m in Sources */ = {isa = PBXBuildFile; fileRef = D22BBF38199421DB00CDB03B /* Settings.m */; };
 		D22BBF3C199424C000CDB03B /* Credits.m in Sources */ = {isa = PBXBuildFile; fileRef = D22BBF3B199424C000CDB03B /* Credits.m */; };
 		D23DC7041986B06C007F525C /* Ship.m in Sources */ = {isa = PBXBuildFile; fileRef = D23DC7031986B06C007F525C /* Ship.m */; };
+		D2695A6519AA818600D55EF3 /* IGTutorial.m in Sources */ = {isa = PBXBuildFile; fileRef = D2695A6419AA818600D55EF3 /* IGTutorial.m */; };
 		D26E8F33199D48100015DCF1 /* GameOver.m in Sources */ = {isa = PBXBuildFile; fileRef = D26E8F32199D48100015DCF1 /* GameOver.m */; };
 		D26E8F4B199EA19E0015DCF1 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D26E8F4A199EA19E0015DCF1 /* Images.xcassets */; };
 		D28DD0A1196F4F070019C2B7 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D28DD0A0196F4F070019C2B7 /* CoreMotion.framework */; };
@@ -126,6 +127,8 @@
 		D22BBF3B199424C000CDB03B /* Credits.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Credits.m; sourceTree = "<group>"; };
 		D23DC7021986B06C007F525C /* Ship.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ship.h; sourceTree = "<group>"; };
 		D23DC7031986B06C007F525C /* Ship.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Ship.m; sourceTree = "<group>"; };
+		D2695A6319AA818600D55EF3 /* IGTutorial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IGTutorial.h; sourceTree = "<group>"; };
+		D2695A6419AA818600D55EF3 /* IGTutorial.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IGTutorial.m; sourceTree = "<group>"; };
 		D26E8F31199D48100015DCF1 /* GameOver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameOver.h; sourceTree = "<group>"; };
 		D26E8F32199D48100015DCF1 /* GameOver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameOver.m; sourceTree = "<group>"; };
 		D26E8F3A199EA1060015DCF1 /* AppIcon29x29.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppIcon29x29.png; sourceTree = "<group>"; };
@@ -214,6 +217,8 @@
 				D22BBF321991A43600CDB03B /* HealthBar.m */,
 				B7378992180767190076A88C /* MainScene.h */,
 				B7378993180767190076A88C /* MainScene.m */,
+				D2695A6319AA818600D55EF3 /* IGTutorial.h */,
+				D2695A6419AA818600D55EF3 /* IGTutorial.m */,
 				D2B64A68196EF08D00D1C9BE /* Menu.h */,
 				D2B64A69196EF08D00D1C9BE /* Menu.m */,
 				D22BBF37199421DB00CDB03B /* Settings.h */,
@@ -484,6 +489,7 @@
 				D28DD0A4196FDB990019C2B7 /* Astroid.m in Sources */,
 				D2BE2E6C197DADC400A3C699 /* CCActionMoveToNode.m in Sources */,
 				D2BE2E71197ECB7300A3C699 /* Shield.m in Sources */,
+				D2695A6519AA818600D55EF3 /* IGTutorial.m in Sources */,
 				D22BBF2B19902BEE00CDB03B /* Tutorial.m in Sources */,
 				D21B238C198ACB8400E69D39 /* ShieldMeter.m in Sources */,
 				D23DC7041986B06C007F525C /* Ship.m in Sources */,

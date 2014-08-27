@@ -19,7 +19,7 @@
 #import "Hit.h"
 #import "GameOver.h"
 
-@interface MainScene : CCNode <CCPhysicsCollisionDelegate, UIGestureRecognizerDelegate>
+@interface MainScene : CCNode <CCPhysicsCollisionDelegate>
 {
     Astronaut* astronaut;
     Astroid* astroid;

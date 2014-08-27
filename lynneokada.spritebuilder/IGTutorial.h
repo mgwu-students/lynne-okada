@@ -7,7 +7,16 @@
 //
 
 #import "CCNode.h"
+#import "MainScene.h"
+#import "Ship.h"
 
-@interface IGTutorial : CCNode
-
+@interface IGTutorial : CCNode <CCPhysicsCollisionDelegate>
+{
+    MainScene* _mainScene;
+    Ship* _ship;
+    Astronaut* _astronaut;
+    Shield* _shield;
+    ShieldMeter* _shieldMeter;
+    HealthBar* _healthBar;
+}
 @end
