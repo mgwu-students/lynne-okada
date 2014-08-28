@@ -25,8 +25,9 @@
 
 @implementation IGTutorial {
     CCPhysicsNode *_physicsNode;
+    CCNode *_tilt;
+    CCNode *_you;
     CCLabelTTF *_yoship;
-    CCLabelTTF *_you;
     CCProgressNode *_progressShield;
     CCProgressNode *_progressHealth;
     CGSize _winSize;
@@ -35,36 +36,61 @@
     BOOL _activate;
 }
 
-- (id)init {
-    if (self = [super init])
-    {
-        // activate touches on this scene
-        self.userInteractionEnabled = TRUE;
-    }
-    return self;
-}
-
 - (void)didLoadFromCCB {
     _physicsNode.collisionDelegate = self;
     _winSize = [CCDirector sharedDirector].viewSize;
 }
 
+- (id)init {
+    if (self = [super init])
+    {
+        // activate touches on this scene
+        self.userInteractionEnabled = TRUE;
+        _motion = [[CMMotionManager alloc] init];
+    }
+    return self;
+}
+
+- (void)updateShield {
+    if (_ship.position.x == _winSize.width/2) {
+        if (_progressShield.percentage < 100 && !_activate) {
+            _progressShield.percentage += 2.0f;
+        } else if (_progressShield.percentage > 0.0f && _activate) {
+            _progressShield.percentage -= 10.0f;
+        } else if (_progressShield.percentage <= 0.0f && _activate) {
+            [_shield removeFromParent];
+        }
+    }
+}
+
+- (void)touchBegan:(UITouch *)touch withEvent:(UIEvent *)event {
+    //_initialTouch = touch.locationInWorld;
+    _activate = YES;
+    
+    if (_ship.physicsBody.velocity.x == 0 && _progressShield.percentage > 0.0f) {
+        [self addShield];
+    }
+}
+
+- (void)touchEnded:(UITouch *)touch withEvent:(UIEvent *)event {
+    _activate = NO;
+    [_shield removeFromParent];
+}
+
 - (void)update:(CCTime)delta {
     //accelerometer
-    CMAccelerometerData * accelerometerData = _motion.accelerometerData;
+    CMAccelerometerData * accelerometerData= _motion.accelerometerData;
     CMAcceleration acceleration = accelerometerData.acceleration;
     
-    //change this to change sprite speed
     float spriteSpeed = 5.0f;
     float xa, ya;
     
     xa = acceleration.x;
     ya = acceleration.y;
+    //NSLog(@"acceleration-x: %f <> y:%f", xa, ya);
     
-    //tilting side-to-side when held horizontal to ground
-    float velocityVectorX = spriteSpeed*xa;
     float velocityVectorY = spriteSpeed*ya;
-    
+    float velocityVectorX = spriteSpeed*xa;
     
     CGPoint velocity = CGPointMake(velocityVectorY, -velocityVectorX);
     CGPoint newPosition = ccpAdd(_astronaut.position, velocity);
@@ -73,7 +99,7 @@
     _astronaut.position = newPosition;
     
     if (_ship.position.x == _winSize.width/2) {
-        _yoship.visible = YES;
+        [self visible:_yoship];
     }
     
     if (_player == TRUE) {
@@ -127,6 +153,10 @@
     [super onExit];
 }
 
+- (void)visible:(CCNode*)node {
+    node.visible = YES;
+}
+
 - (void)addShip {
     _ship = (Ship*) [CCBReader load:@"Ship"];
     [_ship spawn];
@@ -149,39 +179,7 @@
     [[OALSimpleAudio sharedInstance] playEffect:@"Art/shield.wav"];
 }
 
-- (void)updateShield {
-    if (_ship.position.x == _winSize.width/2) {
-        if (_progressShield.percentage < 100 && !_activate) {
-            _progressShield.percentage += 2.0f;
-        } else if (_progressShield.percentage > 0.0f && _activate) {
-            _progressShield.percentage -= 10.0f;
-        } else if (_progressShield.percentage <= 0.0f && _activate) {
-            [_shield removeFromParent];
-        }
-    }
-}
-
-- (void)updateHealth {
-    if (_progressHealth.percentage > 0) {
-        _progressHealth.percentage -= 30;
-    }
-}
-
-- (void)touchBegan:(UITouch *)touch withEvent:(UIEvent *)event {
-    //_initialTouch = touch.locationInWorld;
-    _activate = YES;
-    
-    if (_ship.physicsBody.velocity.x == 0 && _progressShield.percentage > 0.0f) {
-        [self addShield];
-    }
-}
-
-- (void)touchEnded:(UITouch *)touch withEvent:(UIEvent *)event {
-    _activate = NO;
-    [_shield removeFromParent];
-}
-
-
+//COLLISIONS
 - (BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair nothing:(CCNode *)nodeA shield:(CCNode *)nodeB {
     return FALSE;
 }

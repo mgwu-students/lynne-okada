@@ -42,10 +42,6 @@
     int _astroidNum;
     float _astroidTime;
     float _cometTime;
-    UIAccelerationValue _xa;
-    UIAccelerationValue _ya;
-    float _calX;
-    float _calY;
     BOOL _hasBeenCal;
     OALSimpleAudio *_incoming;
     BOOL _gameOver;
@@ -76,8 +72,6 @@ static const int numberOfStranded = 5;
     _physicsNode.collisionDelegate = self;
     _points = 0;
     _astroidNum = 3;
-    _calX = 0;
-    _calY = 0;
     _hasBeenCal = YES;
     [self addShip];
     [self schedule:@selector(addAstronaut) interval:1.0f repeat:0 delay:2.5f];
@@ -132,7 +126,6 @@ static const int numberOfStranded = 5;
 - (void)touchBegan:(UITouch *)touch withEvent:(UIEvent *)event {
     //_initialTouch = touch.locationInWorld;
     _activate = YES;
-    
     if (_ship.physicsBody.velocity.x == 0 && _progressShield.percentage > 0.0f) {
         [self addShield];
     }
@@ -171,12 +164,6 @@ static const int numberOfStranded = 5;
     //accelerometer
     CMAccelerometerData * accelerometerData= _motion.accelerometerData;
     CMAcceleration acceleration = accelerometerData.acceleration;
-//    NSLog(@"acceleration-x: %f <> y:%f", acceleration.x, acceleration.y);
-//    if(!_hasBeenCal) {
-//        _calX = acceleration.x;
-//        _calY = acceleration.y;
-//        _hasBeenCal = YES;
-//    }
     
     float spriteSpeed = 5.0f; //change this to change sprite speed
     float xa, ya;
