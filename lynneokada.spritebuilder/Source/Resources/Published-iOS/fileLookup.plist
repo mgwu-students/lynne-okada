@@ -34,6 +34,8 @@
 		<string>Art/shieldAstroid.caf</string>
 		<key>Art/shieldComet.wav</key>
 		<string>Art/shieldComet.caf</string>
+		<key>Art/shieldOff.wav</key>
+		<string>Art/shieldOff.caf</string>
 		<key>Art/spacespacespace.wav</key>
 		<string>Art/spacespacespace.caf</string>
 		<key>Art/start.wav</key>

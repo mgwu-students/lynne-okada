@@ -134,6 +134,9 @@ static const int numberOfStranded = 5;
 - (void)touchEnded:(UITouch *)touch withEvent:(UIEvent *)event {
     _activate = NO;
     [shield removeFromParent];
+    if (_progressShield.percentage > 0.0f && _ship.position.x == _winSize.width/2) {
+        [[OALSimpleAudio sharedInstance] playEffect:@"Art/shieldOff.wav"];
+    }
 }
 
 - (void)increaseDiff {
@@ -180,7 +183,7 @@ static const int numberOfStranded = 5;
     CGPoint velocity = CGPointMake(velocityVectorY, -velocityVectorX);
     CGPoint newPosition = ccpAdd(astronaut.position, velocity);
     //CGPoint newPositionStranded = ccpAdd(stranded.position, velocity);
-    newPosition = ccp(clampf(newPosition.x, 0, _winSize.width),clampf(newPosition.y, 0, _winSize.height));
+    newPosition = ccp(clampf(newPosition.x, 5, _winSize.width-5),clampf(newPosition.y, 5, _winSize.height-5));
     
 //    //Wrap astronaut position
 //    if (astronaut.position.x < 0) {
@@ -335,6 +338,7 @@ static const int numberOfStranded = 5;
 - (BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair nothing:(CCNode *)nodeA ship:(CCNode *)nodeB {
     return NO;
 }
+
 //astronaut - astroid
 - (BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair astronaut:(CCNode *)nodeA astroid:(CCNode *)nodeB {
     if (_gameOver == NO) {
@@ -477,20 +481,6 @@ static const int numberOfStranded = 5;
 
 //ship - shield
 - (BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair ship:(CCNode *)nodeA shield:(CCNode *)nodeB {
-    return FALSE;
-}
-
-//astroid - safety
-- (BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair astroid:(CCNode *)nodeA safety:(CCNode *)nodeB {
-    return FALSE;
-}
-
-//stranded - safety
-- (BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair stranded:(CCNode *)nodeA safety:(CCNode *)nodeB {
-    return FALSE;
-}
-//comet - safety
-- (BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair comet:(CCNode *)nodeA safety:(CCNode *)nodeB {
     return FALSE;
 }
 

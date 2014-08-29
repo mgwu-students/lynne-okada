@@ -15,8 +15,10 @@
     MainScene* _mainScene;
     Ship* _ship;
     Astronaut* _astronaut;
+    Astroid* _astroid;
     Shield* _shield;
     ShieldMeter* _shieldMeter;
     HealthBar* _healthBar;
+    StrandedAstronaut* _stranded;
 }
 @end
