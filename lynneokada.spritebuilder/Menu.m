@@ -18,15 +18,17 @@
 }
 
 -(void)start {
-    CCScene *mainScene = [CCBReader loadAsScene:@"MainScene"];
-    [[OALSimpleAudio sharedInstance] playEffect:@"Art/start.wav"];
-    CCTransition *transition = [CCTransition transitionFadeWithDuration:0.8f];
-    [[CCDirector sharedDirector] replaceScene:mainScene withTransition:transition];
-    
-//    CCScene *training = [CCBReader loadAsScene:@"IGTutorial"];
-//    [[OALSimpleAudio sharedInstance] playEffect:@"Art/start.wav"];
-//    CCTransition *transition = [CCTransition transitionFadeWithDuration:0.8f];
-//    [[CCDirector sharedDirector] replaceScene:training withTransition:transition];
+    if(![[NSUserDefaults standardUserDefaults] boolForKey:@"hasSeenTutorial"]) {
+        CCScene *training = [CCBReader loadAsScene:@"IGTutorial"];
+        [[OALSimpleAudio sharedInstance] playEffect:@"Art/start.wav"];
+        CCTransition *transition = [CCTransition transitionFadeWithDuration:0.8f];
+        [[CCDirector sharedDirector] replaceScene:training withTransition:transition];
+    } else {
+        CCScene *mainScene = [CCBReader loadAsScene:@"MainScene"];
+        [[OALSimpleAudio sharedInstance] playEffect:@"Art/start.wav"];
+        CCTransition *transition = [CCTransition transitionFadeWithDuration:0.8f];
+        [[CCDirector sharedDirector] replaceScene:mainScene withTransition:transition];
+    }
 }
 
 //- (void)settings {

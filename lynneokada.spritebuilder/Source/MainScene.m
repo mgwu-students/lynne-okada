@@ -47,24 +47,10 @@
     BOOL _gameOver;
     float _gameOverDelay;
     float _gameTime;
-    
-    //NSInteger _highscore;
-    //NSInteger _dead;
-    //UISwipeGestureRecognizer *_rightRecognizer;
-    //NSMutableArray *_shipSpace;
-    //CCLabelTTF *_deadLabel;
-    //CCLabelTTF *_scoreLabelTemp;
-    //CCNode *_yellow;
-    //CCNode *_red;
-    //int _deadPoints;
-    //int _pointsTemp;
 }
 
 static const int numberOfAstroids = 1000;
 static const int numberOfStranded = 5;
-
-//static const int spotsInShip = 5;
-//static const int numberOfAttachedStranded = 10;
 
 - (void)didLoadFromCCB {
     _winSize = [CCDirector sharedDirector].viewSize;
@@ -164,6 +150,10 @@ static const int numberOfStranded = 5;
         astronaut.physicsBody.collisionType = @"astronaut";
     }
     
+    if (_gameTime > 5 && [_ship.physicsBody.collisionType isEqualToString:@"shipStart"]) {
+        _ship.physicsBody.collisionType = @"ship";
+    }
+    
     //accelerometer
     CMAccelerometerData * accelerometerData= _motion.accelerometerData;
     CMAcceleration acceleration = accelerometerData.acceleration;
@@ -261,6 +251,10 @@ static const int numberOfStranded = 5;
         _scoreLabel.visible = YES;
         _shieldMeter.visible = YES;
     }
+    
+    if (_gameTime <= 3.0f) {
+        
+    }
 }
 
 -(void)onEnter
@@ -311,8 +305,16 @@ static const int numberOfStranded = 5;
 }
 
 //COLLISIONS
+- (BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair shipStart:(CCNode *)nodeA astroid:(CCNode *)nodeB {
+    return FALSE;
+}
+
+- (BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair shipStart:(CCNode *)nodeA comet:(CCNode *)nodeB {
+    return FALSE;
+}
+
 - (BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair nothing:(CCNode *)nodeA astroid:(CCNode *)nodeB {
-    return false;
+    return false; 
 }
 
 - (BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair nothing:(CCNode *)nodeA comet:(CCNode *)nodeB {
@@ -540,6 +542,7 @@ static const int numberOfStranded = 5;
     [_ship spawn];
     [_ship moveShip];
     [_physicsNode addChild:_ship];
+    _ship.physicsBody.collisionType = @"shipStart";
 }
 
 - (void)addGameOver {

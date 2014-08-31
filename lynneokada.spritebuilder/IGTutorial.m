@@ -28,6 +28,7 @@
     CCNode *_tilt;
     CCNode *_you;
     CCNode *_help;
+    CCNode *_complete;
     CCLabelTTF *_yoship;
     CCLabelTTF *_tiltText;
     CCLabelTTF *_tap;
@@ -103,7 +104,7 @@
     _activate = NO;
     [_shield removeFromParent];
     if (_progressShield.percentage > 0.0f && _ship.position.x == _winSize.width/2) {
-    [[OALSimpleAudio sharedInstance] playEffect:@"Art/shieldOff.wav"];
+        [[OALSimpleAudio sharedInstance] playEffect:@"Art/shieldOff.wav"];
     }
 }
 
@@ -172,19 +173,17 @@
     }
     
     //wrap stranded position
-    for (StrandedAstronaut* dude in _spawnedStranded) {
-        if (dude.position.x < 0 - dude.contentSize.width/2) {
-            dude.position = ccp(_winSize.width, dude.position.y);
-        }
-        else if (dude.position.x > _winSize.width + dude.contentSize.width/2) {
-            dude.position = ccp(0, dude.position.y);
-        }
-        else if (dude.position.y < 0 - dude.contentSize.height/2) {
-            dude.position = ccp(dude.position.x, _winSize.height);
-        }
-        else if (dude.position.y > _winSize.height + dude.contentSize.height/2) {
-            dude.position = ccp(dude.position.x, 0);
-        }
+    if (_stranded.position.x < 0 - _stranded.contentSize.width/2) {
+        _stranded.position = ccp(_winSize.width, _stranded.position.y);
+    }
+    else if (_stranded.position.x > _winSize.width + _stranded.contentSize.width/2) {
+        _stranded.position = ccp(0, _stranded.position.y);
+    }
+    else if (_stranded.position.y < 0 - _stranded.contentSize.height/2) {
+        _stranded.position = ccp(_stranded.position.x, _winSize.height);
+    }
+    else if (_stranded.position.y > _winSize.height + _stranded.contentSize.height/2) {
+        _stranded.position = ccp(_stranded.position.x, 0);
     }
 }
 
@@ -193,7 +192,7 @@
     
     _player = FALSE;
     [self addShip];
-    [self schedule:@selector(addAstronaut) interval:1.0f repeat:0 delay:4.0f];
+    [self schedule:@selector(addAstronaut) interval:1.0f repeat:0 delay:5.0f];
     [self schedule:@selector(addAstroid) interval:3.0f];
     [self schedule:@selector(addStrandedAstronaut) interval:1.0f repeat:0 delay:25.0f];
     [self addAstroid];
@@ -272,6 +271,7 @@
     [_stranded pushToRandomPoint];
     [_physicsNode addChild:_stranded];
     [_spawnedStranded addObject:_stranded];
+    _help.visible = YES;
 }
 
 //COLLISIONS
@@ -303,10 +303,23 @@
     return YES;
 }
 
+//training complete
+- (void)complete {
+    CCScene *mainScene = [CCBReader loadAsScene:@"MainScene"];
+    [[OALSimpleAudio sharedInstance] playEffect:@"Art/start.wav"];
+    CCTransition *transition = [CCTransition transitionFadeWithDuration:2.0f];
+    [[CCDirector sharedDirector] replaceScene:mainScene withTransition:transition];
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"hasSeenTutorial"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
 //astronaut - ship
 - (BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair astronaut:(CCNode *)nodeA ship:(CCNode *)nodeB {
     if (_attachedStranded.count > 0) {
         [[OALSimpleAudio sharedInstance] playEffect:@"Art/Thanks.wav"];
+        _complete.visible = YES;
+        [_comeBack removeFromParent];
+        [self schedule:@selector(complete) interval:1.0f repeat:0 delay:3.0f];
     }
     
     for (CCNode* node in _attachedStranded) {
