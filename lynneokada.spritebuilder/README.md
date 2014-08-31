@@ -1,4 +1,4 @@
-#OneSecondToDie
+#STRANDED IN SPACE
 
 ##Features
 Accelerometer: tilt the device to maneuver the astronaut through astroids, space debris, and other unidentified objects
