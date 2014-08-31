@@ -12,11 +12,12 @@ random spawning of objects
 deletion of objects once off screen
 retry button
 death
-ship moving off screen
 
-##Roadmap
-polish
--how stranded attaches to player
--accelerometer calibration
--art,sounds,music
--settings/credits menu
+##NEEDS TO HAPPEN
+calibration of accelerometer when game starts
+-players should be able to play lying down or whatever position they wish to be in
+shield glitch (hopefully people don't find out about it in ver1.0)
+Add a settings
+-Be able to turn off music
+-brain storm other stuff
+LEADERBOARD NEEDS TO HAPPEN
